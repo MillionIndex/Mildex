@@ -123,6 +123,32 @@ section{
     color:#111111;
 }
 
+/* --- 理念セクション用スタイル（カード枠なし） --- */
+.vision-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:48px;
+}
+
+.vision-item{
+    padding-left:20px;
+    border-left:2px solid #111111;
+}
+
+.vision-item h3{
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:16px;
+    color:#111111;
+}
+
+.vision-item p{
+    color:#555555;
+    line-height:1.9;
+    font-size:16px;
+}
+
+/* --- カード・グリッド共通スタイル --- */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -136,11 +162,6 @@ section{
     transition:.25s;
 }
 
-.card:hover{
-    border-color:#111111;
-    box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
 .card h3{
     font-size:23px;
     margin-bottom:20px;
@@ -150,6 +171,33 @@ section{
 .card p{
     color:#666666;
     line-height:1.9;
+}
+
+/* --- リンク付きツールカード用スタイル --- */
+a.card-link{
+    text-decoration:none;
+    display:block;
+    color:inherit;
+    position:relative;
+}
+
+a.card-link:hover{
+    border-color:#111111;
+    transform:translateY(-4px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.08);
+}
+
+a.card-link .arrow{
+    display:inline-block;
+    margin-top:20px;
+    font-weight:700;
+    color:#111111;
+    font-size:14px;
+    transition:.25s;
+}
+
+a.card-link:hover .arrow{
+    transform:translateX(6px);
 }
 
 footer{
@@ -216,6 +264,11 @@ nav{
     font-size:32px;
 }
 
+.vision-list{
+    grid-template-columns:1fr;
+    gap:36px;
+}
+
 }
 
 </style>
@@ -274,20 +327,55 @@ takoGATEは日常を少し便利にするウェブ開発やマイナーな人向
 
 </h2>
 
-<div class="card">
+<div class="vision-list">
+
+<div class="vision-item">
 
 <h3>
 
-シンプルで使いやすく。
+シンプルで使いやすく
 
 </h3>
 
 <p>
 
-私たちは、複雑な機能よりも「誰でも直感的に使えること」を大切にしています。
-便利なサービスを、より身近な存在へ。
+複雑な機能や装飾をそぎ落とし、誰でも直感的に扱えるUIを追及します。「迷わず使えること」を最優先に設計しています。
 
 </p>
+
+</div>
+
+<div class="vision-item">
+
+<h3>
+
+特定のニーズに届くサポート
+
+</h3>
+
+<p>
+
+一般的なサービスではこぼれ落ちてしまうようなマイナーなニーズや特定の層に向けた支援・ツール開発に光を当てます。
+
+</p>
+
+</div>
+
+<div class="vision-item">
+
+<h3>
+
+幅広い事業展開
+
+</h3>
+
+<p>
+
+ウェブサービスだけでなく、独自の学力テストや勉強に向けての資料を出版したりなど、幅広い事業展開をしています。
+
+</p>
+
+</div>
 
 </div>
 
@@ -307,13 +395,13 @@ takoGATEは日常を少し便利にするウェブ開発やマイナーな人向
 
 <h3>
 
-Webサービス
+ウェブサービス
 
 </h3>
 
 <p>
 
-ブラウザ上で利用できる便利なサービスを企画・開発しています。
+ブラウザ上で利用できる日常を少し便利にするサービスを展開しております。
 
 </p>
 
@@ -323,13 +411,13 @@ Webサービス
 
 <h3>
 
-Webツール
+学力テスト
 
 </h3>
 
 <p>
 
-日常や仕事、学習に役立つツールを提供しています。
+独自の学力テストを行っております。受験は無償で受けることができ、今の自分の学力を知ることができます。
 
 </p>
 
@@ -339,13 +427,13 @@ Webツール
 
 <h3>
 
-コンテンツ開発
+オリジナル本の出版
 
 </h3>
 
 <p>
 
-ゲームや学習コンテンツなど、多くの人が楽しめるサービスを制作しています。
+オリジナルの本・資料を無償にて出版しています。多くの人へ学びや新しい発見を届けています。
 
 </p>
 
@@ -365,21 +453,60 @@ Webツール
 
 <div class="grid">
 
-<div class="card">
+
+<a href="tools/test-tool.html" class="card card-link">
 
 <h3>
 
-現在準備中
+ブロックゲーム
 
 </h3>
 
 <p>
 
-今後、さまざまな便利ツールを順次公開予定です。
+十字キーで落ちてくるブロックを動かしながら操作します。下にブロックが溜まり、横一列ブロックが溜まったら横一列のブロックが消え、ポイントが入ります。
 
 </p>
 
-</div>
+<span class="arrow">ツールを使う →</span>
+
+</a>
+
+<a href="BlockGame.html" class="card card-link">
+
+<h3>
+
+ランダム抽選
+
+</h3>
+
+<p>
+
+数字だけでなく、指定の文字や単語などをランダムに引きます。抽選会数や一度に当たる分も設定できます。
+
+</p>
+
+<span class="arrow">ツールを使う →</span>
+
+</a>
+
+<a href="tools/utility-tool.html" class="card card-link">
+
+<h3>
+
+日常作業効率化ツール
+
+</h3>
+
+<p>
+
+ブラウザ上でサクサク動く、ちょっとした作業を短縮する便利ツール群です。
+
+</p>
+
+<span class="arrow">ツールを使う →</span>
+
+</a>
 
 </div>
 
@@ -397,7 +524,7 @@ takoGATE
 
 <div>
 
-© 2026 takoGATE. All Rights Reserved.
+© 2026 takoGATE / Github Server
 
 </div>
 
