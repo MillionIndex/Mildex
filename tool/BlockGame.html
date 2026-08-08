@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Tetris Mobile 3D D-Pad Single File</title>
+  <title>ブロックゲーム - takoGATE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #030712;
-      --card-bg: #0b1329;
-      --text-color: #f8fafc;
-      --border-color: rgba(255, 255, 255, 0.18);
-      --accent-color: #38bdf8;
+      --bg-color: #ffffff;
+      --card-bg: #fafafa;
+      --text-color: #111111;
+      --text-muted: #666666;
+      --border-color: #e5e5e5;
+      --accent-color: #111111;
       --safe-bottom: env(safe-area-inset-bottom, 10px);
     }
 
@@ -22,7 +24,7 @@
       -webkit-user-select: none;
       -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
-      touch-action: none;
+      touch-action: manipulation;
     }
 
     html, body {
@@ -32,14 +34,58 @@
       overflow: hidden;
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
       position: fixed;
       inset: 0;
     }
 
+    /* --- takoGATE ヘッダー --- */
+    header {
+      width: 100%;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #111111;
+      text-decoration: none;
+    }
+
+    .btn-back-hp {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid #111111;
+      background: #111111;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back-hp:hover {
+      background: #ffffff;
+      color: #111111;
+    }
+
+    /* --- メインレイアウト --- */
     .app-viewport {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 60px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -55,20 +101,21 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 6px;
+      padding: 10px;
     }
 
     .board-container {
       display: flex;
       flex-direction: row;
       align-items: stretch;
-      gap: 10px;
+      gap: 12px;
       height: 100%;
       max-height: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      padding: 8px;
-      border-radius: 16px;
+      background: var(--card-bg);
+      padding: 10px;
+      border-radius: 12px;
       border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     }
 
     .canvas-wrapper {
@@ -80,9 +127,9 @@
     #tetris {
       width: 100%;
       height: 100%;
-      border-radius: 8px;
-      background-color: #020617;
-      border: 2px solid rgba(56, 189, 248, 0.4);
+      border-radius: 6px;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
       display: block;
     }
 
@@ -90,52 +137,61 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 75px;
+      width: 85px;
       height: 100%;
     }
 
     .panels-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .panel {
-      background: rgba(2, 6, 23, 0.8);
+      background: #ffffff;
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 4px 2px;
+      border-radius: 6px;
+      padding: 6px 4px;
       text-align: center;
     }
 
     .panel h2 {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
-      color: #94a3b8;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
     }
 
     .panel .value {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 800;
-      color: var(--accent-color);
+      color: #111111;
+      margin-top: 2px;
     }
 
     #next-canvas {
-      width: 44px;
-      height: 44px;
-      margin: 2px auto 0;
+      width: 48px;
+      height: 48px;
+      margin: 4px auto 0;
       display: block;
     }
 
     .btn-reset-sys {
       width: 100%;
-      padding: 8px 0;
-      background: #334155;
-      color: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
+      padding: 10px 0;
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid #111111;
+      border-radius: 6px;
       font-weight: 700;
       font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset-sys:hover {
+      background: #111111;
+      color: #ffffff;
     }
 
     /* --- 下部：操作コントローラー --- */
@@ -148,78 +204,56 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 0 12px;
-      box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+      padding: 0 16px;
     }
 
-    /* 十字キー（立体・物理ボタン風） */
+    /* 十字キー（takoGATE仕様 モノトーン） */
     .dpad-grid {
       display: grid;
-      grid-template-columns: repeat(3, 56px);
-      grid-template-rows: repeat(2, 56px);
-      gap: 0;
-      padding: 8px;
-      background: #111827;
-      border-radius: 20px;
-      border: 2px solid #000;
-      box-shadow: 
-        inset 0 2px 3px rgba(255,255,255,0.1),
-        0 4px 6px rgba(0,0,0,0.5);
+      grid-template-columns: repeat(3, 54px);
+      grid-template-rows: repeat(2, 54px);
+      gap: 2px;
+      padding: 6px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     .dpad-btn {
-      background: #27354b;
-      color: #94a3b8;
-      border: none;
-      font-size: 26px;
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid var(--border-color);
+      font-size: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       touch-action: none;
       position: relative;
-      background-image: linear-gradient(135deg, #2d3d5a 0%, #1e293b 100%);
-      box-shadow: 
-        inset 0 1px 1px rgba(255,255,255,0.15),
-        0 4px 0 #111827,
-        0 4px 3px rgba(0,0,0,0.6);
-      transition: all 0.05s ease;
-      transform: translateY(0);
-    }
-
-    .dpad-btn span {
-      display: block;
-      text-shadow: 0 -1px 0 rgba(0,0,0,0.8);
+      cursor: pointer;
+      transition: all 0.1s ease;
     }
 
     .btn-left { 
       grid-column: 1; grid-row: 1; 
-      border-radius: 12px 4px 4px 12px; 
-      border-right: 1px solid rgba(0,0,0,0.3);
+      border-radius: 10px 4px 4px 10px; 
     }
     .btn-right { 
       grid-column: 3; grid-row: 1; 
-      border-radius: 4px 12px 12px 4px; 
-      border-left: 1px solid rgba(0,0,0,0.3);
+      border-radius: 4px 10px 10px 4px; 
     }
     .btn-down { 
       grid-column: 2; grid-row: 2; 
-      border-radius: 4px 4px 12px 12px; 
-      height: 60px;
+      border-radius: 4px 4px 10px 10px; 
+      height: 56px;
       margin-top: -2px;
-      border-top: 1px solid rgba(0,0,0,0.3);
     }
 
     /* 押し込み演出 */
     .dpad-btn.active {
-      background: #1e293b;
-      background-image: linear-gradient(135deg, #1e293b 0%, #2d3d5a 100%);
-      color: var(--accent-color);
-      transform: translateY(3px); 
-      box-shadow: 
-        inset 0 1px 1px rgba(0,0,0,0.5),
-        0 1px 0 #111827,
-        0 1px 2px rgba(0,0,0,0.8);
-      text-shadow: 0 0 5px var(--accent-color);
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
     }
 
     /* アクションボタン */
@@ -227,9 +261,9 @@
       display: grid;
       grid-template-columns: repeat(2, 58px);
       grid-template-rows: repeat(2, 58px);
-      gap: 6px;
-      width: 122px;
-      height: 122px;
+      gap: 8px;
+      width: 124px;
+      height: 124px;
       align-items: center;
       justify-content: center;
     }
@@ -238,58 +272,97 @@
       width: 58px;
       height: 58px;
       border-radius: 50%;
-      border: none;
+      border: 1px solid #111111;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #fff;
       touch-action: none;
+      cursor: pointer;
+      transition: all 0.1s ease;
     }
 
     .btn-drop-action {
       grid-column: 1;
       grid-row: 1;
-      background: linear-gradient(135deg, #f43f5e, #be123c);
-      box-shadow: 0 4px 0 #881337;
+      background: #ffffff;
+      color: #111111;
     }
 
     .btn-rotate-action {
       grid-column: 2;
       grid-row: 2;
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      box-shadow: 0 4px 0 #0369a1;
+      background: #111111;
+      color: #ffffff;
     }
 
     .arcade-btn.active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #000 !important;
+      transform: scale(0.95);
+      opacity: 0.8;
     }
 
-    .arcade-btn .icon { font-size: 20px; line-height: 1; }
-    .arcade-btn .text { font-size: 10px; font-weight: 800; margin-top: 1px; }
+    .btn-drop-action.active {
+      background: #111111;
+      color: #ffffff;
+    }
 
+    .btn-rotate-action.active {
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .arcade-btn .icon { font-size: 18px; line-height: 1; }
+    .arcade-btn .text { font-size: 9px; font-weight: 700; margin-top: 2px; }
+
+    /* オーバーレイ */
     .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(2, 6, 23, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      border-radius: 8px;
+      border-radius: 6px;
       z-index: 10;
     }
 
     .overlay h1 {
       font-size: 20px;
-      font-weight: 900;
-      color: #f43f5e;
-      margin-bottom: 8px;
+      font-weight: 800;
+      color: #111111;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    @media (min-width: 768px) {
+      .controller-stage {
+        height: 180px;
+      }
+      .dpad-grid {
+        grid-template-columns: repeat(3, 60px);
+        grid-template-rows: repeat(2, 60px);
+      }
+      .btn-down { height: 62px; }
+      .action-grid {
+        grid-template-columns: repeat(2, 64px);
+        grid-template-rows: repeat(2, 64px);
+        width: 136px;
+        height: 136px;
+      }
+      .arcade-btn {
+        width: 64px;
+        height: 64px;
+      }
     }
   </style>
 </head>
 <body>
+
+<header>
+  <a href="#" class="logo">takoGATE</a>
+  <a href="#" class="btn-back-hp">← takoGATE公式HPに戻る</a>
+</header>
 
 <div class="app-viewport">
   <div class="game-stage">
@@ -298,7 +371,7 @@
         <canvas id="tetris"></canvas>
         <div id="game-over" class="overlay" style="display: none;">
           <h1>GAME OVER</h1>
-          <button class="btn-reset-sys" style="width: 90px;" onclick="resetGame()">RESTART</button>
+          <button class="btn-reset-sys" style="width: 100px;" onclick="resetGame()">RESTART</button>
         </div>
       </div>
 
@@ -372,10 +445,16 @@
   const ROWS = 20;
   let blockSize = 30;
 
+  /* 白基調に映えるブロックカラー */
   const COLORS = [
     null,
-    '#06b6d4', '#3b82f6', '#f97316',
-    '#eab308', '#22c55e', '#a855f7', '#ef4444'
+    '#000000', // I
+    '#2563eb', // J
+    '#f97316', // L
+    '#eab308', // O
+    '#16a34a', // S
+    '#9333ea', // T
+    '#dc2626'  // Z
   ];
 
   const SHAPES = [
@@ -399,16 +478,13 @@
   let isGameOver = false;
   let animId = null;
 
-  /* キャンバスサイズの再計算とリセット処理 */
   function resizeCanvas() {
     const wrapper = canvas.parentElement;
     const rect = wrapper.getBoundingClientRect();
     
-    // アスペクト比に合わせてCanvas内部の高解像度化・サイズリセットを行う
     canvas.width = rect.width * window.devicePixelRatio;
     canvas.height = rect.height * window.devicePixelRatio;
     
-    // ブロックサイズの動的算出
     blockSize = canvas.width / COLS;
 
     const nextRect = nextCanvas.parentElement.getBoundingClientRect();
@@ -435,11 +511,12 @@
           ctx.fillStyle = COLORS[value];
           ctx.fillRect(px, py, size, size);
 
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+          // ハイライト・シャドウ (モノトーン＆クリーン表現)
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
           ctx.fillRect(px, py, size, 2);
           ctx.fillRect(px, py, 2, size);
 
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
           ctx.fillRect(px, py + size - 2, size, 2);
           ctx.fillRect(px + size - 2, py, 2, size);
         }
@@ -448,10 +525,11 @@
   }
 
   function draw() {
-    context.fillStyle = '#020617';
+    context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    context.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    // グリッド線
+    context.strokeStyle = '#f1f5f9';
     context.lineWidth = 1;
     for (let c = 0; c <= COLS; c++) {
       context.beginPath();
@@ -471,7 +549,7 @@
       drawMatrix(player.matrix, player.pos, context);
     }
 
-    nextContext.fillStyle = '#020617';
+    nextContext.fillStyle = '#ffffff';
     nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
     if (nextPiece) {
       const size = nextCanvas.width / 4;
@@ -614,7 +692,6 @@
     animId = requestAnimationFrame(update);
   }
 
-  /* RESETボタン実行処理（画面サイズ・キャンバスリセット含む） */
   function resetGame() {
     if (animId) cancelAnimationFrame(animId);
     
@@ -629,7 +706,6 @@
     
     document.getElementById('game-over').style.display = 'none';
     
-    // レイアウトの歪みをクリアするためにリサイズを発火
     resizeCanvas();
     updateScore();
     nextPiece = null;
@@ -637,7 +713,39 @@
     update();
   }
 
-  /* 画面のリサイズ・回転検出イベント */
+  /* キーボード操作対応 */
+  window.addEventListener('keydown', (e) => {
+    if (isGameOver) return;
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'a':
+      case 'A':
+        actions.left();
+        break;
+      case 'ArrowRight':
+      case 'd':
+      case 'D':
+        actions.right();
+        break;
+      case 'ArrowDown':
+      case 's':
+      case 'S':
+        actions.down();
+        break;
+      case 'ArrowUp':
+      case 'w':
+      case 'W':
+      case 'z':
+      case 'Z':
+        actions.rotate();
+        break;
+      case ' ':
+        e.preventDefault();
+        actions.hardDrop();
+        break;
+    }
+  });
+
   window.addEventListener('resize', resizeCanvas);
   window.addEventListener('orientationchange', () => {
     setTimeout(resizeCanvas, 200);
@@ -718,7 +826,7 @@
     });
   });
 
-  // 初回起動処理
+  // 初回起動
   resetGame();
 </script>
 
