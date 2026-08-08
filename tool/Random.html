@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ランダム抽選 - takoGATE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --card-bg: #fafafa;
+      --text-color: #111111;
+      --text-muted: #666666;
+      --border-color: #e5e5e5;
+      --accent-color: #111111;
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* --- takoGATE ヘッダー --- */
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #111111;
+      text-decoration: none;
+    }
+
+    .btn-back-hp {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid #111111;
+      background: #111111;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-back-hp:hover {
+      background: #ffffff;
+      color: #111111;
+    }
+
+    /* --- メインコンテンツ --- */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px calc(40px + var(--safe-bottom));
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-color);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #111111;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 15px;
+      background: #ffffff;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #111111;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .checkbox-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: #111111;
+      cursor: pointer;
+    }
+
+    .btn-draw {
+      width: 100%;
+      padding: 16px;
+      background: #111111;
+      color: #ffffff;
+      border: 1px solid #111111;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-draw:hover {
+      background: #333333;
+    }
+
+    .btn-draw:disabled {
+      background: #cccccc;
+      border-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    /* --- 抽選結果エリア --- */
+    .result-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-box {
+      background: #ffffff;
+      border: 2px solid #111111;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .result-box h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .lottery-animation {
+      font-size: 32px;
+      font-weight: 900;
+      min-height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #111111;
+      word-break: break-all;
+    }
+
+    .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .result-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .result-item .rank {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: #ffffff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">takoGATE</a>
+  <a href="index.html" class="btn-back-hp" id="btn-back">← takoGATE公式HPに戻る</a>
+</header>
+
+<main>
+  <h1 class="page-title">ランダム抽選</h1>
+  <p class="page-desc">入力した文字列や名前の中から、指定した条件でランダムに抽選を行います。</p>
+
+  <div class="card">
+    <div class="form-group">
+      <label for="items-input">抽選対象のリスト（1行につき1項目）</label>
+      <textarea id="items-input" placeholder="りんご&#10;みかん&#10;ぶどう&#10;いちご&#10;バナナ"></textarea>
+      <div id="error-msg" class="error-msg"></div>
+    </div>
+
+    <div class="form-group settings-grid">
+      <div>
+        <label for="draw-count">一度に当たる件数（当選数）</label>
+        <input type="number" id="draw-count" value="1" min="1" step="1">
+      </div>
+      <div>
+        <label>重複設定</label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="allow-dup">
+          <span>同じ項目の重複当選を許可する</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 24px;">
+      <button class="btn-draw" id="btn-draw" onclick="startLottery()">抽選を開始する</button>
+    </div>
+  </div>
+
+  <div class="result-section" id="result-section">
+    <div class="result-box">
+      <h2>DRAW RESULT</h2>
+      <div class="lottery-animation" id="lottery-display">---</div>
+      <ul class="result-list" id="result-list"></ul>
+    </div>
+  </div>
+</main>
+
+<script>
+  // 戻るボタンのスマート動作（ブラウザ履歴があれば戻り、なければ指定URLへ）
+  document.getElementById('btn-back').addEventListener('click', (e) => {
+    if (document.referrer && document.referrer.includes(location.hostname)) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+
+  let isSpinning = false;
+
+  function startLottery() {
+    if (isSpinning) return;
+
+    const inputArea = document.getElementById('items-input');
+    const countInput = document.getElementById('draw-count');
+    const allowDup = document.getElementById('allow-dup').checked;
+    const errorMsg = document.getElementById('error-msg');
+    const resultSection = document.getElementById('result-section');
+    const display = document.getElementById('lottery-display');
+    const resultList = document.getElementById('result-list');
+    const drawBtn = document.getElementById('btn-draw');
+
+    // リスト取得（改行区切り・空行除去）
+    const rawItems = inputArea.value.split('\n').map(item => item.trim()).filter(item => item.length > 0);
+    const drawCount = parseInt(countInput.value, 10) || 1;
+
+    // バリデーション
+    errorMsg.style.display = 'none';
+    if (rawItems.length === 0) {
+      showError('抽選対象を1つ以上入力してください。');
+      return;
+    }
+
+    if (!allowDup && drawCount > rawItems.length) {
+      showError(`重複なしの場合、当選数（${drawCount}件）は入力数（${rawItems.length}件）以下に設定してください。`);
+      return;
+    }
+
+    // 抽選準備
+    isSpinning = true;
+    drawBtn.disabled = true;
+    resultSection.style.display = 'block';
+    resultList.innerHTML = '';
+    
+    // スクロールで結果位置へ移動
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // ドラムロール演出 (ルーレット風アニメーション)
+    let spinTimer;
+    let spinCount = 0;
+    const maxSpins = 20;
+
+    spinTimer = setInterval(() => {
+      const randomPreview = rawItems[Math.floor(Math.random() * rawItems.length)];
+      display.innerText = randomPreview;
+      spinCount++;
+
+      if (spinCount >= maxSpins) {
+        clearInterval(spinTimer);
+        finalizeDraw(rawItems, drawCount, allowDup);
+      }
+    }, 60);
+  }
+
+  function finalizeDraw(items, count, allowDup) {
+    const selected = [];
+    const pool = [...items];
+
+    for (let i = 0; i < count; i++) {
+      if (allowDup) {
+        const randomIndex = Math.floor(Math.random() * pool.length);
+        selected.push(pool[randomIndex]);
+      } else {
+        const randomIndex = Math.floor(Math.random() * pool.length);
+        selected.push(pool.splice(randomIndex, 1)[0]);
+      }
+    }
+
+    const display = document.getElementById('lottery-display');
+    const resultList = document.getElementById('result-list');
+    const drawBtn = document.getElementById('btn-draw');
+
+    // メイン表示（1件目の当選結果または完了メッセージ）
+    if (selected.length === 1) {
+      display.innerText = selected[0];
+    } else {
+      display.innerText = '🎉 抽選完了 🎉';
+    }
+
+    // リストに結果を出力
+    selected.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = 'result-item';
+      li.innerHTML = `
+        <span>${item}</span>
+        <span class="rank">当選 ${index + 1}</span>
+      `;
+      resultList.appendChild(li);
+    });
+
+    isSpinning = false;
+    drawBtn.disabled = false;
+  }
+
+  function showError(msg) {
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.innerText = msg;
+    errorMsg.style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
