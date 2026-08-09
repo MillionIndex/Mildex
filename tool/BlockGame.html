@@ -39,112 +39,122 @@
       inset: 0;
     }
 
-    /* --- takoGATE ヘッダー --- */
+    /* --- takoGATE 洗練されたヘッダーレイアウト --- */
     header {
       width: 100%;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.95);
+      height: 56px;
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 4%;
+      padding: 0 16px;
       z-index: 100;
       flex-shrink: 0;
-      position: relative;
+      gap: 8px;
     }
 
-    /* 左上：takoGATE (灰色・小さめ) */
+    /* 左側：ブランド名（控えめなグレー） */
     .header-left {
       display: flex;
       align-items: center;
-      z-index: 2;
+      flex-shrink: 0;
+      min-width: 65px;
     }
 
     .brand-mini {
       font-size: 11px;
       font-weight: 800;
-      color: #888888;
+      color: #999999;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      text-decoration: none;
     }
 
-    /* 中央：BlockGame (カラフル＆ブロック感) */
+    /* 中央：BlockGame（絶対重ならないレスポンシブ・ブロック） */
     .header-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1;
+      min-width: 0;
     }
 
     .logo-blockgame {
       display: flex;
       align-items: center;
       gap: 2px;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .block-char {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 900;
       color: #ffffff;
-      padding: 2px 5px;
+      padding: 2px 4px;
       border-radius: 4px;
       line-height: 1.1;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.15);
-      transform: translateY(0);
-      transition: transform 0.1s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.12);
+      flex-shrink: 0;
     }
 
-    /* テトリス風ブロックカラー定義 */
-    .c-b { background: #2563eb; } /* J - Blue */
-    .c-l { background: #f97316; } /* L - Orange */
-    .c-o { background: #eab308; } /* O - Yellow */
-    .c-c { background: #16a34a; } /* S - Green */
-    .c-k { background: #dc2626; } /* Z - Red */
-    .c-g { background: #9333ea; } /* T - Purple */
-    .c-a { background: #000000; } /* I - Black */
-    .c-m { background: #2563eb; } /* J - Blue */
-    .c-e { background: #16a34a; } /* S - Green */
+    /* ブロックカラー */
+    .c-b { background: #2563eb; }
+    .c-l { background: #f97316; }
+    .c-o { background: #eab308; }
+    .c-c { background: #16a34a; }
+    .c-k { background: #dc2626; }
+    .c-g { background: #9333ea; }
+    .c-a { background: #111111; }
+    .c-m { background: #2563eb; }
+    .c-e { background: #16a34a; }
 
-    /* 右側：戻るボタン (index.html) */
+    /* 右側：洗練されたミニマルなTOP戻るボタン */
     .header-right {
       display: flex;
       align-items: center;
-      z-index: 2;
+      flex-shrink: 0;
     }
 
     .btn-back-hp {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
+      gap: 5px;
+      padding: 6px 12px;
       border: 1px solid #111111;
-      background: #111111;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .btn-back-hp:hover {
       background: #ffffff;
       color: #111111;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border-radius: 20px; /* モダンなピル型（丸み） */
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .btn-back-hp:active, .btn-back-hp:hover {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .btn-back-hp svg {
+      transition: transform 0.2s ease;
+    }
+
+    .btn-back-hp:hover svg {
+      transform: translateX(-2px);
     }
 
     /* --- メインレイアウト --- */
     .app-viewport {
       width: 100%;
-      height: calc(100% - 60px);
+      height: calc(100% - 56px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -391,14 +401,11 @@
       letter-spacing: 1px;
     }
 
-    @media (max-width: 400px) {
-      .btn-back-hp {
-        padding: 6px 8px;
-        font-size: 10px;
-      }
+    /* デバイスに応じた微調整 */
+    @media (min-width: 400px) {
       .block-char {
-        font-size: 13px;
-        padding: 1px 3px;
+        font-size: 15px;
+        padding: 2px 6px;
       }
     }
 
@@ -422,7 +429,7 @@
         height: 64px;
       }
       .block-char {
-        font-size: 18px;
+        font-size: 17px;
         padding: 3px 7px;
       }
     }
@@ -450,7 +457,13 @@
   </div>
 
   <div class="header-right">
-    <a href="index.html" class="btn-back-hp">← takoGATE公式HPに戻る</a>
+    <a href="index.html" class="btn-back-hp" aria-label="TOPへ戻る">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>TOP</span>
+    </a>
   </div>
 </header>
 
@@ -537,7 +550,7 @@
 
   const COLORS = [
     null,
-    '#000000', // I
+    '#111111', // I
     '#2563eb', // J
     '#f97316', // L
     '#eab308', // O
@@ -617,7 +630,7 @@
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 視認性を重視した明確なグリッド線
+    // 視認性の高いグリッド線
     context.strokeStyle = '#cbd5e1';
     context.lineWidth = Math.max(1, window.devicePixelRatio);
 
@@ -803,7 +816,7 @@
     update();
   }
 
-  /* キーボード操作対応 */
+  /* キーボード操作 */
   window.addEventListener('keydown', (e) => {
     if (isGameOver) return;
     switch (e.key) {
@@ -820,7 +833,7 @@
     setTimeout(resizeCanvas, 200);
   });
 
-  /* タッチ操作処理 */
+  /* タッチ操作 */
   const dpadPad = document.getElementById('dpad-pad');
   let currentActiveBtn = null;
   let slideInterval = null;
