@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学力測定試験 | takoGATE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fdfdfd;
+            color: #111111;
+            font-family: "Inter", "Noto Sans JP", sans-serif;
+            line-height: 1.6;
+        }
+
+        /* --- ヘッダー領域 --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* takoGATE ロゴ */
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #111111;
+            text-decoration: none;
+        }
+
+        .header-divider {
+            color: #cccccc;
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        /* 青色角ゴシックの学力測定試験 */
+        .site-title {
+            font-size: 22px;
+            font-weight: 900; /* 太い角ゴシック */
+            color: #0052cc;   /* 青色 */
+            font-family: "Noto Sans JP", sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* TOPへ戻るボタン */
+        nav a.top-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #111111;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 8px 18px;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            transition: all 0.25s ease;
+        }
+
+        nav a.top-link:hover {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        /* --- メインコンテンツ --- */
+        main {
+            margin-top: 80px;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            padding: 100px 8% 60px;
+            background: linear-gradient(180deg, #f4f7fc 0%, #fdfdfd 100%);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #0052cc;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #111111;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555555;
+            max-width: 720px;
+            line-height: 1.8;
+        }
+
+        /* 共通セクション */
+        section {
+            width: min(1100px, 90%);
+            margin: auto;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #111111;
+        }
+
+        .section-desc {
+            color: #666666;
+            font-size: 16px;
+            margin-bottom: 48px;
+        }
+
+        /* 特徴カードグリッド */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 36px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-number {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0052cc;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111111;
+        }
+
+        .feature-card p {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* オンラインテストコンテナ */
+        .test-box {
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .quiz-item {
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .quiz-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #111111;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #f8fafd;
+            border-color: #0052cc;
+        }
+
+        .quiz-option input {
+            margin-right: 12px;
+            accent-color: #0052cc;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            background: #0052cc;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.25s ease;
+        }
+
+        .submit-btn:hover {
+            background: #003d99;
+        }
+
+        /* 採点結果表示エリア */
+        #result-area {
+            display: none;
+            margin-top: 32px;
+            padding: 24px;
+            background: #f0f7ff;
+            border: 1px solid #b3d4ff;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #result-area h3 {
+            font-size: 24px;
+            color: #0052cc;
+            margin-bottom: 8px;
+        }
+
+        #result-area p {
+            font-size: 16px;
+            color: #333333;
+        }
+
+        /* フッター */
+        footer {
+            border-top: 1px solid #e5e5e5;
+            background: #fafafa;
+            padding: 50px 8%;
+            margin-top: 80px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        .footer-bottom a {
+            color: #777777;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .footer-bottom a:hover {
+            color: #111111;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 5%;
+            }
+
+            .site-title {
+                font-size: 18px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .test-box {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー（上部バー） -->
+    <header>
+        <div class="header-left">
+            <a href="index.html" class="logo">takoGATE</a>
+            <span class="header-divider">/</span>
+            <!-- 青色・角ゴシック指定のタイトル -->
+            <span class="site-title">学力測定試験</span>
+        </div>
+
+        <nav>
+            <!-- index.htmlに戻るTOPボタン -->
+            <a href="index.html" class="top-link">← TOP</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ヒーローエリア -->
+        <div class="hero">
+            <span class="hero-badge">完全無料・オンライン対応</span>
+            <h1>思考力と基礎力を、<br>正しく測る学力テスト。</h1>
+            <p>
+                takoGATEの学力測定試験は、単なる暗記量ではなく「本質的な問題解決力」と「応用思考力」を測定します。誰でも無償で受験可能で、今の自分の得意・不得意を明確化できます。
+            </p>
+        </div>
+
+        <!-- 特徴セクション -->
+        <section id="about">
+            <h2 class="section-title">試験の特徴</h2>
+            <p class="section-desc">takoGATE独自の評価体系で、これまでにない学びの気づきを提供します。</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-number">FEATURE 01</div>
+                    <h3>完全無償で受験可能</h3>
+                    <p>質の高い学びと自己分析の機会をすべての人へ。費用や複雑な個人情報登録なしで、いつでもチャレンジできます。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">FEATURE 02</div>
+                    <h3>思考力を問う独自問題</h3>
+                    <p>暗記だけに頼らない、論理的思考やデータ読み取り能力を重視したオリジナル問題を出題しています。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-number">FEATURE 03</div>
+                    <h3>即時スコア＆フィードバック</h3>
+                    <p>テスト解答後、すぐに点数とレベル診断を出力。自分の強みと弱みをその場で把握できます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- オンライン体験テストセクション -->
+        <section id="online-test">
+            <h2 class="section-title">スピード学力診断（全3問）</h2>
+            <p class="section-desc">まずはブラウザ上で受けられる簡単な総合診断をお試しください。</p>
+
+            <div class="test-box">
+                <form id="quiz-form">
+                    <!-- 第1問 -->
+                    <div class="quiz-item">
+                        <div class="quiz-question">Q1. 【論理思考】 ある法則に従って数字が並んでいます。「?」に入る数値はどれでしょう？ <br>2, 6, 12, 20, 30, ?</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) 38</label>
+                            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) 40</label>
+                            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) 42</label>
+                            <label class="quiz-option"><input type="radio" name="q1" value="D"> D) 44</label>
+                        </div>
+                    </div>
+
+                    <!-- 第2問 -->
+                    <div class="quiz-item">
+                        <div class="quiz-question">Q2. 【国語・文脈理解】 次の文の空欄に入る最も適切な接続詞を選びなさい。<br>「彼は連日厳しいトレーニングを重ねた。（  ）、本番の大会で自己ベストを更新できた。」</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="q2" value="A"> A) その結果</label>
+                            <label class="quiz-option"><input type="radio" name="q2" value="B"> B) しかしながら</label>
+                            <label class="quiz-option"><input type="radio" name="q2" value="C"> C) または</label>
+                            <label class="quiz-option"><input type="radio" name="q2" value="D"> D) なぜなら</label>
+                        </div>
+                    </div>
+
+                    <!-- 第3問 -->
+                    <div class="quiz-item">
+                        <div class="quiz-question">Q3. 【情報・アルゴリズム】 1から100までの整数の中に、数字「3」は何回現れますか？（例: 33は2回とカウント）</div>
+                        <div class="quiz-options">
+                            <label class="quiz-option"><input type="radio" name="q3" value="A"> A) 10回</label>
+                            <label class="quiz-option"><input type="radio" name="q3" value="B"> B) 19回</label>
+                            <label class="quiz-option"><input type="radio" name="q3" value="C"> C) 20回</label>
+                            <label class="quiz-option"><input type="radio" name="q3" value="D"> D) 21回</label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="submit-btn" onclick="checkScore()">採点する</button>
+                </form>
+
+                <!-- 採点結果表示領域 -->
+                <div id="result-area">
+                    <h3 id="score-title"></h3>
+                    <p id="score-detail"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-bottom">
+            <div>© 2026 takoGATE / Academic Test Center</div>
+            <div>
+                <a href="index.html">takoGATE TOPへ</a>
+                <a href="#">プライバシーポリシー</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 採点処理用JavaScript -->
+    <script>
+        function checkScore() {
+            const answers = { q1: 'C', q2: 'A', q3: 'C' };
+            let score = 0;
+            const form = document.forms['quiz-form'];
+
+            if (form.q1.value === answers.q1) score++;
+            if (form.q2.value === answers.q2) score++;
+            if (form.q3.value === answers.q3) score++;
+
+            const resultArea = document.getElementById('result-area');
+            const scoreTitle = document.getElementById('score-title');
+            const scoreDetail = document.getElementById('score-detail');
+
+            resultArea.style.display = 'block';
+
+            if (score === 3) {
+                scoreTitle.textContent = '結果: 3 / 3 点（S判定 - 素晴らしい論理力！）';
+                scoreDetail.textContent = '基礎力・応用力ともに非常に高いレベルです。複雑な問題解決にも対応できる力を持っています。';
+            } else if (score === 2) {
+                scoreTitle.textContent = '結果: 2 / 3 点（A判定 - 良好なパフォーマンス）';
+                scoreDetail.textContent = '標準的な思考力が身についています。間違えた問題を振り返ることで、さらに伸び代があります。';
+            } else {
+                scoreTitle.textContent = `結果: ${score} / 3 点（B判定 - 伸びしろあり）`;
+                scoreDetail.textContent = '焦らず問題のパターンや文脈を読み解く練習を重ねることで、思考力は着実に向上します。';
+            }
+
+            // 結果エリアへスクロール
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
