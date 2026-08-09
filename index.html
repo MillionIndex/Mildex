@@ -44,10 +44,14 @@ header{
 }
 
 .logo{
-    font-size:28px;
-    font-weight:800;
-    letter-spacing:1px;
-    color:#111111;
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    height:40px; /* ヘッダーの高さに合わせて調整 */
+    width:auto;
+    object-fit:contain;
 }
 
 nav{
@@ -350,7 +354,7 @@ a.card-horizontal{
 <header>
 
 <div class="logo">
-takoGATE
+    <a href="#"><img src="main.png" alt="takoGATE"></a>
 </div>
 
 <nav>
