@@ -39,7 +39,7 @@
       inset: 0;
     }
 
-    /* --- takoGATE 洗練されたヘッダーレイアウト --- */
+    /* --- takoGATE ヘッダーレイアウト --- */
     header {
       width: 100%;
       height: 56px;
@@ -56,7 +56,7 @@
       gap: 8px;
     }
 
-    /* 左側：ブランド名（控えめなグレー） */
+    /* 左側：ブランド名 */
     .header-left {
       display: flex;
       align-items: center;
@@ -72,7 +72,7 @@
       text-transform: uppercase;
     }
 
-    /* 中央：BlockGame（絶対重ならないレスポンシブ・ブロック） */
+    /* 中央：BlockGame */
     .header-center {
       flex: 1;
       display: flex;
@@ -101,7 +101,6 @@
       flex-shrink: 0;
     }
 
-    /* ブロックカラー */
     .c-b { background: #2563eb; }
     .c-l { background: #f97316; }
     .c-o { background: #eab308; }
@@ -112,7 +111,7 @@
     .c-m { background: #2563eb; }
     .c-e { background: #16a34a; }
 
-    /* 右側：洗練されたミニマルなTOP戻るボタン */
+    /* 右側：親ディレクトリ(../index.html)への戻るボタン */
     .header-right {
       display: flex;
       align-items: center;
@@ -131,7 +130,7 @@
       font-weight: 700;
       letter-spacing: 0.5px;
       text-decoration: none;
-      border-radius: 20px; /* モダンなピル型（丸み） */
+      border-radius: 20px;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
       white-space: nowrap;
@@ -162,7 +161,6 @@
       padding-bottom: var(--safe-bottom);
     }
 
-    /* --- 上部：ゲーム表示領域 --- */
     .game-stage {
       flex: 1;
       width: 100%;
@@ -263,7 +261,6 @@
       color: #ffffff;
     }
 
-    /* --- 下部：操作コントローラー --- */
     .controller-stage {
       width: 100%;
       height: 160px;
@@ -302,20 +299,9 @@
       transition: all 0.1s ease;
     }
 
-    .btn-left { 
-      grid-column: 1; grid-row: 1; 
-      border-radius: 10px 4px 4px 10px; 
-    }
-    .btn-right { 
-      grid-column: 3; grid-row: 1; 
-      border-radius: 4px 10px 10px 4px; 
-    }
-    .btn-down { 
-      grid-column: 2; grid-row: 2; 
-      border-radius: 4px 4px 10px 10px; 
-      height: 56px;
-      margin-top: -2px;
-    }
+    .btn-left { grid-column: 1; grid-row: 1; border-radius: 10px 4px 4px 10px; }
+    .btn-right { grid-column: 3; grid-row: 1; border-radius: 4px 10px 10px 4px; }
+    .btn-down { grid-column: 2; grid-row: 2; border-radius: 4px 4px 10px 10px; height: 56px; margin-top: -2px; }
 
     .dpad-btn.active {
       background: #111111;
@@ -348,39 +334,16 @@
       transition: all 0.1s ease;
     }
 
-    .btn-drop-action {
-      grid-column: 1;
-      grid-row: 1;
-      background: #ffffff;
-      color: #111111;
-    }
+    .btn-drop-action { grid-column: 1; grid-row: 1; background: #ffffff; color: #111111; }
+    .btn-rotate-action { grid-column: 2; grid-row: 2; background: #111111; color: #ffffff; }
 
-    .btn-rotate-action {
-      grid-column: 2;
-      grid-row: 2;
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .arcade-btn.active {
-      transform: scale(0.95);
-      opacity: 0.8;
-    }
-
-    .btn-drop-action.active {
-      background: #111111;
-      color: #ffffff;
-    }
-
-    .btn-rotate-action.active {
-      background: #ffffff;
-      color: #111111;
-    }
+    .arcade-btn.active { transform: scale(0.95); opacity: 0.8; }
+    .btn-drop-action.active { background: #111111; color: #ffffff; }
+    .btn-rotate-action.active { background: #ffffff; color: #111111; }
 
     .arcade-btn .icon { font-size: 18px; line-height: 1; }
     .arcade-btn .text { font-size: 9px; font-weight: 700; margin-top: 2px; }
 
-    /* オーバーレイ */
     .overlay {
       position: absolute;
       inset: 0;
@@ -401,37 +364,17 @@
       letter-spacing: 1px;
     }
 
-    /* デバイスに応じた微調整 */
     @media (min-width: 400px) {
-      .block-char {
-        font-size: 15px;
-        padding: 2px 6px;
-      }
+      .block-char { font-size: 15px; padding: 2px 6px; }
     }
 
     @media (min-width: 768px) {
-      .controller-stage {
-        height: 180px;
-      }
-      .dpad-grid {
-        grid-template-columns: repeat(3, 60px);
-        grid-template-rows: repeat(2, 60px);
-      }
+      .controller-stage { height: 180px; }
+      .dpad-grid { grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); }
       .btn-down { height: 62px; }
-      .action-grid {
-        grid-template-columns: repeat(2, 64px);
-        grid-template-rows: repeat(2, 64px);
-        width: 136px;
-        height: 136px;
-      }
-      .arcade-btn {
-        width: 64px;
-        height: 64px;
-      }
-      .block-char {
-        font-size: 17px;
-        padding: 3px 7px;
-      }
+      .action-grid { grid-template-columns: repeat(2, 64px); grid-template-rows: repeat(2, 64px); width: 136px; height: 136px; }
+      .arcade-btn { width: 64px; height: 64px; }
+      .block-char { font-size: 17px; padding: 3px 7px; }
     }
   </style>
 </head>
@@ -456,8 +399,9 @@
     </div>
   </div>
 
+  <!-- tool階層から1階層上のindex.htmlを参照 -->
   <div class="header-right">
-    <a href="index.html" class="btn-back-hp" aria-label="TOPへ戻る">
+    <a href="../index.html" class="btn-back-hp" aria-label="TOPへ戻る">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
@@ -524,7 +468,6 @@
 </div>
 
 <script>
-  /* ズーム抑止 */
   document.addEventListener('touchstart', (e) => {
     if (e.touches.length > 1) e.preventDefault();
   }, { passive: false });
@@ -538,7 +481,6 @@
 
   window.oncontextmenu = (e) => e.preventDefault();
 
-  /* ゲームロジック */
   const canvas = document.getElementById('tetris');
   const context = canvas.getContext('2d');
   const nextCanvas = document.getElementById('next-canvas');
@@ -550,13 +492,13 @@
 
   const COLORS = [
     null,
-    '#111111', // I
-    '#2563eb', // J
-    '#f97316', // L
-    '#eab308', // O
-    '#16a34a', // S
-    '#9333ea', // T
-    '#dc2626'  // Z
+    '#111111',
+    '#2563eb',
+    '#f97316',
+    '#eab308',
+    '#16a34a',
+    '#9333ea',
+    '#dc2626'
   ];
 
   const SHAPES = [
@@ -613,7 +555,6 @@
           ctx.fillStyle = COLORS[value];
           ctx.fillRect(px, py, size, size);
 
-          // ハイライト・シャドウ
           ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
           ctx.fillRect(px, py, size, Math.max(1, size * 0.06));
           ctx.fillRect(px, py, Math.max(1, size * 0.06), size);
@@ -630,7 +571,6 @@
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 視認性の高いグリッド線
     context.strokeStyle = '#cbd5e1';
     context.lineWidth = Math.max(1, window.devicePixelRatio);
 
@@ -816,7 +756,6 @@
     update();
   }
 
-  /* キーボード操作 */
   window.addEventListener('keydown', (e) => {
     if (isGameOver) return;
     switch (e.key) {
@@ -833,7 +772,6 @@
     setTimeout(resizeCanvas, 200);
   });
 
-  /* タッチ操作 */
   const dpadPad = document.getElementById('dpad-pad');
   let currentActiveBtn = null;
   let slideInterval = null;
