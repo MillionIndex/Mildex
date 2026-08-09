@@ -54,12 +54,25 @@
       flex-shrink: 0;
     }
 
+    .logo-container {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      text-decoration: none;
+    }
+
     .logo {
       font-size: 22px;
       font-weight: 800;
       letter-spacing: 0.5px;
       color: #111111;
-      text-decoration: none;
+    }
+
+    .logo-sub {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111111;
+      letter-spacing: 0.5px;
     }
 
     .btn-back-hp {
@@ -75,6 +88,7 @@
       text-decoration: none;
       border-radius: 4px;
       transition: all 0.2s ease;
+      cursor: pointer;
     }
 
     .btn-back-hp:hover {
@@ -207,7 +221,6 @@
       padding: 0 16px;
     }
 
-    /* 十字キー（takoGATE仕様 モノトーン） */
     .dpad-grid {
       display: grid;
       grid-template-columns: repeat(3, 54px);
@@ -249,14 +262,12 @@
       margin-top: -2px;
     }
 
-    /* 押し込み演出 */
     .dpad-btn.active {
       background: #111111;
       color: #ffffff;
       border-color: #111111;
     }
 
-    /* アクションボタン */
     .action-grid {
       display: grid;
       grid-template-columns: repeat(2, 58px);
@@ -360,8 +371,11 @@
 <body>
 
 <header>
-  <a href="#" class="logo">takoGATE</a>
-  <a href="#" class="btn-back-hp">← takoGATE公式HPに戻る</a>
+  <a href="/" class="logo-container">
+    <span class="logo">takoGATE</span>
+    <span class="logo-sub">/BlockGame</span>
+  </a>
+  <button type="button" class="btn-back-hp" onclick="goBackHP()">← takoGATE公式HPに戻る</button>
 </header>
 
 <div class="app-viewport">
@@ -421,6 +435,15 @@
 </div>
 
 <script>
+  /* ページ遷移ハンドラ */
+  function goBackHP() {
+    if (document.referrer && document.referrer.includes(window.location.hostname)) {
+      history.back();
+    } else {
+      window.location.href = '/';
+    }
+  }
+
   /* ズーム抑止 */
   document.addEventListener('touchstart', (e) => {
     if (e.touches.length > 1) e.preventDefault();
@@ -445,7 +468,6 @@
   const ROWS = 20;
   let blockSize = 30;
 
-  /* 白基調に映えるブロックカラー */
   const COLORS = [
     null,
     '#000000', // I
@@ -511,14 +533,14 @@
           ctx.fillStyle = COLORS[value];
           ctx.fillRect(px, py, size, size);
 
-          // ハイライト・シャドウ (モノトーン＆クリーン表現)
+          // ハイライト・シャドウ
           ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
-          ctx.fillRect(px, py, size, 2);
-          ctx.fillRect(px, py, 2, size);
+          ctx.fillRect(px, py, size, Math.max(1, size * 0.06));
+          ctx.fillRect(px, py, Math.max(1, size * 0.06), size);
 
           ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-          ctx.fillRect(px, py + size - 2, size, 2);
-          ctx.fillRect(px + size - 2, py, 2, size);
+          ctx.fillRect(px, py + size - Math.max(1, size * 0.06), size, Math.max(1, size * 0.06));
+          ctx.fillRect(px + size - Math.max(1, size * 0.06), py, Math.max(1, size * 0.06), size);
         }
       });
     });
@@ -528,9 +550,10 @@
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // グリッド線
-    context.strokeStyle = '#f1f5f9';
-    context.lineWidth = 1;
+    // 視認性を最適化したグリッド線（明確かつクリーンなコントラスト）
+    context.strokeStyle = '#cbd5e1';
+    context.lineWidth = Math.max(1, window.devicePixelRatio);
+
     for (let c = 0; c <= COLS; c++) {
       context.beginPath();
       context.moveTo(c * blockSize, 0);
@@ -713,36 +736,15 @@
     update();
   }
 
-  /* キーボード操作対応 */
+  /* キーボード操作 */
   window.addEventListener('keydown', (e) => {
     if (isGameOver) return;
     switch (e.key) {
-      case 'ArrowLeft':
-      case 'a':
-      case 'A':
-        actions.left();
-        break;
-      case 'ArrowRight':
-      case 'd':
-      case 'D':
-        actions.right();
-        break;
-      case 'ArrowDown':
-      case 's':
-      case 'S':
-        actions.down();
-        break;
-      case 'ArrowUp':
-      case 'w':
-      case 'W':
-      case 'z':
-      case 'Z':
-        actions.rotate();
-        break;
-      case ' ':
-        e.preventDefault();
-        actions.hardDrop();
-        break;
+      case 'ArrowLeft': case 'a': case 'A': actions.left(); break;
+      case 'ArrowRight': case 'd': case 'D': actions.right(); break;
+      case 'ArrowDown': case 's': case 'S': actions.down(); break;
+      case 'ArrowUp': case 'w': case 'W': case 'z': case 'Z': actions.rotate(); break;
+      case ' ': e.preventDefault(); actions.hardDrop(); break;
     }
   });
 
@@ -751,7 +753,7 @@
     setTimeout(resizeCanvas, 200);
   });
 
-  /* タッチ操作処理 */
+  /* タッチ操作 */
   const dpadPad = document.getElementById('dpad-pad');
   let currentActiveBtn = null;
   let slideInterval = null;
@@ -826,7 +828,6 @@
     });
   });
 
-  // 初回起動
   resetGame();
 </script>
 
