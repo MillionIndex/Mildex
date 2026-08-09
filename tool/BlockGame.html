@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ブロックゲーム - takoGATE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-color: #ffffff;
@@ -49,46 +49,91 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 5%;
+      padding: 0 4%;
       z-index: 100;
       flex-shrink: 0;
+      position: relative;
     }
 
-    .logo-container {
+    /* 左上：takoGATE (灰色・小さめ) */
+    .header-left {
       display: flex;
-      align-items: baseline;
-      gap: 6px;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .brand-mini {
+      font-size: 11px;
+      font-weight: 800;
+      color: #888888;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
       text-decoration: none;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: #111111;
+    /* 中央：BlockGame (カラフル＆ブロック感) */
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
     }
 
-    .logo-sub {
-      font-size: 20px;
-      font-weight: 800;
-      color: #111111;
-      letter-spacing: 0.5px;
+    .logo-blockgame {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .block-char {
+      font-size: 15px;
+      font-weight: 900;
+      color: #ffffff;
+      padding: 2px 5px;
+      border-radius: 4px;
+      line-height: 1.1;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.15);
+      transform: translateY(0);
+      transition: transform 0.1s;
+    }
+
+    /* テトリス風ブロックカラー定義 */
+    .c-b { background: #2563eb; } /* J - Blue */
+    .c-l { background: #f97316; } /* L - Orange */
+    .c-o { background: #eab308; } /* O - Yellow */
+    .c-c { background: #16a34a; } /* S - Green */
+    .c-k { background: #dc2626; } /* Z - Red */
+    .c-g { background: #9333ea; } /* T - Purple */
+    .c-a { background: #000000; } /* I - Black */
+    .c-m { background: #2563eb; } /* J - Blue */
+    .c-e { background: #16a34a; } /* S - Green */
+
+    /* 右側：戻るボタン (index.html) */
+    .header-right {
+      display: flex;
+      align-items: center;
+      z-index: 2;
     }
 
     .btn-back-hp {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
+      padding: 7px 12px;
       border: 1px solid #111111;
       background: #111111;
       color: #ffffff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       text-decoration: none;
       border-radius: 4px;
       transition: all 0.2s ease;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .btn-back-hp:hover {
@@ -346,6 +391,17 @@
       letter-spacing: 1px;
     }
 
+    @media (max-width: 400px) {
+      .btn-back-hp {
+        padding: 6px 8px;
+        font-size: 10px;
+      }
+      .block-char {
+        font-size: 13px;
+        padding: 1px 3px;
+      }
+    }
+
     @media (min-width: 768px) {
       .controller-stage {
         height: 180px;
@@ -365,17 +421,37 @@
         width: 64px;
         height: 64px;
       }
+      .block-char {
+        font-size: 18px;
+        padding: 3px 7px;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <a href="/" class="logo-container">
-    <span class="logo">takoGATE</span>
-    <span class="logo-sub">/BlockGame</span>
-  </a>
-  <button type="button" class="btn-back-hp" onclick="goBackHP()">← takoGATE公式HPに戻る</button>
+  <div class="header-left">
+    <span class="brand-mini">takoGATE</span>
+  </div>
+
+  <div class="header-center">
+    <div class="logo-blockgame">
+      <span class="block-char c-b">B</span>
+      <span class="block-char c-l">l</span>
+      <span class="block-char c-o">o</span>
+      <span class="block-char c-c">c</span>
+      <span class="block-char c-k">k</span>
+      <span class="block-char c-g">G</span>
+      <span class="block-char c-a">a</span>
+      <span class="block-char c-m">m</span>
+      <span class="block-char c-e">e</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <a href="index.html" class="btn-back-hp">← takoGATE公式HPに戻る</a>
+  </div>
 </header>
 
 <div class="app-viewport">
@@ -435,15 +511,6 @@
 </div>
 
 <script>
-  /* ページ遷移ハンドラ */
-  function goBackHP() {
-    if (document.referrer && document.referrer.includes(window.location.hostname)) {
-      history.back();
-    } else {
-      window.location.href = '/';
-    }
-  }
-
   /* ズーム抑止 */
   document.addEventListener('touchstart', (e) => {
     if (e.touches.length > 1) e.preventDefault();
@@ -550,7 +617,7 @@
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 視認性を最適化したグリッド線（明確かつクリーンなコントラスト）
+    // 視認性を重視した明確なグリッド線
     context.strokeStyle = '#cbd5e1';
     context.lineWidth = Math.max(1, window.devicePixelRatio);
 
@@ -736,7 +803,7 @@
     update();
   }
 
-  /* キーボード操作 */
+  /* キーボード操作対応 */
   window.addEventListener('keydown', (e) => {
     if (isGameOver) return;
     switch (e.key) {
@@ -753,7 +820,7 @@
     setTimeout(resizeCanvas, 200);
   });
 
-  /* タッチ操作 */
+  /* タッチ操作処理 */
   const dpadPad = document.getElementById('dpad-pad');
   let currentActiveBtn = null;
   let slideInterval = null;
