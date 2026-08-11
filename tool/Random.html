@@ -28,10 +28,10 @@
       min-height: 100vh;
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
     }
 
-    /* --- takoGATE ヘッダーレイアウト（統一） --- */
+    /* --- takoGATE ヘッダーレイアウト --- */
     header {
       position: sticky;
       top: 0;
@@ -73,33 +73,14 @@
       min-width: 0;
     }
 
-    .logo-blockgame {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .block-char {
-      font-size: 13px;
+    /* 角ゴシック指定のヘッダータイトル */
+    .header-title {
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      font-size: 16px;
       font-weight: 900;
-      color: #ffffff;
-      padding: 2px 5px;
-      border-radius: 4px;
-      line-height: 1.1;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0,0,0,0.12);
-      flex-shrink: 0;
+      color: #111111;
+      letter-spacing: -0.2px;
     }
-
-    .c-b { background: #2563eb; }
-    .c-l { background: #f97316; }
-    .c-o { background: #eab308; }
-    .c-c { background: #16a34a; }
-    .c-k { background: #dc2626; }
-    .c-g { background: #9333ea; }
-    .c-a { background: #111111; }
 
     .header-right {
       display: flex;
@@ -218,7 +199,6 @@
       border-color: #111111;
     }
 
-    /* テキストツールバー */
     .toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -245,7 +225,7 @@
 
     .settings-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 16px;
     }
 
@@ -286,7 +266,6 @@
       cursor: pointer;
     }
 
-    /* アコーディオン詳細設定 */
     details {
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -336,7 +315,6 @@
       cursor: not-allowed;
     }
 
-    /* --- 抽選結果エリア --- */
     .result-section {
       display: none;
       animation: fadeIn 0.3s ease;
@@ -375,12 +353,25 @@
       word-break: break-all;
     }
 
+    .result-group {
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .result-group-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
     .result-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-top: 14px;
     }
 
     .result-item {
@@ -411,7 +402,6 @@
       justify-content: center;
     }
 
-    /* 履歴エリア */
     .history-section {
       margin-top: 24px;
       border-top: 1px solid var(--border-color);
@@ -449,10 +439,6 @@
       margin-top: 8px;
       display: none;
     }
-
-    @media (min-width: 400px) {
-      .block-char { font-size: 15px; padding: 2px 6px; }
-    }
   </style>
 </head>
 <body>
@@ -463,15 +449,8 @@
   </div>
 
   <div class="header-center">
-    <div class="logo-blockgame">
-      <span class="block-char c-b">R</span>
-      <span class="block-char c-l">a</span>
-      <span class="block-char c-o">n</span>
-      <span class="block-char c-c">d</span>
-      <span class="block-char c-k">o</span>
-      <span class="block-char c-g">m</span>
-      <span class="block-char c-a">Lot</span>
-    </div>
+    <!-- ヘッダー中央を「ランダム抽選（角ゴシック）」に変更 -->
+    <span class="header-title">ランダム抽選</span>
   </div>
 
   <div class="header-right">
@@ -497,7 +476,6 @@
       </div>
       <textarea id="items-input" placeholder="りんご&#10;みかん&#10;ぶどう&#10;いちご&#10;バナナ" oninput="updateItemCount()"></textarea>
       
-      <!-- テキスト整形ツールバー -->
       <div class="toolbar">
         <button type="button" class="btn-tool" onclick="cleanDups()">重複を削除</button>
         <button type="button" class="btn-tool" onclick="cleanEmpties()">空行を削除</button>
@@ -511,6 +489,11 @@
         <label for="draw-count">当選数（件数）</label>
         <input type="number" id="draw-count" value="1" min="1" step="1">
       </div>
+      <!-- 抽選回数フィールドを追加 -->
+      <div>
+        <label for="repeat-count">抽選回数</label>
+        <input type="number" id="repeat-count" value="1" min="1" step="1">
+      </div>
       <div>
         <label for="delimiter">区切り方式</label>
         <select id="delimiter" onchange="updateItemCount()">
@@ -521,7 +504,6 @@
       </div>
     </div>
 
-    <!-- 条件設定 -->
     <div class="form-group">
       <div class="checkbox-group">
         <label class="checkbox-label">
@@ -535,7 +517,6 @@
       </div>
     </div>
 
-    <!-- 詳細設定（アコーディオン） -->
     <details>
       <summary>⚙️ 高度な設定（演出スピード / 重み付け）</summary>
       <div class="details-content">
@@ -564,12 +545,11 @@
     </div>
   </div>
 
-  <!-- 結果エリア -->
   <div class="result-section" id="result-section">
     <div class="result-box">
       <h2>DRAW RESULT</h2>
       <div class="lottery-animation" id="lottery-display">---</div>
-      <ul class="result-list" id="result-list"></ul>
+      <div id="results-container"></div>
 
       <div class="result-actions" id="result-actions" style="display: none;">
         <button class="btn-tool" onclick="copyResults()">📋 結果をコピー</button>
@@ -577,7 +557,6 @@
     </div>
   </div>
 
-  <!-- 履歴エリア -->
   <div class="history-section" id="history-section">
     <div class="history-title">🕒 直近の抽選履歴</div>
     <ul class="history-list" id="history-list"></ul>
@@ -588,7 +567,6 @@
   let isSpinning = false;
   let historyLogs = [];
 
-  // TOPボタンのスマート動作
   document.getElementById('btn-back').addEventListener('click', (e) => {
     if (document.referrer && document.referrer.includes(location.hostname)) {
       e.preventDefault();
@@ -596,7 +574,6 @@
     }
   });
 
-  // リスト取得共通関数
   function getParsedItems() {
     const text = document.getElementById('items-input').value;
     const delimiter = document.getElementById('delimiter').value;
@@ -613,13 +590,11 @@
     return items.map(item => item.trim()).filter(item => item.length > 0);
   }
 
-  // リアルタイム件数更新
   function updateItemCount() {
     const items = getParsedItems();
     document.getElementById('item-count').innerText = `${items.length} 件`;
   }
 
-  // テキストツール機能
   function cleanDups() {
     const items = getParsedItems();
     const uniqueItems = Array.from(new Set(items));
@@ -653,7 +628,6 @@
     updateItemCount();
   }
 
-  // 重み分解 (項目名:重み)
   function parseWeightedItems(rawItems) {
     const result = [];
     rawItems.forEach(item => {
@@ -671,23 +645,24 @@
     return result;
   }
 
-  // 抽選メイン処理
   function startLottery() {
     if (isSpinning) return;
 
     const countInput = document.getElementById('draw-count');
+    const repeatInput = document.getElementById('repeat-count');
     const allowDup = document.getElementById('allow-dup').checked;
     const enableWeight = document.getElementById('enable-weight').checked;
     const speed = document.getElementById('spin-speed').value;
     const errorMsg = document.getElementById('error-msg');
     const resultSection = document.getElementById('result-section');
     const display = document.getElementById('lottery-display');
-    const resultList = document.getElementById('result-list');
+    const resultsContainer = document.getElementById('results-container');
     const drawBtn = document.getElementById('btn-draw');
     const resultActions = document.getElementById('result-actions');
 
     const rawItems = getParsedItems();
     const drawCount = parseInt(countInput.value, 10) || 1;
+    const repeatCount = parseInt(repeatInput.value, 10) || 1;
 
     errorMsg.style.display = 'none';
     if (rawItems.length === 0) {
@@ -704,13 +679,13 @@
     drawBtn.disabled = true;
     resultSection.style.display = 'block';
     resultActions.style.display = 'none';
-    resultList.innerHTML = '';
+    resultsContainer.innerHTML = '';
     resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     const weightedItems = parseWeightedItems(rawItems);
 
     if (speed === 'none') {
-      finalizeDraw(weightedItems, drawCount, allowDup, enableWeight);
+      finalizeDraw(weightedItems, drawCount, repeatCount, allowDup, enableWeight);
     } else {
       let spinTimer;
       let spinCount = 0;
@@ -724,7 +699,7 @@
 
         if (spinCount >= maxSpins) {
           clearInterval(spinTimer);
-          finalizeDraw(weightedItems, drawCount, allowDup, enableWeight);
+          finalizeDraw(weightedItems, drawCount, repeatCount, allowDup, enableWeight);
         }
       }, interval);
     }
@@ -742,70 +717,101 @@
     return pool.length - 1;
   }
 
-  function finalizeDraw(weightedItems, count, allowDup, enableWeight) {
-    const selected = [];
-    const pool = [...weightedItems];
-
-    for (let i = 0; i < count; i++) {
-      if (pool.length === 0) break;
-
-      let chosenIndex = 0;
-      if (enableWeight) {
-        chosenIndex = pickWeightedItem(pool);
-      } else {
-        chosenIndex = Math.floor(Math.random() * pool.length);
-      }
-
-      if (allowDup) {
-        selected.push(pool[chosenIndex]);
-      } else {
-        selected.push(pool.splice(chosenIndex, 1)[0]);
-      }
-    }
-
+  function finalizeDraw(weightedItems, drawCount, repeatCount, allowDup, enableWeight) {
+    const resultsContainer = document.getElementById('results-container');
     const display = document.getElementById('lottery-display');
-    const resultList = document.getElementById('result-list');
     const drawBtn = document.getElementById('btn-draw');
     const resultActions = document.getElementById('result-actions');
     const removeWon = document.getElementById('remove-won').checked;
 
-    if (selected.length === 1) {
-      display.innerText = selected[0].name;
+    let currentItems = [...weightedItems];
+    const allRoundsSelected = [];
+
+    // 抽選回数（repeatCount）分ループ実行
+    for (let r = 0; r < repeatCount; r++) {
+      if (currentItems.length === 0) break;
+
+      const pool = [...currentItems];
+      const selected = [];
+
+      for (let i = 0; i < drawCount; i++) {
+        if (pool.length === 0) break;
+
+        let chosenIndex = enableWeight ? pickWeightedItem(pool) : Math.floor(Math.random() * pool.length);
+
+        if (allowDup) {
+          selected.push(pool[chosenIndex]);
+        } else {
+          selected.push(pool.splice(chosenIndex, 1)[0]);
+        }
+      }
+
+      allRoundsSelected.push(selected);
+
+      // 当選項目を元リストから削除（removeWonが有効な場合）
+      if (removeWon && !allowDup) {
+        selected.forEach(s => {
+          const idx = currentItems.findIndex(ci => ci.raw === s.raw);
+          if (idx !== -1) currentItems.splice(idx, 1);
+        });
+      }
+    }
+
+    // ドラムロール表示更新
+    if (repeatCount === 1 && allRoundsSelected[0] && allRoundsSelected[0].length === 1) {
+      display.innerText = allRoundsSelected[0][0].name;
     } else {
       display.innerText = '🎉 抽選完了 🎉';
     }
 
-    selected.forEach((item, index) => {
-      const li = document.createElement('li');
-      li.className = 'result-item';
-      li.innerHTML = `
-        <span>${item.name}</span>
-        <span class="rank">当選 ${index + 1}</span>
-      `;
-      resultList.appendChild(li);
+    // 結果 DOM 構築
+    allRoundsSelected.forEach((selected, rIndex) => {
+      const groupDiv = document.createElement('div');
+      groupDiv.className = 'result-group';
+
+      if (repeatCount > 1) {
+        const title = document.createElement('div');
+        title.className = 'result-group-title';
+        title.innerText = `【 ${rIndex + 1} 回目の抽選 】`;
+        groupDiv.appendChild(title);
+      }
+
+      const ul = document.createElement('ul');
+      ul.className = 'result-list';
+
+      selected.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.className = 'result-item';
+        li.innerHTML = `
+          <span>${item.name}</span>
+          <span class="rank">当選 ${index + 1}</span>
+        `;
+        ul.appendChild(li);
+      });
+
+      groupDiv.appendChild(ul);
+      resultsContainer.appendChild(groupDiv);
     });
 
     resultActions.style.display = 'flex';
 
-    // 当選項目を元リストから削除（オプション）
+    // 自動削除モード時のテキストエリア更新
     if (removeWon && !allowDup) {
-      let currentItems = getParsedItems();
-      selected.forEach(s => {
-        const idx = currentItems.indexOf(s.raw);
-        if (idx !== -1) currentItems.splice(idx, 1);
-      });
-      setItemsToTextarea(currentItems);
+      setItemsToTextarea(currentItems.map(ci => ci.raw));
     }
 
     // 履歴へ追加
-    addHistory(selected.map(s => s.name));
+    allRoundsSelected.forEach((selected, idx) => {
+      const prefix = repeatCount > 1 ? `[${idx + 1}回目] ` : '';
+      addHistory(prefix + selected.map(s => s.name).join(', '));
+    });
 
     isSpinning = false;
     drawBtn.disabled = false;
   }
 
   function copyResults() {
-    const items = Array.from(document.querySelectorAll('#result-list .result-item span:first-child'))
+    const items = Array.from(document.querySelectorAll('#results-container .result-item span:first-child'))
                        .map(el => el.innerText);
     if (items.length === 0) return;
 
@@ -814,14 +820,14 @@
     });
   }
 
-  function addHistory(results) {
+  function addHistory(text) {
     const historySection = document.getElementById('history-section');
     const historyList = document.getElementById('history-list');
 
     const now = new Date();
     const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
     
-    historyLogs.unshift({ time: timeStr, text: results.join(', ') });
+    historyLogs.unshift({ time: timeStr, text: text });
     if (historyLogs.length > 5) historyLogs.pop();
 
     historyList.innerHTML = historyLogs.map(log => `
@@ -840,7 +846,6 @@
     errorMsg.style.display = 'block';
   }
 
-  // 初期化カウント
   updateItemCount();
 </script>
 
