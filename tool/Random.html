@@ -466,7 +466,7 @@
 
 <main>
   <h1 class="page-title">ランダム抽選</h1>
-  <p class="page-desc">入力した文字列や名前の中から、条件を指定して公平にランダム抽選を行います。</p>
+  <p class="page-desc">入力した文字列や名前の中から、条件を指定してランダムに抽選を行います。</p>
 
   <div class="card">
     <div class="form-group">
@@ -518,7 +518,7 @@
     </div>
 
     <details>
-      <summary>⚙️ 高度な設定（演出スピード / 重み付け）</summary>
+      <summary>高度な設定（演出スピード / 重み付け）</summary>
       <div class="details-content">
         <div>
           <label for="spin-speed">ドラムロール演出スピード</label>
@@ -547,7 +547,7 @@
 
   <div class="result-section" id="result-section">
     <div class="result-box">
-      <h2>DRAW RESULT</h2>
+      <h2></h2>
       <div class="lottery-animation" id="lottery-display">---</div>
       <div id="results-container"></div>
 
@@ -761,7 +761,7 @@
     if (repeatCount === 1 && allRoundsSelected[0] && allRoundsSelected[0].length === 1) {
       display.innerText = allRoundsSelected[0][0].name;
     } else {
-      display.innerText = '🎉 抽選完了 🎉';
+      display.innerText = '🎉 抽選結果 🎉';
     }
 
     // 結果 DOM 構築
