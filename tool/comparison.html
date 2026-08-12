@@ -205,15 +205,6 @@
       align-items: center;
     }
 
-    .item-card-header .badge-optional {
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: #f1f5f9;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
     .input-row {
       display: flex;
       flex-direction: column;
@@ -316,6 +307,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       background: var(--card-bg);
       transition: all 0.2s;
     }
@@ -330,6 +322,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
+      flex: 1;
     }
 
     .rank-badge {
@@ -337,33 +331,40 @@
       font-weight: 900;
       min-width: 28px;
       text-align: center;
+      flex-shrink: 0;
     }
 
     .rank-info {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     .rank-name {
       font-size: 15px;
       font-weight: 800;
+      word-break: break-all;
     }
 
     .rank-unit-price {
       font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
+      word-break: break-word;
     }
 
     .rank-right {
       text-align: right;
+      flex-shrink: 0;
     }
 
     .diff-badge {
       font-size: 11px;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 12px;
+      white-space: nowrap;
+      display: inline-block;
     }
 
     .diff-badge.best {
@@ -499,7 +500,6 @@
       <div class="item-card">
         <div class="item-card-header">
           <span>対象 C</span>
-          <span class="badge-optional">任意</span>
         </div>
         <div class="input-row">
           <div>
