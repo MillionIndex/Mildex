@@ -1,602 +1,581 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Trillion</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* --- CSS変数定義（メンテナンス性と統一感の向上） --- */
+        :root {
+            --bg-main: #ffffff;
+            --bg-sub: #f8f9fa;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-color: #0f172a;
+            --border-color: #e2e8f0;
+            --border-hover: #0f172a;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.08);
+            --transition-base: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            --header-height: 80px;
+        }
 
-<title>takoGATE</title>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+        html {
+            scroll-behavior: smooth;
+        }
 
-<style>
+        body {
+            background: var(--bg-main);
+            color: var(--text-primary);
+            font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        /* --- ヘッダー --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+            transition: var(--transition-base);
+        }
 
-html{
-    scroll-behavior:smooth;
-}
+        .logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
 
-body{
-    background:#ffffff;
-    color:#111111;
-    font-family:"Inter","Noto Sans JP",sans-serif;
-}
+        .logo img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition-base);
+        }
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:120px; /* ロゴに合わせてヘッダーを拡張 */
-    background:rgba(255,255,255,.94);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid #e5e5e5;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 5%;
-    z-index:100;
-}
+        nav {
+            display: flex;
+            gap: 36px;
+        }
 
-.logo{
-    display:flex;
-    align-items:center;
-}
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            position: relative;
+            padding: 4px 0;
+            transition: var(--transition-base);
+        }
 
-.logo img{
-    height:100px; /* 40pxから100pxへ超巨大化 */
-    width:auto;
-    object-fit:contain;
-}
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: var(--transition-base);
+        }
 
-nav{
-    display:flex;
-    gap:45px;
-}
+        nav a:hover {
+            color: var(--text-primary);
+        }
 
-nav a{
-    color:#555555;
-    text-decoration:none;
-    transition:.25s;
-    font-size:16px;
-    font-weight:600;
-}
+        nav a:hover::after {
+            width: 100%;
+        }
 
-nav a:hover{
-    color:#000000;
-}
+        /* --- ヒーローセクション --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: calc(var(--header-height) + 60px) 8% 80px 8%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.hero{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
-    padding:140px 8% 0 8%; /* ヘッダーが大きくなった分、上部余白を調整 */
-}
+        .hero-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
 
-.hero small{
-    color:#777777;
-    letter-spacing:3px;
-    margin-bottom:18px;
-}
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 68px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
 
-.hero h1{
-    font-size:72px;
-    line-height:1.15;
-    max-width:900px;
-    font-weight:800;
-    color:#111111;
-}
+        .hero p {
+            color: var(--text-secondary);
+            font-size: clamp(16px, 2vw, 19px);
+            line-height: 1.8;
+            max-width: 640px;
+            margin-bottom: 40px;
+        }
 
-.hero p{
-    margin-top:30px;
-    color:#555555;
-    font-size:19px;
-    line-height:1.9;
-    max-width:700px;
-}
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: 16px 36px;
+            background: var(--text-primary);
+            color: #ffffff;
+            border: 1px solid var(--text-primary);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: var(--transition-base);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
 
-.button{
-    display:inline-block;
-    margin-top:45px;
-    padding:18px 40px;
-    border:1px solid #111111;
-    color:#111111;
-    text-decoration:none;
-    transition:.25s;
-}
+        .button:hover {
+            background: transparent;
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+        }
 
-.button:hover{
-    background:#111111;
-    color:#ffffff;
-}
+        /* --- 共通セクション --- */
+        section {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+            padding: 100px 0;
+        }
 
-section{
-    width:min(1200px,90%);
-    margin:auto;
-    padding:130px 0;
-}
+        .section-title {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 48px;
+            color: var(--text-primary);
+            position: relative;
+        }
 
-.title{
-    font-size:42px;
-    margin-bottom:55px;
-    color:#111111;
-}
+        /* --- 理念セクション --- */
+        .vision-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
 
-/* --- 理念セクション用スタイル --- */
-.vision-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-    gap:48px;
-}
+        .vision-item {
+            padding: 32px;
+            background: var(--bg-sub);
+            border-radius: 8px;
+            border-left: 4px solid var(--text-primary);
+            transition: var(--transition-base);
+        }
 
-.vision-item{
-    padding-left:20px;
-    border-left:2px solid #111111;
-}
+        .vision-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow);
+        }
 
-.vision-item h3{
-    font-size:24px;
-    font-weight:700;
-    margin-bottom:16px;
-    color:#111111;
-}
+        .vision-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
 
-.vision-item p{
-    color:#555555;
-    line-height:1.9;
-    font-size:16px;
-}
+        .vision-item p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
 
-/* --- 事業内容（クリック可能カード）スタイル --- */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:28px;
-}
+        /* --- 事業内容セクション --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
 
-a.card{
-    display:block;
-    border:1px solid #e5e5e5;
-    background:#ffffff;
-    padding:40px;
-    text-decoration:none;
-    color:inherit;
-    transition:.25s ease;
-}
+        a.card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 36px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-base);
+        }
 
-a.card:hover{
-    border-color:#111111;
-    transform:translateY(-4px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.06);
-}
+        a.card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
 
-.card h3{
-    font-size:23px;
-    margin-bottom:20px;
-    color:#111111;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
+        .card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.card p{
-    color:#666666;
-    line-height:1.9;
-}
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
 
-.card-link-arrow{
-    font-size:16px;
-    transition:.25s;
-}
+        .card-link-arrow {
+            font-size: 18px;
+            transition: var(--transition-base);
+        }
 
-a.card:hover .card-link-arrow{
-    transform:translateX(5px);
-}
+        a.card:hover .card-link-arrow {
+            transform: translateX(6px);
+        }
 
-/* --- 便利ツール（横長カード・左画像/右テキスト）スタイル --- */
-.tools-list{
-    display:flex;
-    flex-direction:column;
-    gap:24px;
-}
+        /* --- 便利ツールセクション --- */
+        .tools-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
 
-a.card-horizontal{
-    display:flex;
-    align-items:center;
-    gap:32px;
-    border:1px solid #e5e5e5;
-    background:#ffffff;
-    padding:28px;
-    text-decoration:none;
-    color:inherit;
-    transition:.25s ease;
-}
+        a.card-horizontal {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-base);
+        }
 
-a.card-horizontal:hover{
-    border-color:#111111;
-    transform:translateY(-3px);
-    box-shadow:0 12px 30px rgba(0,0,0,0.08);
-}
+        a.card-horizontal:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
 
-.tool-img{
-    width:180px;
-    height:120px;
-    object-fit:cover;
-    flex-shrink:0;
-    border-radius:6px;
-    background:#f5f5f5;
-}
+        .tool-img {
+            width: 220px;
+            height: 140px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: var(--bg-sub);
+        }
 
-.tool-info{
-    flex:1;
-}
+        .tool-info {
+            flex: 1;
+        }
 
-.tool-info h3{
-    font-size:22px;
-    margin-bottom:10px;
-    color:#111111;
-}
+        .tool-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
 
-.tool-info p{
-    color:#666666;
-    line-height:1.8;
-    font-size:15px;
-}
+        .tool-info p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
 
-.tool-info .arrow{
-    display:inline-block;
-    margin-top:14px;
-    font-weight:700;
-    color:#111111;
-    font-size:14px;
-    transition:.25s;
-}
+        .tool-info .arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: var(--transition-base);
+        }
 
-a.card-horizontal:hover .arrow{
-    transform:translateX(6px);
-}
+        a.card-horizontal:hover .arrow {
+            transform: translateX(6px);
+        }
 
-footer{
-    border-top:1px solid #e5e5e5;
-    background:#fafafa;
-    margin-top:80px;
-    padding:50px 8%;
-}
+        /* --- フッター --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-sub);
+            margin-top: 100px;
+            padding: 60px 8%;
+        }
 
-.footerTop{
-    font-size:24px;
-    font-weight:700;
-    color:#111111;
-}
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.footerBottom{
-    margin-top:30px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:20px;
-    color:#777777;
-    font-size:14px;
-}
+        .footerTop {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
 
-.footerBottom a{
-    color:#777777;
-    text-decoration:none;
-    margin-left:20px;
-}
+        .footerBottom {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
 
-.footerBottom a:hover{
-    color:#000000;
-}
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
 
-@media(max-width:900px){
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-base);
+        }
 
-header{
-    flex-direction:column;
-    height:auto;
-    padding:20px;
-}
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
 
-.logo img{
-    height:80px; /* スマホでもしっかり見せるサイズ */
-}
+        /* --- レスポンシブ対応 --- */
+        @media (max-width: 900px) {
+            header {
+                padding: 0 20px;
+                height: 70px;
+            }
 
-nav{
-    margin-top:15px;
-    gap:20px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+            .logo img {
+                height: 38px;
+            }
 
-.hero{
-    padding-top:180px;
-}
+            nav {
+                gap: 20px;
+            }
 
-.hero h1{
-    font-size:48px;
-}
+            nav a {
+                font-size: 14px;
+            }
 
-.hero p{
-    font-size:17px;
-}
+            section {
+                padding: 60px 0;
+            }
 
-.title{
-    font-size:32px;
-}
+            a.card-horizontal {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 16px;
+            }
 
-.vision-list{
-    grid-template-columns:1fr;
-    gap:36px;
-}
+            .tool-img {
+                width: 100%;
+                height: 180px;
+            }
 
-/* モバイル時の調整 */
-a.card-horizontal{
-    flex-direction:column;
-    align-items:flex-start;
-    padding:20px;
-    gap:16px;
-}
-
-.tool-img{
-    width:100%;
-    height:160px;
-}
-
-}
-
-</style>
-
+            .footerBottom {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-
-<div class="logo">
-    <a href="#"><img src="main.png" alt="takoGATE"></a>
-</div>
-
-<nav>
-
-<a href="#vision">理念</a>
-<a href="#service">事業内容</a>
-<a href="#tools">便利ツール</a>
-<a href="#contact">お問い合わせ</a>
-
-</nav>
-
-</header>
-
-<section class="hero">
-
-<small>takoGATE - 公式ウェブサイト</small>
-
-<h1>
-
-すべての「便利」を、<br>
-ひとつの場所へ。
-
-</h1>
-
-<p>
-
-takoGATEは日常を少し便利にするウェブ開発やマイナーな人向けの支援・ウェブ開発さらには、独自の学力テストなど幅広い活動を行っています。
-
-</p>
-
-<a href="#service" class="button">
-
-サービスを見る
-
-</a>
-
-</section>
-
-<section id="vision">
-
-<h2 class="title">
-
-理念
-
-</h2>
-
-<div class="vision-list">
-
-<div class="vision-item">
-
-<h3>
-
-シンプルで使いやすく
-
-</h3>
-
-<p>
-
-複雑な機能や装飾をそぎ落とし、誰でも直感的に扱えるUIを追及します。「迷わず使えること」を最優先に設計しています。
-
-</p>
-
-</div>
-
-<div class="vision-item">
-
-<h3>
-
-特定のニーズに届くサポート
-
-</h3>
-
-<p>
-
-一般的なサービスではこぼれ落ちてしまうようなマイナーなニーズや特定の層に向けた支援・ツール開発に光を当てます。
-
-</p>
-
-</div>
-
-<div class="vision-item">
-
-<h3>
-
-幅広い事業展開
-
-</h3>
-
-<p>
-
-ウェブサービスだけでなく、独自の学力テストや勉強に向けての資料を出版したりなど、幅広い事業展開をしています。
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- --- 事業内容セクション（クリック可能化） --- -->
-<section id="service">
-
-<h2 class="title">
-
-事業内容
-
-</h2>
-
-<div class="grid">
-
-<a href="#tools" class="card">
-
-<h3>
-
-ウェブサービス
-<span class="card-link-arrow">→</span>
-
-</h3>
-
-<p>
-
-ブラウザ上で利用できる日常を少し便利にするサービスを展開しております。
-
-</p>
-
-</a>
-
-<a href="test.html" class="card">
-
-<h3>
-
-学力テスト
-<span class="card-link-arrow">→</span>
-
-</h3>
-
-<p>
-
-独自の学力テストを行っております。受験は無償で受けることができ、今の自分の学力を知ることができます。
-
-</p>
-
-</a>
-
-<a href="#" class="card">
-
-<h3>
-
-オリジナル本の出版
-<span class="card-link-arrow">→</span>
-
-</h3>
-
-<p>
-
-オリジナルの本・資料を無償にて出版しています。多くの人へ学びや新しい発見を届けています。
-
-</p>
-
-</a>
-
-</div>
-
-</section>
-
-<!-- --- 便利ツールセクション（左画像・右テキスト） --- -->
-<section id="tools">
-
-<h2 class="title">
-
-便利ツール
-
-</h2>
-
-<div class="tools-list">
-
-<a href="tool/BlockGame.html" class="card-horizontal">
-  <img src="images/block-game.png" alt="ブロックゲーム" class="tool-img">
-  <div class="tool-info">
-    <h3>ブロックゲーム</h3>
-    <p>十字キーで落ちてくるブロックを動かしながら操作します。下にブロックが溜まり、横一列ブロックが溜まったら横一列のブロックが消え、ポイントが入ります。</p>
-    <span class="arrow">ツールを使う →</span>
-  </div>
-</a>
-
-<a href="tool/Random.html" class="card-horizontal">
-  <img src="images/random.png" alt="ランダム抽選" class="tool-img">
-  <div class="tool-info">
-    <h3>ランダム抽選</h3>
-    <p>数字だけでなく、指定の文字や単語などをランダムに引きます。抽選会数や一度に当たる分も設定できます。</p>
-    <span class="arrow">ツールを使う →</span>
-  </div>
-</a>
-
-<a href="tool/comparison.html" class="card-horizontal">
-  <img src="images/efficiency.png" alt="日常作業効率化ツール" class="tool-img">
-  <div class="tool-info">
-    <h3>比較ツール</h3>
-    <p>最大３つまでの対象を比較できます。日常の買い物や損をしないために活用できます。</p>
-    <span class="arrow">ツールを使う →</span>
-  </div>
-</a>
-
-</div>
-
-</section>
-
-<footer id="contact">
-
-<div class="footerTop">
-
-takoGATE
-
-</div>
-
-<div class="footerBottom">
-
-<div>
-
-© 2026 takoGATE / Github Server
-
-</div>
-
-<div>
-
-<a href="#">利用規約</a>
-
-<a href="#">プライバシーポリシー</a>
-
-<a href="#">お問い合わせ</a>
-
-</div>
-
-</div>
-
-</footer>
+    <header>
+        <div class="logo">
+            <a href="#"><img src="MMM.png" alt="Multi Trillion"></a>
+        </div>
+        <nav>
+            <a href="#vision">理念</a>
+            <a href="#service">事業内容</a>
+            <a href="#tools">便利ツール</a>
+            <a href="#contact">お問い合わせ</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="hero-badge">Multi Trillion - Official Website</span>
+            <h1>
+                すべての「便利」を、<br>
+                ひとつの場所へ。
+            </h1>
+            <p>
+                Multi Trillionは日常を少し便利にするウェブ開発をはじめ、特定のニーズに向けた支援、独自の学力テストや学習ツールの提供など、多角的なプロジェクトを展開しています。
+            </p>
+            <a href="#service" class="button">
+                サービスを見る
+            </a>
+        </section>
+
+        <section id="vision">
+            <h2 class="section-title">理念</h2>
+            <div class="vision-list">
+                <div class="vision-item">
+                    <h3>シンプルで使いやすく</h3>
+                    <p>
+                        複雑な機能や過剰な装飾を削ぎ落とし、誰でも直感的に操作できるインターフェースを追求。「迷わず迷いなく使えること」を最優先に設計します。
+                    </p>
+                </div>
+                <div class="vision-item">
+                    <h3>特定のニーズに届くサポート</h3>
+                    <p>
+                        一般的な大衆向けサービスでは見落とされがちなニッチな課題や、特定の層に向けたツール・支援に焦点を当てて開発を行います。
+                    </p>
+                </div>
+                <div class="vision-item">
+                    <h3>幅広い事業展開</h3>
+                    <p>
+                        Webアプリケーション開発にとどまらず、独自の学力テストや学習教材の出版など、知識と利便性を広げる多角的なアプローチを行います。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="service">
+            <h2 class="section-title">事業内容</h2>
+            <div class="grid">
+                <a href="#tools" class="card">
+                    <div>
+                        <h3>
+                            ウェブサービス
+                            <span class="card-link-arrow">→</span>
+                        </h3>
+                        <p>
+                            ブラウザ上でスムーズに動作する、日常のちょっとした作業を効率化・快適化するWebアプリケーションを提供しています。
+                        </p>
+                    </div>
+                </a>
+
+                <a href="test.html" class="card">
+                    <div>
+                        <h3>
+                            学力テスト
+                            <span class="card-link-arrow">→</span>
+                        </h3>
+                        <p>
+                            独自のオンライン学力テストを実施。無料で手軽に受検でき、自身の客観的な習熟度や弱点を把握できます。
+                        </p>
+                    </div>
+                </a>
+
+                <a href="#" class="card">
+                    <div>
+                        <h3>
+                            オリジナル本の出版
+                            <span class="card-link-arrow">→</span>
+                        </h3>
+                        <p>
+                            独自の学習資料や書籍をデジタル形式で無料公開。多くの人に学びと新しい視点を提供しています。
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="tools">
+            <h2 class="section-title">便利ツール</h2>
+            <div class="tools-list">
+                <a href="tool/BlockGame.html" class="card-horizontal">
+                    <img src="images/block-game.png" alt="ブロックゲーム" class="tool-img">
+                    <div class="tool-info">
+                        <h3>ブロックゲーム</h3>
+                        <p>直感的な操作で遊べる落下型パズルゲーム。ブロックを並べて列を消去し、スコアを競います。</p>
+                        <span class="arrow">ツールを使う →</span>
+                    </div>
+                </a>
+
+                <a href="tool/Random.html" class="card-horizontal">
+                    <img src="images/random.png" alt="ランダム抽選" class="tool-img">
+                    <div class="tool-info">
+                        <h3>ランダム抽選</h3>
+                        <p>数値はもちろん、特定の文字や単語リストからランダムに要素を選出。複数当選や試行回数の細かな設定に対応します。</p>
+                        <span class="arrow">ツールを使う →</span>
+                    </div>
+                </a>
+
+                <a href="tool/comparison.html" class="card-horizontal">
+                    <img src="images/efficiency.png" alt="日常作業効率化ツール" class="tool-img">
+                    <div class="tool-info">
+                        <h3>比較ツール</h3>
+                        <p>最大3つの対象（価格・仕様・条件など）を並列比較。買い物や意思決定時の損失を回避するための意思決定支援ツールです。</p>
+                        <span class="arrow">ツールを使う →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footerTop">
+                Multi Trillion
+            </div>
+            <div class="footerBottom">
+                <div>
+                    © 2026 Multi Trillion / GitHub Server
+                </div>
+                <div class="footer-links">
+                    <a href="#">利用規約</a>
+                    <a href="#">プライバシーポリシー</a>
+                    <a href="#">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
