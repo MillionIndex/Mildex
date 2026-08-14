@@ -3,76 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Multi Trillion</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+
         /* =========================================================
-           Multi Trillion
-           White × Ocean Design
+           基本設定
         ========================================================= */
 
         :root {
-            --ocean-deep: #0b3558;
             --ocean: #087ea4;
             --ocean-blue: #159bc2;
-            --ocean-light: #6bcfe8;
-            --mint: #71ddd0;
+            --ocean-light: #72d6e9;
+            --ocean-pale: #e9f9fc;
+            --ocean-deep: #16465f;
 
-            --text-primary: #173247;
-            --text-secondary: #587080;
-            --text-muted: #8aa0ad;
+            --text: #214255;
+            --text-soft: #607987;
 
             --white: #ffffff;
-            --off-white: #f7fbfc;
-            --line: #dcecf1;
+            --line: rgba(8, 126, 164, 0.16);
 
-            --shadow-soft: 0 12px 35px rgba(21, 130, 160, 0.08);
-            --shadow-hover: 0 18px 40px rgba(21, 130, 160, 0.14);
+            --shadow:
+                0 12px 35px rgba(8, 126, 164, 0.10);
 
-            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-
-            --header-height: 82px;
+            --transition:
+                all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
 
-        /* =========================================================
-           RESET
-        ========================================================= */
-
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
         html {
             scroll-behavior: smooth;
         }
 
+
         body {
-            background: var(--white);
-            color: var(--text-primary);
             font-family:
-                "Inter",
                 "Noto Sans JP",
                 -apple-system,
                 BlinkMacSystemFont,
                 sans-serif;
 
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            color: var(--text);
+
+            line-height: 1.8;
+
             overflow-x: hidden;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #f8fdfe 12%,
+                    #edfafd 30%,
+                    #d9f5fa 55%,
+                    #a8e3ee 78%,
+                    #69c9df 100%
+                );
+
+            background-attachment: fixed;
+
+            -webkit-font-smoothing: antialiased;
         }
+
 
         a {
             color: inherit;
+            text-decoration: none;
         }
 
 
@@ -80,87 +89,96 @@
            背景
         ========================================================= */
 
-        .bg-decorations {
+        .background {
             position: fixed;
+
             inset: 0;
+
             pointer-events: none;
-            z-index: -1;
+
+            z-index: -10;
+
             overflow: hidden;
         }
 
-        .bg-orb {
+
+        .background::before {
+            content: "";
+
             position: absolute;
+
+            width: 75vw;
+            height: 75vw;
+
+            max-width: 900px;
+            max-height: 900px;
+
+            top: -35vw;
+            right: -20vw;
+
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.18;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(114, 214, 233, 0.28) 0%,
+                    rgba(114, 214, 233, 0) 70%
+                );
         }
 
-        .bg-orb-1 {
-            width: 420px;
-            height: 420px;
-            background: var(--ocean-light);
-            top: -220px;
-            right: -120px;
-        }
 
-        .bg-orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--mint);
-            bottom: -300px;
-            left: -200px;
-        }
+        .background::after {
+            content: "";
 
-        .bg-waves {
             position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 55%;
-            opacity: 0.18;
+
+            width: 80vw;
+            height: 80vw;
+
+            max-width: 1000px;
+            max-height: 1000px;
+
+            bottom: -40vw;
+            left: -30vw;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.32) 0%,
+                    rgba(255, 255, 255, 0) 70%
+                );
         }
 
 
         /* =========================================================
-           HEADER
+           ロゴ
         ========================================================= */
 
-        header {
+        .logo {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
 
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            border-bottom: 1px solid rgba(220, 236, 241, 0.8);
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 5%;
+            top: 17px;
+            left: 5%;
 
             z-index: 1000;
         }
 
-        .logo a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
 
         .logo img {
-            height: 78px;
-            width: auto;
-            object-fit: contain;
             display: block;
 
-            transition: transform 0.3s ease;
+            width: auto;
+            height: 82px;
+
+            object-fit: contain;
+
+            transition:
+                transform 0.3s ease,
+                filter 0.3s ease;
         }
+
 
         .logo img:hover {
             transform: scale(1.035);
@@ -168,49 +186,57 @@
 
 
         /* =========================================================
-           MENU BUTTON
+           三本線
         ========================================================= */
 
-        .menu-btn {
+        .menu-button {
             position: fixed;
-            top: 17px;
+
+            top: 28px;
             right: 5%;
 
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
 
-            border-radius: 50%;
+            border: none;
 
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.42);
 
-            box-shadow: 0 6px 20px rgba(8, 126, 164, 0.08);
+            border-radius: 16px;
 
             cursor: pointer;
 
+            z-index: 1200;
+
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
             transition: var(--transition);
 
-            z-index: 1200;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        .menu-btn:hover {
-            transform: scale(1.06);
-            border-color: rgba(8, 126, 164, 0.3);
-            box-shadow: 0 10px 25px rgba(8, 126, 164, 0.13);
+
+        .menu-button:hover {
+            background: rgba(255, 255, 255, 0.72);
+
+            transform: translateY(-2px);
         }
 
-        .icon-box {
+
+        .menu-icon {
+            width: 22px;
+            height: 16px;
+
             position: relative;
-            width: 20px;
-            height: 14px;
         }
 
-        .icon-box span {
+
+        .menu-icon span {
             position: absolute;
+
             left: 0;
 
             width: 100%;
@@ -218,159 +244,231 @@
 
             background: var(--ocean-deep);
 
-            border-radius: 2px;
+            border-radius: 5px;
 
             transition: var(--transition);
         }
 
-        .icon-box span:nth-child(1) {
+
+        .menu-icon span:nth-child(1) {
             top: 0;
         }
 
-        .icon-box span:nth-child(2) {
-            top: 6px;
+
+        .menu-icon span:nth-child(2) {
+            top: 7px;
         }
 
-        .icon-box span:nth-child(3) {
-            top: 12px;
+
+        .menu-icon span:nth-child(3) {
+            top: 14px;
         }
 
-        .menu-btn.active {
-            background: var(--white);
-        }
 
-        .menu-btn.active .icon-box span:nth-child(1) {
-            top: 6px;
+        .menu-button.active .menu-icon span:nth-child(1) {
+            top: 7px;
+
             transform: rotate(45deg);
-            background: var(--ocean);
         }
 
-        .menu-btn.active .icon-box span:nth-child(2) {
+
+        .menu-button.active .menu-icon span:nth-child(2) {
             opacity: 0;
-            transform: scale(0);
         }
 
-        .menu-btn.active .icon-box span:nth-child(3) {
-            top: 6px;
+
+        .menu-button.active .menu-icon span:nth-child(3) {
+            top: 7px;
+
             transform: rotate(-45deg);
-            background: var(--ocean);
         }
 
 
         /* =========================================================
-           MENU OVERLAY
+           メニュー
         ========================================================= */
 
-        .menu-overlay {
+        .menu {
             position: fixed;
+
             inset: 0;
 
-            background: rgba(255, 255, 255, 0.94);
+            z-index: 1100;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+                rgba(247, 253, 254, 0.92);
 
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
 
             opacity: 0;
             visibility: hidden;
 
             transition: var(--transition);
-
-            z-index: 1100;
         }
 
-        .menu-overlay.active {
+
+        .menu.active {
             opacity: 1;
+
             visibility: visible;
         }
 
-        .overlay-nav {
+
+        .menu-list {
+            width: min(600px, 82%);
+
             display: flex;
+
             flex-direction: column;
-            align-items: flex-start;
-            gap: 22px;
+
+            gap: 7px;
         }
 
-        .overlay-nav a {
-            position: relative;
 
+        .menu-list a {
             display: flex;
-            align-items: baseline;
-            gap: 15px;
 
-            padding: 5px 0;
+            align-items: center;
 
-            font-size: 28px;
-            font-weight: 800;
+            justify-content: space-between;
+
+            padding: 18px 4px;
 
             color: var(--ocean-deep);
 
-            text-decoration: none;
+            font-size: 24px;
+            font-weight: 700;
+
+            border-bottom: 1px solid var(--line);
 
             opacity: 0;
+
             transform: translateY(20px);
 
             transition: var(--transition);
         }
 
-        .overlay-nav a span.en {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: var(--ocean);
-        }
 
-        .menu-overlay.active .overlay-nav a {
+        .menu.active .menu-list a {
             opacity: 1;
+
             transform: translateY(0);
         }
 
-        .menu-overlay.active .overlay-nav a:nth-child(1) {
-            transition-delay: 0.08s;
+
+        .menu.active .menu-list a:nth-child(1) {
+            transition-delay: 0.05s;
         }
 
-        .menu-overlay.active .overlay-nav a:nth-child(2) {
-            transition-delay: 0.14s;
+
+        .menu.active .menu-list a:nth-child(2) {
+            transition-delay: 0.10s;
         }
 
-        .menu-overlay.active .overlay-nav a:nth-child(3) {
+
+        .menu.active .menu-list a:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(4) {
             transition-delay: 0.20s;
         }
 
-        .menu-overlay.active .overlay-nav a:nth-child(4) {
-            transition-delay: 0.26s;
+
+        .menu-list a:hover {
+            padding-left: 12px;
+
+            color: var(--ocean);
         }
 
-        .overlay-nav a::after {
-            content: "";
 
-            position: absolute;
-            left: 0;
-            bottom: 0;
+        .menu-arrow {
+            color: var(--ocean-light);
 
-            width: 0;
-            height: 2px;
-
-            background: linear-gradient(
-                90deg,
-                var(--ocean),
-                var(--mint)
-            );
-
-            border-radius: 2px;
+            font-size: 20px;
 
             transition: var(--transition);
         }
 
-        .overlay-nav a:hover {
+
+        .menu-list a:hover .menu-arrow {
+            transform: translateX(7px);
+
             color: var(--ocean);
         }
 
-        .overlay-nav a:hover::after {
-            width: 100%;
+
+        /* =========================================================
+           共通
+        ========================================================= */
+
+        section {
+            width: min(1080px, 88%);
+
+            margin: 0 auto;
+
+            padding: 125px 0;
+        }
+
+
+        .section-heading {
+            margin-bottom: 55px;
+        }
+
+
+        .section-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            color: var(--ocean-deep);
+
+            font-size: clamp(30px, 5vw, 46px);
+
+            font-weight: 800;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        .section-title::before {
+            content: "";
+
+            width: 7px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--ocean),
+                    var(--ocean-light)
+                );
+        }
+
+
+        .section-subtitle {
+            margin-top: 9px;
+
+            color: rgba(8, 126, 164, 0.65);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
         }
 
 
@@ -379,234 +477,186 @@
         ========================================================= */
 
         .hero {
-            position: relative;
+            width: min(1180px, 88%);
 
             min-height: 100vh;
 
-            max-width: 1280px;
             margin: 0 auto;
 
             padding:
-                calc(var(--header-height) + 100px)
-                8%
-                100px;
+                160px 0
+                110px;
 
             display: flex;
+
             flex-direction: column;
+
             justify-content: center;
         }
 
-        .hero::after {
+
+        .hero-small {
+            margin-bottom: 24px;
+
+            color: var(--ocean);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .hero h1 {
+            max-width: 920px;
+
+            color: var(--ocean-deep);
+
+            font-size:
+                clamp(
+                    42px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.18;
+
+            letter-spacing: -0.055em;
+        }
+
+
+        .hero h1 span {
+            color: var(--ocean);
+
+            position: relative;
+        }
+
+
+        .hero h1 span::after {
             content: "";
 
             position: absolute;
 
-            right: 8%;
-            bottom: 90px;
+            left: 4px;
+            right: 4px;
 
-            width: 120px;
-            height: 1px;
+            bottom: -7px;
 
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--ocean-light)
-            );
-
-            opacity: 0.6;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-
-            width: fit-content;
-
-            margin-bottom: 25px;
-
-            color: var(--ocean);
-
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-        }
-
-        .hero-badge::before {
-            content: "";
-
-            width: 7px;
             height: 7px;
 
-            margin-right: 10px;
-
-            border-radius: 50%;
-
-            background: var(--ocean-light);
-
-            box-shadow: 0 0 0 5px rgba(107, 207, 232, 0.13);
-        }
-
-        .hero h1 {
-            max-width: 900px;
-
-            margin-bottom: 30px;
-
-            color: var(--ocean-deep);
-
-            font-size: clamp(42px, 7vw, 82px);
-            font-weight: 800;
-
-            line-height: 1.12;
-            letter-spacing: -0.04em;
-        }
-
-        .hero h1 .highlight {
-            color: var(--ocean);
+            border-radius: 10px;
 
             background:
                 linear-gradient(
-                    120deg,
-                    var(--ocean) 0%,
-                    var(--ocean-blue) 55%,
-                    var(--ocean-light) 100%
+                    90deg,
+                    rgba(114, 214, 233, 0.45),
+                    rgba(113, 221, 208, 0.28)
                 );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
+
+        .hero-description {
             max-width: 680px;
 
-            margin-bottom: 42px;
+            margin-top: 42px;
 
-            color: var(--text-secondary);
+            color: var(--text-soft);
 
-            font-size: clamp(15px, 1.8vw, 18px);
-            line-height: 2;
+            font-size: 16px;
+
+            line-height: 2.1;
         }
 
-        .hero-keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
 
-            margin-bottom: 34px;
-        }
-
-        .hero-keywords span {
-            padding: 7px 13px;
-
-            border: 1px solid var(--line);
-            border-radius: 100px;
-
-            background: rgba(255, 255, 255, 0.72);
-
-            color: var(--ocean);
-
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .button {
+        .hero-button {
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
 
             width: fit-content;
 
-            padding: 14px 27px;
+            margin-top: 35px;
 
-            background: var(--ocean);
-
-            color: var(--white);
+            padding: 13px 24px;
 
             border-radius: 100px;
 
+            background: var(--ocean);
+
+            color: white;
+
             font-size: 14px;
+
             font-weight: 700;
 
-            text-decoration: none;
-
-            box-shadow: 0 9px 25px rgba(8, 126, 164, 0.18);
+            box-shadow:
+                0 10px 25px
+                rgba(8, 126, 164, 0.16);
 
             transition: var(--transition);
         }
 
-        .button span {
+
+        .hero-button span {
             margin-left: 12px;
+
             transition: var(--transition);
         }
 
-        .button:hover {
+
+        .hero-button:hover {
             background: var(--ocean-deep);
+
             transform: translateY(-3px);
-            box-shadow: 0 14px 30px rgba(8, 126, 164, 0.22);
+
+            box-shadow:
+                0 15px 30px
+                rgba(8, 126, 164, 0.20);
         }
 
-        .button:hover span {
+
+        .hero-button:hover span {
             transform: translateX(5px);
         }
 
 
-        /* =========================================================
-           COMMON SECTION
-        ========================================================= */
+        .scroll-mark {
+            position: absolute;
 
-        section {
-            width: min(1120px, 88%);
+            bottom: 35px;
+            left: 50%;
 
-            margin: 0 auto;
+            transform: translateX(-50%);
 
-            padding: 120px 0;
+            color: rgba(8, 126, 164, 0.55);
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            animation: floating 2.4s ease-in-out infinite;
         }
 
-        .section-header {
-            margin-bottom: 55px;
-        }
 
-        .section-title {
-            display: flex;
-            align-items: baseline;
-            gap: 18px;
+        @keyframes floating {
 
-            color: var(--ocean-deep);
+            0%,
+            100% {
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+            }
 
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 800;
-
-            letter-spacing: -0.025em;
-        }
-
-        .section-title::before {
-            content: "";
-
-            width: 6px;
-            height: 30px;
-
-            border-radius: 4px;
-
-            background: linear-gradient(
-                180deg,
-                var(--ocean),
-                var(--mint)
-            );
-
-            transform: translateY(3px);
-        }
-
-        .section-title .en-sub {
-            color: var(--ocean);
-
-            font-family: "Inter", sans-serif;
-
-            font-size: 12px;
-            font-weight: 800;
-
-            letter-spacing: 4px;
+            50% {
+                transform:
+                    translateX(-50%)
+                    translateY(7px);
+            }
         }
 
 
@@ -614,74 +664,91 @@
            ABOUT
         ========================================================= */
 
-        #vision {
-            position: relative;
-        }
-
         .about-intro {
-            max-width: 760px;
+            max-width: 720px;
 
-            margin-bottom: 80px;
             margin-left: auto;
 
-            color: var(--text-secondary);
+            margin-bottom: 80px;
 
-            font-size: clamp(18px, 2.3vw, 24px);
-            font-weight: 500;
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    18px,
+                    2.5vw,
+                    25px
+                );
+
+            font-weight: 600;
 
             line-height: 2;
         }
 
+
         .vision-list {
             display: flex;
+
             flex-direction: column;
         }
 
-        .vision-item {
-            position: relative;
 
+        .vision-item {
             display: grid;
-            grid-template-columns: 100px 1fr;
+
+            grid-template-columns: 90px 1fr;
 
             gap: 35px;
 
             padding: 42px 0;
 
-            border-top: 1px solid var(--line);
+            border-top:
+                1px solid
+                rgba(8, 126, 164, 0.17);
         }
+
 
         .vision-item:last-child {
-            border-bottom: 1px solid var(--line);
+            border-bottom:
+                1px solid
+                rgba(8, 126, 164, 0.17);
         }
 
-        .vision-number {
-            padding-top: 3px;
 
+        .vision-number {
             color: var(--ocean-light);
 
-            font-family: "Inter", sans-serif;
-
             font-size: 13px;
+
             font-weight: 800;
 
             letter-spacing: 2px;
         }
+
 
         .vision-content h3 {
             margin-bottom: 12px;
 
             color: var(--ocean-deep);
 
-            font-size: clamp(20px, 2.5vw, 27px);
+            font-size:
+                clamp(
+                    20px,
+                    3vw,
+                    27px
+                );
+
             font-weight: 800;
         }
+
 
         .vision-content p {
             max-width: 720px;
 
-            color: var(--text-secondary);
+            color: var(--text-soft);
 
-            font-size: 15px;
+            font-size: 14px;
+
             line-height: 2;
         }
 
@@ -690,114 +757,140 @@
            SERVICE
         ========================================================= */
 
-        #service {
-            padding-top: 100px;
-        }
-
         .service-intro {
-            max-width: 650px;
+            max-width: 670px;
 
             margin-bottom: 55px;
 
-            color: var(--text-secondary);
+            color: var(--text-soft);
 
-            font-size: 16px;
+            font-size: 15px;
+
             line-height: 2;
         }
 
+
         .service-list {
             display: flex;
+
             flex-direction: column;
+
+            gap: 14px;
         }
+
 
         .service-item {
             position: relative;
 
             display: grid;
-            grid-template-columns: 190px 1fr 40px;
+
+            grid-template-columns:
+                150px
+                1fr
+                45px;
 
             align-items: center;
 
-            gap: 35px;
+            gap: 30px;
 
-            padding: 30px 0;
+            padding: 28px 25px;
 
-            border-top: 1px solid var(--line);
+            border-radius: 22px;
 
-            text-decoration: none;
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.48
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.65
+                );
+
+            box-shadow:
+                0 8px 30px
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.05
+                );
 
             transition: var(--transition);
         }
 
-        .service-item:last-child {
-            border-bottom: 1px solid var(--line);
+
+        .service-item:hover {
+            transform: translateY(-4px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.78
+                );
+
+            box-shadow:
+                0 15px 35px
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.10
+                );
         }
 
-        .service-item::before {
-            content: "";
 
-            position: absolute;
-
-            left: -20px;
-            right: -20px;
-            top: 8px;
-            bottom: 8px;
-
-            border-radius: 18px;
-
-            background: rgba(235, 249, 252, 0.65);
-
-            opacity: 0;
-
-            transform: scale(0.98);
-
-            transition: var(--transition);
-
-            z-index: -1;
-        }
-
-        .service-item:hover::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .service-category {
+        .service-label {
             color: var(--ocean);
 
-            font-family: "Inter", sans-serif;
+            font-size: 12px;
 
-            font-size: 11px;
             font-weight: 800;
 
-            letter-spacing: 3px;
+            letter-spacing: 1px;
         }
+
 
         .service-name {
             margin-bottom: 6px;
 
             color: var(--ocean-deep);
 
-            font-size: 21px;
+            font-size: 20px;
+
             font-weight: 800;
         }
 
-        .service-description {
-            color: var(--text-secondary);
 
-            font-size: 14px;
+        .service-description {
+            color: var(--text-soft);
+
+            font-size: 13px;
+
             line-height: 1.8;
         }
+
 
         .service-arrow {
             color: var(--ocean);
 
-            font-size: 22px;
+            font-size: 21px;
 
             transition: var(--transition);
         }
 
+
         .service-item:hover .service-arrow {
-            transform: translateX(7px);
+            transform: translateX(6px);
         }
 
 
@@ -805,76 +898,87 @@
            TOOLS
         ========================================================= */
 
-        #tools {
-            padding-top: 100px;
-        }
-
         .tools-intro {
-            max-width: 620px;
+            max-width: 650px;
 
             margin-bottom: 50px;
 
-            color: var(--text-secondary);
+            color: var(--text-soft);
 
-            font-size: 16px;
+            font-size: 15px;
+
             line-height: 2;
         }
 
+
         .tools-list {
             display: flex;
+
             flex-direction: column;
         }
 
+
         .tool-item {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            gap: 30px;
+            padding: 23px 5px;
 
-            padding: 23px 0;
-
-            border-top: 1px solid var(--line);
-
-            text-decoration: none;
+            border-top:
+                1px solid
+                rgba(8, 126, 164, 0.16);
 
             transition: var(--transition);
         }
 
+
         .tool-item:last-child {
-            border-bottom: 1px solid var(--line);
+            border-bottom:
+                1px solid
+                rgba(8, 126, 164, 0.16);
         }
+
 
         .tool-left {
             display: flex;
+
             align-items: center;
 
-            gap: 28px;
+            gap: 25px;
         }
+
 
         .tool-number {
             color: var(--ocean-light);
 
-            font-family: "Inter", sans-serif;
-
             font-size: 11px;
+
             font-weight: 800;
 
             letter-spacing: 2px;
         }
 
+
         .tool-title {
             color: var(--ocean-deep);
 
             font-size: 17px;
+
             font-weight: 700;
         }
 
-        .tool-desc {
-            color: var(--text-muted);
 
-            font-size: 13px;
+        .tool-description {
+            margin-top: 2px;
+
+            color: var(--text-soft);
+
+            font-size: 12px;
         }
+
 
         .tool-arrow {
             color: var(--ocean);
@@ -884,12 +988,16 @@
             transition: var(--transition);
         }
 
+
         .tool-item:hover {
-            padding-left: 12px;
+            padding-left: 15px;
+
+            padding-right: 15px;
         }
 
+
         .tool-item:hover .tool-arrow {
-            transform: translateX(6px);
+            transform: translateX(7px);
         }
 
 
@@ -897,51 +1005,148 @@
            CONTACT
         ========================================================= */
 
-        #contact-section {
-            width: min(1120px, 88%);
+        .contact {
+            width: min(900px, 88%);
 
-            margin: 70px auto 0;
+            margin:
+                70px auto
+                110px;
 
-            padding: 100px 0;
+            padding: 90px 30px;
 
             text-align: center;
 
-            border-top: 1px solid var(--line);
+            border-radius: 34px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.48
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.75
+                );
+
+            box-shadow:
+                0 15px 45px
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.07
+                );
         }
 
-        .contact-label {
-            margin-bottom: 12px;
+
+        .contact-small {
+            margin-bottom: 10px;
 
             color: var(--ocean);
 
-            font-family: "Inter", sans-serif;
-
             font-size: 11px;
+
             font-weight: 800;
 
-            letter-spacing: 4px;
+            letter-spacing: 2px;
         }
 
-        .contact-title {
+
+        .contact h2 {
             margin-bottom: 20px;
 
             color: var(--ocean-deep);
 
-            font-size: clamp(30px, 5vw, 48px);
-            font-weight: 800;
+            font-size:
+                clamp(
+                    30px,
+                    5vw,
+                    46px
+                );
 
-            letter-spacing: -0.03em;
+            font-weight: 800;
         }
 
-        .contact-text {
-            max-width: 570px;
 
-            margin: 0 auto 35px;
+        .contact p {
+            max-width: 550px;
 
-            color: var(--text-secondary);
+            margin:
+                0 auto
+                30px;
 
-            font-size: 15px;
+            color: var(--text-soft);
+
+            font-size: 14px;
+
             line-height: 2;
+        }
+
+
+        .contact-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 13px 25px;
+
+            border-radius: 100px;
+
+            background: white;
+
+            color: var(--ocean);
+
+            border:
+                1px solid
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.15
+                );
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.08
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .contact-button span {
+            margin-left: 12px;
+
+            transition: var(--transition);
+        }
+
+
+        .contact-button:hover {
+            background: var(--ocean);
+
+            color: white;
+
+            transform: translateY(-3px);
+        }
+
+
+        .contact-button:hover span {
+            transform: translateX(5px);
         }
 
 
@@ -950,384 +1155,469 @@
         ========================================================= */
 
         footer {
-            margin-top: 20px;
+            padding: 55px 7% 30px;
 
-            padding: 65px 8% 35px;
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.56
+                );
 
-            background: #f4fafc;
-
-            border-top: 1px solid var(--line);
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.7
+                );
         }
 
-        .footer-content {
-            max-width: 1120px;
+
+        .footer-inner {
+            width: min(1080px, 100%);
+
             margin: 0 auto;
         }
 
-        .footer-main {
+
+        .footer-top {
             display: flex;
+
             justify-content: space-between;
+
             align-items: flex-start;
 
-            gap: 50px;
+            gap: 40px;
         }
 
-        .footer-brand {
+
+        .footer-name {
             color: var(--ocean-deep);
 
-            font-size: 22px;
+            font-size: 20px;
+
             font-weight: 800;
         }
 
-        .footer-tagline {
-            margin-top: 7px;
 
-            color: var(--text-muted);
+        .footer-copy {
+            margin-top: 5px;
 
-            font-size: 12px;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px 30px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-
-            font-size: 13px;
-
-            text-decoration: none;
-
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--ocean);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-top: 55px;
-            padding-top: 20px;
-
-            border-top: 1px solid var(--line);
-
-            color: var(--text-muted);
+            color: var(--text-soft);
 
             font-size: 11px;
         }
 
 
+        .footer-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+        }
+
+
+        .footer-links a {
+            color: var(--text-soft);
+
+            font-size: 12px;
+
+            transition: var(--transition);
+        }
+
+
+        .footer-links a:hover {
+            color: var(--ocean);
+        }
+
+
+        .footer-bottom {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 45px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid
+                rgba(
+                    8,
+                    126,
+                    164,
+                    0.12
+                );
+
+            color: var(--text-soft);
+
+            font-size: 10px;
+        }
+
+
         /* =========================================================
-           SCROLL ANIMATION
+           アニメーション
         ========================================================= */
 
-        .fade-up {
+        .fade {
             opacity: 0;
-            transform: translateY(25px);
+
+            transform: translateY(24px);
 
             transition:
                 opacity 0.8s ease,
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                transform
+                0.8s
+                cubic-bezier(
+                    0.16,
+                    1,
+                    0.3,
+                    1
+                );
         }
 
-        .fade-up.visible {
+
+        .fade.show {
             opacity: 1;
+
             transform: translateY(0);
         }
 
 
         /* =========================================================
-           RESPONSIVE
+           スマホ
         ========================================================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 800px) {
 
-            :root {
-                --header-height: 70px;
+            .logo {
+                top: 12px;
+                left: 20px;
             }
 
-            header {
-                padding: 0 20px;
-            }
 
             .logo img {
-                height: 54px;
+                height: 65px;
             }
 
-            .menu-btn {
-                top: 14px;
+
+            .menu-button {
+                top: 18px;
                 right: 20px;
 
-                width: 42px;
-                height: 42px;
+                width: 43px;
+                height: 43px;
             }
 
-            .hero {
-                padding:
-                    calc(var(--header-height) + 70px)
-                    7%
-                    80px;
-            }
-
-            .hero h1 {
-                font-size: clamp(38px, 10vw, 60px);
-            }
 
             section {
                 width: 86%;
-                padding: 85px 0;
+
+                padding: 90px 0;
             }
 
-            .section-header {
-                margin-bottom: 40px;
-            }
-
-            .vision-item {
-                grid-template-columns: 55px 1fr;
-                gap: 18px;
-                padding: 32px 0;
-            }
-
-            .vision-number {
-                font-size: 11px;
-            }
-
-            .about-intro {
-                margin-bottom: 55px;
-                font-size: 18px;
-            }
-
-            .service-item {
-                grid-template-columns: 105px 1fr 25px;
-                gap: 20px;
-            }
-
-            .service-name {
-                font-size: 18px;
-            }
-
-            .service-description {
-                font-size: 13px;
-            }
-
-            .tool-left {
-                gap: 18px;
-            }
-
-            .tool-desc {
-                display: none;
-            }
-
-            #contact-section {
-                width: 86%;
-                padding: 80px 0;
-            }
-
-            .footer-main {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
-
-
-        @media (max-width: 600px) {
 
             .hero {
-                min-height: 90vh;
+                width: 86%;
+
+                padding:
+                    130px 0
+                    80px;
             }
 
-            .hero-badge {
-                font-size: 10px;
-                letter-spacing: 1.5px;
+
+            .hero h1 {
+                font-size:
+                    clamp(
+                        38px,
+                        10vw,
+                        60px
+                    );
             }
 
-            .hero p {
+
+            .hero-description {
+                margin-top: 32px;
+
                 font-size: 14px;
             }
 
-            .hero-keywords {
-                gap: 6px;
-            }
-
-            .hero-keywords span {
-                font-size: 9px;
-                padding: 6px 10px;
-            }
-
-            .section-title {
-                flex-wrap: wrap;
-                gap: 8px 13px;
-            }
-
-            .section-title .en-sub {
-                width: 100%;
-                padding-left: 19px;
-            }
 
             .vision-item {
-                grid-template-columns: 1fr;
-                gap: 8px;
+                grid-template-columns:
+                    55px
+                    1fr;
+
+                gap: 18px;
+
+                padding: 32px 0;
             }
 
-            .vision-number {
-                padding: 0;
-            }
 
             .vision-content h3 {
                 font-size: 20px;
             }
 
+
             .vision-content p {
-                font-size: 14px;
-            }
-
-            .service-item {
-                grid-template-columns: 1fr 25px;
-                gap: 5px;
-            }
-
-            .service-category {
-                margin-bottom: 4px;
-            }
-
-            .service-name {
-                font-size: 18px;
-            }
-
-            .service-description {
                 font-size: 13px;
             }
 
+
+            .service-item {
+                grid-template-columns:
+                    1fr
+                    30px;
+
+                gap: 4px;
+
+                padding: 23px 20px;
+            }
+
+
+            .service-label {
+                margin-bottom: 3px;
+            }
+
+
             .service-arrow {
                 grid-column: 2;
-                grid-row: 1 / span 2;
+
+                grid-row:
+                    1 / span 2;
             }
 
-            .tool-item {
-                padding: 20px 0;
+
+            .service-description {
+                font-size: 12px;
             }
+
 
             .tool-left {
-                gap: 14px;
+                gap: 16px;
             }
 
-            .tool-number {
-                font-size: 9px;
+
+            .tool-description {
+                display: none;
             }
+
 
             .tool-title {
                 font-size: 15px;
             }
 
-            .overlay-nav a {
-                font-size: 24px;
+
+            .contact {
+                width: 86%;
+
+                padding:
+                    70px 20px;
+
+                margin-bottom: 80px;
             }
 
-            .overlay-nav a span.en {
-                font-size: 9px;
+
+            .footer-top {
+                flex-direction: column;
             }
+
+
+            .footer-bottom {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+
         }
+
+
+        @media (max-width: 480px) {
+
+            .logo img {
+                height: 58px;
+            }
+
+
+            .menu-button {
+                width: 40px;
+                height: 40px;
+
+                border-radius: 14px;
+            }
+
+
+            .hero {
+                min-height: 95vh;
+            }
+
+
+            .hero h1 {
+                font-size: 39px;
+            }
+
+
+            .hero h1 span::after {
+                height: 5px;
+
+                bottom: -4px;
+            }
+
+
+            .section-title {
+                font-size: 29px;
+            }
+
+
+            .section-subtitle {
+                font-size: 10px;
+
+                letter-spacing: 2px;
+            }
+
+
+            .about-intro {
+                font-size: 17px;
+            }
+
+
+            .vision-item {
+                grid-template-columns: 1fr;
+            }
+
+
+            .vision-number {
+                margin-bottom: 4px;
+            }
+
+
+            .menu-list a {
+                font-size: 21px;
+            }
+
+
+            .menu-arrow {
+                font-size: 17px;
+            }
+
+        }
+
     </style>
 </head>
 
+
 <body>
+
 
     <!-- =========================================================
          背景
     ========================================================= -->
 
-    <div class="bg-decorations">
+    <div class="background"></div>
 
-        <div class="bg-orb bg-orb-1"></div>
-        <div class="bg-orb bg-orb-2"></div>
 
-        <svg
-            class="bg-waves"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-            preserveAspectRatio="none">
+    <!-- =========================================================
+         ロゴ
+    ========================================================= -->
 
-            <path
-                fill="rgba(21, 155, 194, 0.08)"
-                d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,192C840,181,960,139,1080,138.7C1200,139,1320,181,1380,202.7L1440,224L1440,320L0,320Z">
-            </path>
+    <div class="logo">
 
-        </svg>
+        <a href="#">
+
+            <img
+                src="MMM.png"
+                alt="Multi Trillion">
+
+        </a>
 
     </div>
 
 
     <!-- =========================================================
-         HEADER
-    ========================================================= -->
-
-    <header>
-
-        <div class="logo">
-            <a href="#">
-                <img src="MMM.png" alt="Multi Trillion">
-            </a>
-        </div>
-
-    </header>
-
-
-    <!-- =========================================================
-         MENU BUTTON
+         メニューボタン
     ========================================================= -->
 
     <button
-        class="menu-btn"
-        id="menuBtn"
-        aria-label="メニュー切り替え">
+        class="menu-button"
+        id="menuButton"
+        aria-label="メニュー">
 
-        <div class="icon-box">
+        <div class="menu-icon">
+
             <span></span>
             <span></span>
             <span></span>
+
         </div>
 
     </button>
 
 
     <!-- =========================================================
-         MENU
+         メニュー
     ========================================================= -->
 
-    <div class="menu-overlay" id="menuOverlay">
+    <div class="menu" id="menu">
 
-        <nav class="overlay-nav">
+        <nav class="menu-list">
 
-            <a href="#vision" class="menu-link">
-                理念
-                <span class="en">A B O U T</span>
+            <a href="#about">
+
+                <span>
+                    理念
+                </span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
 
-            <a href="#service" class="menu-link">
-                事業内容
-                <span class="en">S E R V I C E</span>
+
+            <a href="#service">
+
+                <span>
+                    事業内容
+                </span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
 
-            <a href="#tools" class="menu-link">
-                便利ツール
-                <span class="en">T O O L</span>
+
+            <a href="#tools">
+
+                <span>
+                    便利ツール
+                </span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
 
-            <a href="#contact-section" class="menu-link">
-                お問い合わせ
-                <span class="en">C O N T A C T</span>
+
+            <a href="#contact">
+
+                <span>
+                    お問い合わせ
+                </span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
 
         </nav>
@@ -1336,45 +1626,56 @@
 
 
     <!-- =========================================================
-         MAIN
+         HERO
     ========================================================= -->
 
     <main>
 
 
-        <!-- =====================================================
-             HERO
-        ===================================================== -->
-
         <section class="hero">
 
-            <div class="hero-badge">
-                Multi Trillion - Official Website
+            <div class="hero-small fade">
+                Multi Trillion
             </div>
 
-            <h1>
+
+            <h1 class="fade">
+
                 すべての「便利」を、<br>
-                <span class="highlight">ひとつの場所へ。</span>
+
+                <span>
+                    ひとつの場所へ。
+                </span>
+
             </h1>
 
-            <div class="hero-keywords">
 
-                <span>WEB</span>
-                <span>EDUCATION</span>
-                <span>TOOLS</span>
+            <p class="hero-description fade">
 
-            </div>
+                Multi Trillionは、
+                日常のちょっとした不便を減らす
+                ウェブサービスや学習コンテンツ、
+                便利なツールをつくっています。
 
-            <p>
-                Multi Trillionは、日常を少し便利にするウェブサービスをはじめ、
-                学習・教育に関するコンテンツや、さまざまな用途に使える
-                オリジナルツールを展開しています。
             </p>
 
-            <a href="#service" class="button">
+
+            <a
+                href="#service"
+                class="hero-button fade">
+
                 サービスを見る
-                <span>→</span>
+
+                <span>
+                    →
+                </span>
+
             </a>
+
+
+            <div class="scroll-mark">
+                SCROLL
+            </div>
 
         </section>
 
@@ -1383,32 +1684,43 @@
              ABOUT
         ===================================================== -->
 
-        <section id="vision">
+        <section id="about">
 
-            <div class="section-header fade-up">
+
+            <div class="section-heading fade">
 
                 <h2 class="section-title">
                     理念
-                    <span class="en-sub">A B O U T</span>
                 </h2>
+
+                <div class="section-subtitle">
+                    私たちについて
+                </div>
 
             </div>
 
 
-            <p class="about-intro fade-up">
-                「あったら便利」を、もっと身近に。<br>
-                Multi Trillionは、シンプルで使いやすいサービスを通じて、
+            <p class="about-intro fade">
+
+                「あったら便利」を、
+                もっと身近に。
+
+                Multi Trillionは、
+                シンプルで使いやすいサービスを通じて、
                 日常の小さな不便をひとつずつ減らしていきます。
+
             </p>
 
 
             <div class="vision-list">
 
-                <div class="vision-item fade-up">
+
+                <div class="vision-item fade">
 
                     <div class="vision-number">
                         01
                     </div>
+
 
                     <div class="vision-content">
 
@@ -1416,10 +1728,14 @@
                             シンプルで使いやすく
                         </h3>
 
+
                         <p>
+
                             複雑な機能や過剰な装飾を削ぎ落とし、
-                            誰でも直感的に操作できるインターフェースを追求。
+                            誰でも直感的に使えるものを。
+
                             「迷わず使えること」を大切にしています。
+
                         </p>
 
                     </div>
@@ -1427,22 +1743,26 @@
                 </div>
 
 
-                <div class="vision-item fade-up">
+                <div class="vision-item fade">
 
                     <div class="vision-number">
                         02
                     </div>
 
+
                     <div class="vision-content">
 
                         <h3>
-                            特定のニーズに届くサポート
+                            必要としている人へ
                         </h3>
 
+
                         <p>
-                            一般的なサービスでは見落とされがちな小さな課題や、
-                            特定の目的に向けたツールにも目を向け、
-                            必要としている人に届くサービスをつくります。
+
+                            一般的なサービスでは見落とされがちな
+                            小さな課題にも目を向け、
+                            本当に必要としている人に届くものをつくります。
+
                         </p>
 
                     </div>
@@ -1450,27 +1770,32 @@
                 </div>
 
 
-                <div class="vision-item fade-up">
+                <div class="vision-item fade">
 
                     <div class="vision-number">
                         03
                     </div>
 
+
                     <div class="vision-content">
 
                         <h3>
-                            幅広い事業展開
+                            いろいろな「便利」を
                         </h3>
 
+
                         <p>
+
                             Webサービスだけにとどまらず、
-                            学力テストや学習教材、便利なWebツールなど、
-                            知識と利便性を広げるさまざまなプロジェクトを展開します。
+                            学習や出版、さまざまなツールなど、
+                            暮らしや学びを少し豊かにするものを展開します。
+
                         </p>
 
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -1483,30 +1808,41 @@
 
         <section id="service">
 
-            <div class="section-header fade-up">
+
+            <div class="section-heading fade">
 
                 <h2 class="section-title">
                     事業内容
-                    <span class="en-sub">S E R V I C E</span>
                 </h2>
+
+                <div class="section-subtitle">
+                    つくっているもの
+                </div>
 
             </div>
 
 
-            <p class="service-intro fade-up">
-                Web・教育・出版など、さまざまな分野から
-                「便利」や「学び」を届けるプロジェクトを展開しています。
+            <p class="service-intro fade">
+
+                Web・教育・出版など、
+                さまざまな分野から
+                「便利」や「学び」を届けています。
+
             </p>
 
 
             <div class="service-list">
 
 
-                <a href="#tools" class="service-item fade-up">
+                <a
+                    href="#tools"
+                    class="service-item fade">
 
-                    <div class="service-category">
-                        WEB
+
+                    <div class="service-label">
+                        Web
                     </div>
+
 
                     <div>
 
@@ -1514,25 +1850,35 @@
                             ウェブサービス
                         </div>
 
+
                         <p class="service-description">
-                            日常のちょっとした作業を効率化・快適化する
+
+                            日常のちょっとした作業を
+                            効率化・快適化する
                             Webアプリケーションを提供しています。
+
                         </p>
 
                     </div>
+
 
                     <div class="service-arrow">
                         →
                     </div>
 
+
                 </a>
 
 
-                <a href="test.html" class="service-item fade-up">
+                <a
+                    href="test.html"
+                    class="service-item fade">
 
-                    <div class="service-category">
-                        EDUCATION
+
+                    <div class="service-label">
+                        学習
                     </div>
+
 
                     <div>
 
@@ -1540,25 +1886,36 @@
                             学力テスト
                         </div>
 
+
                         <p class="service-description">
-                            無料で手軽に受検できるオンライン学力テスト。
-                            自身の習熟度や弱点を確認できます。
+
+                            無料で手軽に受検できる
+                            オンライン学力テスト。
+
+                            自分の習熟度や弱点を確認できます。
+
                         </p>
 
                     </div>
+
 
                     <div class="service-arrow">
                         →
                     </div>
 
+
                 </a>
 
 
-                <a href="#" class="service-item fade-up">
+                <a
+                    href="#"
+                    class="service-item fade">
 
-                    <div class="service-category">
-                        PUBLISHING
+
+                    <div class="service-label">
+                        出版
                     </div>
+
 
                     <div>
 
@@ -1566,16 +1923,22 @@
                             オリジナル本の出版
                         </div>
 
+
                         <p class="service-description">
-                            独自の学習資料や書籍をデジタル形式で公開し、
+
+                            独自の学習資料や書籍を
+                            デジタル形式で公開し、
                             学びと新しい視点を届けます。
+
                         </p>
 
                     </div>
 
+
                     <div class="service-arrow">
                         →
                     </div>
+
 
                 </a>
 
@@ -1591,19 +1954,28 @@
 
         <section id="tools">
 
-            <div class="section-header fade-up">
+
+            <div class="section-heading fade">
 
                 <h2 class="section-title">
                     便利ツール
-                    <span class="en-sub">T O O L</span>
                 </h2>
+
+                <div class="section-subtitle">
+                    ちょっと便利なもの
+                </div>
 
             </div>
 
 
-            <p class="tools-intro fade-up">
-                日常の小さな「面倒」を、もっと簡単に。
-                ブラウザだけですぐに使えるオリジナルツールを提供しています。
+            <p class="tools-intro fade">
+
+                日常の小さな「面倒」を、
+                もっと簡単に。
+
+                ブラウザだけですぐに使える
+                オリジナルツールを提供しています。
+
             </p>
 
 
@@ -1612,13 +1984,15 @@
 
                 <a
                     href="tool/BlockGame.html"
-                    class="tool-item fade-up">
+                    class="tool-item fade">
+
 
                     <div class="tool-left">
 
-                        <span class="tool-number">
+                        <div class="tool-number">
                             01
-                        </span>
+                        </div>
+
 
                         <div>
 
@@ -1626,7 +2000,8 @@
                                 ブロックゲーム
                             </div>
 
-                            <div class="tool-desc">
+
+                            <div class="tool-description">
                                 直感的に遊べる落下型パズルゲーム
                             </div>
 
@@ -1634,22 +2009,26 @@
 
                     </div>
 
+
                     <div class="tool-arrow">
                         →
                     </div>
+
 
                 </a>
 
 
                 <a
                     href="tool/Random.html"
-                    class="tool-item fade-up">
+                    class="tool-item fade">
+
 
                     <div class="tool-left">
 
-                        <span class="tool-number">
+                        <div class="tool-number">
                             02
-                        </span>
+                        </div>
+
 
                         <div>
 
@@ -1657,30 +2036,35 @@
                                 ランダム抽選
                             </div>
 
-                            <div class="tool-desc">
-                                数値・文字・リストからランダムに抽選
+
+                            <div class="tool-description">
+                                数値やリストからランダムに抽選
                             </div>
 
                         </div>
 
                     </div>
 
+
                     <div class="tool-arrow">
                         →
                     </div>
+
 
                 </a>
 
 
                 <a
                     href="tool/comparison.html"
-                    class="tool-item fade-up">
+                    class="tool-item fade">
+
 
                     <div class="tool-left">
 
-                        <span class="tool-number">
+                        <div class="tool-number">
                             03
-                        </span>
+                        </div>
+
 
                         <div>
 
@@ -1688,7 +2072,8 @@
                                 比較ツール
                             </div>
 
-                            <div class="tool-desc">
+
+                            <div class="tool-description">
                                 最大3つの対象を並べて比較
                             </div>
 
@@ -1696,9 +2081,11 @@
 
                     </div>
 
+
                     <div class="tool-arrow">
                         →
                     </div>
+
 
                 </a>
 
@@ -1712,25 +2099,41 @@
              CONTACT
         ===================================================== -->
 
-        <section id="contact-section">
+        <section
+            id="contact"
+            class="contact fade">
 
-            <div class="contact-label fade-up">
-                C O N T A C T
+
+            <div class="contact-small">
+                お問い合わせ
             </div>
 
-            <h2 class="contact-title fade-up">
-                お問い合わせ
+
+            <h2>
+                お気軽にどうぞ。
             </h2>
 
-            <p class="contact-text fade-up">
+
+            <p>
+
                 サービスについてのご質問や、
                 Multi Trillionに関するお問い合わせはこちらから。
+
             </p>
 
-            <a href="#" class="button fade-up">
+
+            <a
+                href="#"
+                class="contact-button">
+
                 お問い合わせはこちら
-                <span>→</span>
+
+                <span>
+                    →
+                </span>
+
             </a>
+
 
         </section>
 
@@ -1744,19 +2147,22 @@
 
     <footer>
 
-        <div class="footer-content">
+
+        <div class="footer-inner">
 
 
-            <div class="footer-main">
+            <div class="footer-top">
+
 
                 <div>
 
-                    <div class="footer-brand">
+                    <div class="footer-name">
                         Multi Trillion
                     </div>
 
-                    <div class="footer-tagline">
-                        Web / Education / Tools
+
+                    <div class="footer-copy">
+                        すべての「便利」を、ひとつの場所へ。
                     </div>
 
                 </div>
@@ -1764,38 +2170,41 @@
 
                 <div class="footer-links">
 
-                    <a href="#vision">
-                        ABOUT
+                    <a href="#about">
+                        理念
                     </a>
 
                     <a href="#service">
-                        SERVICE
+                        事業内容
                     </a>
 
                     <a href="#tools">
-                        TOOL
+                        便利ツール
                     </a>
 
-                    <a href="#contact-section">
-                        CONTACT
+                    <a href="#contact">
+                        お問い合わせ
                     </a>
 
                 </div>
+
 
             </div>
 
 
             <div class="footer-bottom">
 
-                <div>
+                <span>
                     © 2026 Multi Trillion
-                </div>
+                </span>
 
-                <div>
+
+                <span>
                     All Rights Reserved.
-                </div>
+                </span>
 
             </div>
+
 
         </div>
 
@@ -1803,71 +2212,100 @@
 
 
     <!-- =========================================================
-         JAVASCRIPT
+         JavaScript
     ========================================================= -->
 
     <script>
 
+
         /* =========================================================
-           MENU
+           メニュー
         ========================================================= */
 
-        const menuBtn = document.getElementById("menuBtn");
-        const menuOverlay = document.getElementById("menuOverlay");
-        const menuLinks = document.querySelectorAll(".menu-link");
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const menu =
+            document.getElementById("menu");
 
 
-        menuBtn.addEventListener("click", () => {
+        menuButton.addEventListener(
+            "click",
+            () => {
 
-            menuBtn.classList.toggle("active");
-            menuOverlay.classList.toggle("active");
+                menuButton.classList.toggle("active");
 
-            if (menuOverlay.classList.contains("active")) {
+                menu.classList.toggle("active");
 
-                document.body.style.overflow = "hidden";
 
-            } else {
+                if (menu.classList.contains("active")) {
 
-                document.body.style.overflow = "";
+                    document.body.style.overflow = "hidden";
+
+                } else {
+
+                    document.body.style.overflow = "";
+
+                }
 
             }
+        );
 
-        });
 
+        /* =========================================================
+           メニュークリック
+        ========================================================= */
 
-        menuLinks.forEach(link => {
+        document
+            .querySelectorAll(".menu-list a")
+            .forEach(link => {
 
-            link.addEventListener("click", () => {
+                link.addEventListener(
+                    "click",
+                    () => {
 
-                menuBtn.classList.remove("active");
-                menuOverlay.classList.remove("active");
+                        menuButton.classList.remove(
+                            "active"
+                        );
 
-                document.body.style.overflow = "";
+                        menu.classList.remove(
+                            "active"
+                        );
+
+                        document.body.style.overflow =
+                            "";
+
+                    }
+                );
 
             });
 
-        });
-
 
         /* =========================================================
-           SCROLL ANIMATION
+           スクロール表示
         ========================================================= */
 
         const fadeElements =
-            document.querySelectorAll(".fade-up");
+            document.querySelectorAll(".fade");
 
 
         const observer =
             new IntersectionObserver(
-                (entries) => {
+                entries => {
 
                     entries.forEach(entry => {
 
-                        if (entry.isIntersecting) {
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                            entry.target.classList.add("visible");
+                            entry.target.classList.add(
+                                "show"
+                            );
 
-                            observer.unobserve(entry.target);
+                            observer.unobserve(
+                                entry.target
+                            );
 
                         }
 
@@ -1885,6 +2323,40 @@
             observer.observe(element);
 
         });
+
+
+        /* =========================================================
+           ページ読み込み時
+        ========================================================= */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".hero .fade"
+                    )
+                    .forEach(
+                        (element, index) => {
+
+                            setTimeout(
+                                () => {
+
+                                    element.classList.add(
+                                        "show"
+                                    );
+
+                                },
+                                150 + index * 130
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
 
     </script>
 
