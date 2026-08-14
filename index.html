@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi Trillion</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,21 +13,21 @@
     <style>
         /* --- オーシャン＆ミント カラー定義 --- */
         :root {
-            --primary-dark: #0f2942;     /* 高級感のある深みのあるネイビー */
-            --primary-teal: #0d9488;     /* 澄んだティールグリーン（青緑） */
-            --primary-blue: #0284c7;     /* 爽やかなアクアブルー */
-            --accent-mint: #2dd4bf;      /* 輝きを与えるミントカラー */
-            
+            --primary-dark: #0f2942;
+            --primary-teal: #0d9488;
+            --primary-blue: #0284c7;
+            --accent-mint: #2dd4bf;
+
             --text-primary: #0f172a;
             --text-secondary: #334155;
             --text-muted: #64748b;
-            
+
             --card-bg: rgba(255, 255, 255, 0.75);
             --card-border: rgba(255, 255, 255, 0.85);
-            
+
             --shadow-soft: 0 12px 32px -8px rgba(13, 148, 136, 0.08);
             --shadow-hover: 0 20px 40px -12px rgba(2, 132, 199, 0.18);
-            
+
             --transition-base: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             --header-height: 80px;
         }
@@ -43,7 +43,7 @@
         }
 
         body {
-            background: 
+            background:
                 radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.2) 0px, transparent 50%),
                 radial-gradient(at 50% 100%, rgba(20, 184, 166, 0.12) 0px, transparent 50%),
@@ -57,7 +57,7 @@
             position: relative;
         }
 
-        /* --- 背景装飾：オーシャンウェーブ＆ガラスオーブ（それっぽさを演出） --- */
+        /* --- 背景装飾：オーシャンウェーブ＆ガラスオーブ --- */
         .bg-decorations {
             position: fixed;
             top: 0;
@@ -126,9 +126,15 @@
         }
 
         .logo img {
-            height: 60px;
+            height: 78px;
             width: auto;
             object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.04);
         }
 
         /* --- 右上に固定された「同じ場所で×に変形する」丸型ボタン --- */
@@ -173,9 +179,17 @@
             transition: var(--transition-base);
         }
 
-        .icon-box span:nth-child(1) { top: 0; }
-        .icon-box span:nth-child(2) { top: 6px; }
-        .icon-box span:nth-child(3) { top: 12px; }
+        .icon-box span:nth-child(1) {
+            top: 0;
+        }
+
+        .icon-box span:nth-child(2) {
+            top: 6px;
+        }
+
+        .icon-box span:nth-child(3) {
+            top: 12px;
+        }
 
         .menu-btn.active {
             background: #ffffff;
@@ -258,10 +272,21 @@
             transform: translateY(0);
         }
 
-        .menu-overlay.active .overlay-nav a:nth-child(1) { transition-delay: 0.1s; }
-        .menu-overlay.active .overlay-nav a:nth-child(2) { transition-delay: 0.15s; }
-        .menu-overlay.active .overlay-nav a:nth-child(3) { transition-delay: 0.2s; }
-        .menu-overlay.active .overlay-nav a:nth-child(4) { transition-delay: 0.25s; }
+        .menu-overlay.active .overlay-nav a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .menu-overlay.active .overlay-nav a:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        .menu-overlay.active .overlay-nav a:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .menu-overlay.active .overlay-nav a:nth-child(4) {
+            transition-delay: 0.25s;
+        }
 
         .overlay-nav a::after {
             content: '';
@@ -358,7 +383,7 @@
             filter: brightness(1.05);
         }
 
-        /* --- 共通セクション＆見出しデザイン（日英組み） --- */
+        /* --- 共通セクション＆見出しデザイン --- */
         section {
             width: min(1200px, 90%);
             margin: 0 auto;
@@ -398,41 +423,90 @@
             text-transform: uppercase;
         }
 
-        /* --- 理念 --- */
+        /* --- ABOUT / 理念 --- */
         .vision-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .vision-list::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: linear-gradient(
+                180deg,
+                var(--accent-mint),
+                var(--primary-blue),
+                rgba(2, 132, 199, 0.1)
+            );
+            border-radius: 10px;
         }
 
         .vision-item {
-            padding: 36px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 16px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-base);
+            position: relative;
+            padding: 0 0 48px 30px;
+            background: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
         }
 
-        .vision-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: rgba(45, 212, 191, 0.5);
+        .vision-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .vision-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(
+                135deg,
+                var(--accent-mint),
+                var(--primary-blue)
+            );
+            box-shadow:
+                0 0 0 6px rgba(45, 212, 191, 0.10),
+                0 0 20px rgba(45, 212, 191, 0.25);
         }
 
         .vision-item h3 {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 800;
             margin-bottom: 12px;
             color: var(--primary-dark);
         }
 
         .vision-item p {
             color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 15px;
+            line-height: 2;
+            font-size: 16px;
+            max-width: 760px;
+        }
+
+        #vision .section-title::before {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(45, 212, 191, 0.4);
+        }
+
+        #vision .en-sub {
+            color: var(--primary-blue);
+            letter-spacing: 5px;
         }
 
         /* --- 事業内容 --- */
@@ -490,7 +564,7 @@
             transform: translateX(6px);
         }
 
-        /* --- 便利ツール（画像全撤去・極細バー形状デザイン） --- */
+        /* --- 便利ツール --- */
         .tools-list {
             display: flex;
             flex-direction: column;
@@ -614,7 +688,7 @@
             }
 
             .logo img {
-                height: 36px;
+                height: 54px;
             }
 
             .menu-btn {
@@ -626,6 +700,28 @@
 
             section {
                 padding: 60px 0;
+            }
+
+            #vision .vision-list {
+                padding-left: 24px;
+            }
+
+            #vision .vision-item {
+                padding-left: 24px;
+                padding-bottom: 38px;
+            }
+
+            #vision .vision-item::before {
+                left: -30px;
+            }
+
+            #vision .vision-item h3 {
+                font-size: 21px;
+            }
+
+            #vision .vision-item p {
+                font-size: 15px;
+                line-height: 1.9;
             }
 
             a.card-slim {
@@ -662,18 +758,25 @@
 
 <body>
 
-    <!-- 背景の装飾オブジェクト（それっぽさを加えるSVG波模様＆発光オーブ） -->
+    <!-- 背景の装飾オブジェクト -->
     <div class="bg-decorations">
         <div class="bg-orb bg-orb-1"></div>
         <div class="bg-orb bg-orb-2"></div>
+
         <svg class="bg-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path fill="rgba(45, 212, 191, 0.08)" fill-opacity="1" d="M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,213.3C672,224,768,192,864,165.3C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path
+                fill="rgba(45, 212, 191, 0.08)"
+                fill-opacity="1"
+                d="M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,213.3C672,224,768,192,864,165.3C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
         </svg>
     </div>
 
     <header>
         <div class="logo">
-            <a href="#"><img src="MMM.png" alt="Multi Trillion"></a>
+            <a href="#">
+                <img src="MMM.png" alt="Multi Trillion">
+            </a>
         </div>
     </header>
 
@@ -686,18 +789,21 @@
         </div>
     </button>
 
-    <!-- フルスクリーン オーバレイメニュー（英語サブタイトル表記付き） -->
+    <!-- フルスクリーン オーバレイメニュー -->
     <div class="menu-overlay" id="menuOverlay">
         <nav class="overlay-nav">
             <a href="#vision" class="menu-link">
                 理念 <span class="en">A B O U T</span>
             </a>
+
             <a href="#service" class="menu-link">
                 事業内容 <span class="en">S E R V I C E</span>
             </a>
+
             <a href="#tools" class="menu-link">
                 便利ツール <span class="en">T O O L</span>
             </a>
+
             <a href="#contact" class="menu-link">
                 お問い合わせ <span class="en">C O N T A C T</span>
             </a>
@@ -705,63 +811,79 @@
     </div>
 
     <main>
+
         <section class="hero">
-            <div class="hero-badge">Multi Trillion - Official Website</div>
+            <div class="hero-badge">
+                Multi Trillion - Official Website
+            </div>
+
             <h1>
                 すべての「便利」を、<br>
                 <span class="highlight">ひとつの場所へ。</span>
             </h1>
+
             <p>
                 Multi Trillionは日常を少し便利にするウェブ開発をはじめ、特定のニーズに向けた支援、独自の学力テストや学習ツールの提供など、多角的なプロジェクトを展開しています。
             </p>
+
             <a href="#service" class="button">
                 サービスを見る
             </a>
         </section>
 
-        <!-- 理念 -->
+        <!-- 理念 / ABOUT -->
         <section id="vision">
+
             <div class="section-header">
                 <h2 class="section-title">
                     理念 <span class="en-sub">A B O U T</span>
                 </h2>
             </div>
+
             <div class="vision-list">
+
                 <div class="vision-item">
                     <h3>シンプルで使いやすく</h3>
                     <p>
                         複雑な機能や過剰な装飾を削ぎ落とし、誰でも直感的に操作できるインターフェースを追求。「迷わず使えること」を最優先に設計します。
                     </p>
                 </div>
+
                 <div class="vision-item">
                     <h3>特定のニーズに届くサポート</h3>
                     <p>
                         一般的な大衆向けサービスでは見落とされがちなニッチな課題や、特定の層に向けたツール・支援に焦点を当てて開発を行います。
                     </p>
                 </div>
+
                 <div class="vision-item">
                     <h3>幅広い事業展開</h3>
                     <p>
                         Webアプリケーション開発にとどまらず、独自の学力テストや学習教材の出版など、知識と利便性を広げる多角的なアプローチを行います。
                     </p>
                 </div>
+
             </div>
         </section>
 
         <!-- 事業内容 -->
         <section id="service">
+
             <div class="section-header">
                 <h2 class="section-title">
                     事業内容 <span class="en-sub">S E R V I C E</span>
                 </h2>
             </div>
+
             <div class="grid">
+
                 <a href="#tools" class="card">
                     <div>
                         <h3>
                             ウェブサービス
                             <span class="card-link-arrow">→</span>
                         </h3>
+
                         <p>
                             ブラウザ上でスムーズに動作する、日常のちょっとした作業を効率化・快適化するWebアプリケーションを提供しています。
                         </p>
@@ -774,6 +896,7 @@
                             学力テスト
                             <span class="card-link-arrow">→</span>
                         </h3>
+
                         <p>
                             独自のオンライン学力テストを実施。無料で手軽に受検でき、自身の客観的な習熟度や弱点を把握できます。
                         </p>
@@ -786,27 +909,36 @@
                             オリジナル本の出版
                             <span class="card-link-arrow">→</span>
                         </h3>
+
                         <p>
                             独自の学習資料や書籍をデジタル形式で無料公開。多くの人に学びと新しい視点を提供しています。
                         </p>
                     </div>
                 </a>
+
             </div>
         </section>
 
-        <!-- 便利ツール（画像を排除し、横長の細いバー形状に変更） -->
+        <!-- 便利ツール -->
         <section id="tools">
+
             <div class="section-header">
                 <h2 class="section-title">
                     便利ツール <span class="en-sub">T O O L</span>
                 </h2>
             </div>
+
             <div class="tools-list">
+
                 <a href="tool/BlockGame.html" class="card-slim">
                     <div class="slim-content">
                         <div class="slim-title">ブロックゲーム</div>
-                        <p class="slim-desc">直感的な操作で遊べる落下型パズルゲーム。ブロックを並べて列を消去し、スコアを競います。</p>
+
+                        <p class="slim-desc">
+                            直感的な操作で遊べる落下型パズルゲーム。ブロックを並べて列を消去し、スコアを競います。
+                        </p>
                     </div>
+
                     <div class="slim-action">
                         使ってみる <span>→</span>
                     </div>
@@ -815,8 +947,12 @@
                 <a href="tool/Random.html" class="card-slim">
                     <div class="slim-content">
                         <div class="slim-title">ランダム抽選</div>
-                        <p class="slim-desc">数値はもちろん、特定の文字や単語リストからランダムに要素を選出。複数当選や試行回数の設定に対応。</p>
+
+                        <p class="slim-desc">
+                            数値はもちろん、特定の文字や単語リストからランダムに要素を選出。複数当選や試行回数の設定に対応。
+                        </p>
                     </div>
+
                     <div class="slim-action">
                         使ってみる <span>→</span>
                     </div>
@@ -825,58 +961,79 @@
                 <a href="tool/comparison.html" class="card-slim">
                     <div class="slim-content">
                         <div class="slim-title">比較ツール</div>
-                        <p class="slim-desc">最大3つの対象（価格・仕様など）を並列比較。買い物や意思決定時の損失を回避する支援ツール。</p>
+
+                        <p class="slim-desc">
+                            最大3つの対象（価格・仕様など）を並列比較。買い物や意思決定時の損失を回避する支援ツール。
+                        </p>
                     </div>
+
                     <div class="slim-action">
                         使ってみる <span>→</span>
                     </div>
                 </a>
+
             </div>
         </section>
+
     </main>
 
     <footer id="contact">
+
         <div class="footer-content">
+
             <div class="footerTop">
                 Multi Trillion
             </div>
+
             <div class="footerBottom">
+
                 <div>
                     © 2026 Multi Trillion / GitHub Server
                 </div>
+
                 <div class="footer-links">
                     <a href="#">利用規約</a>
                     <a href="#">プライバシーポリシー</a>
                     <a href="#">お問い合わせ</a>
                 </div>
+
             </div>
         </div>
+
     </footer>
 
     <!-- JavaScript：メニュー開閉＆スクロール制御 -->
     <script>
+
         const menuBtn = document.getElementById('menuBtn');
         const menuOverlay = document.getElementById('menuOverlay');
         const menuLinks = document.querySelectorAll('.menu-link');
 
         menuBtn.addEventListener('click', () => {
+
             menuBtn.classList.toggle('active');
             menuOverlay.classList.toggle('active');
-            
+
             if (menuOverlay.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = '';
             }
+
         });
 
         menuLinks.forEach(link => {
+
             link.addEventListener('click', () => {
+
                 menuBtn.classList.remove('active');
                 menuOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+
             });
+
         });
+
     </script>
 
 </body>
