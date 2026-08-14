@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- オーシャン＆ミント（青すぎない高級感）カラー定義 --- */
+        /* --- オーシャン＆ミント カラー定義 --- */
         :root {
             --primary-dark: #0f2942;     /* 高級感のある深みのあるネイビー */
             --primary-teal: #0d9488;     /* 澄んだティールグリーン（青緑） */
@@ -23,10 +23,10 @@
             --text-muted: #64748b;
             
             --card-bg: rgba(255, 255, 255, 0.75);
-            --card-border: rgba(255, 255, 255, 0.8);
+            --card-border: rgba(255, 255, 255, 0.85);
             
             --shadow-soft: 0 12px 32px -8px rgba(13, 148, 136, 0.08);
-            --shadow-hover: 0 20px 40px -12px rgba(2, 132, 199, 0.16);
+            --shadow-hover: 0 20px 40px -12px rgba(2, 132, 199, 0.18);
             
             --transition-base: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             --header-height: 80px;
@@ -43,10 +43,6 @@
         }
 
         body {
-            /* 
-              青すぎず「リゾートの澄んだ水面」を感じさせる複層メッシュグラデーション
-              ミントグリーン、アクア、ソフトスカイ、光の白を拡散配置
-            */
             background: 
                 radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.2) 0px, transparent 50%),
@@ -58,6 +54,51 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 背景装飾：オーシャンウェーブ＆ガラスオーブ（それっぽさを演出） --- */
+        .bg-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+        }
+
+        .bg-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(45, 212, 191, 0.25);
+            top: -100px;
+            right: -50px;
+        }
+
+        .bg-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(56, 189, 248, 0.2);
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .bg-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.35;
         }
 
         /* --- ヘッダー --- */
@@ -90,7 +131,7 @@
             object-fit: contain;
         }
 
-        /* --- 右上に常駐する「同じ場所で×に変形する」丸型ボタン --- */
+        /* --- 右上に固定された「同じ場所で×に変形する」丸型ボタン --- */
         .menu-btn {
             position: fixed;
             top: 16px;
@@ -107,7 +148,7 @@
             justify-content: center;
             align-items: center;
             transition: var(--transition-base);
-            z-index: 1200; /* メニュー(1100)よりも前面に維持 */
+            z-index: 1200;
         }
 
         .menu-btn:hover {
@@ -116,7 +157,6 @@
             box-shadow: 0 6px 20px rgba(13, 148, 136, 0.2);
         }
 
-        /* ハンバーガー線の構造（3本） */
         .icon-box {
             position: relative;
             width: 20px;
@@ -137,7 +177,6 @@
         .icon-box span:nth-child(2) { top: 6px; }
         .icon-box span:nth-child(3) { top: 12px; }
 
-        /* active時：同じ場所でキレイな「×」に変形 */
         .menu-btn.active {
             background: #ffffff;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -184,16 +223,15 @@
             visibility: visible;
         }
 
-        /* メニューナビゲーション */
         .overlay-nav {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 36px;
+            gap: 32px;
         }
 
         .overlay-nav a {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--primary-dark);
             text-decoration: none;
@@ -202,6 +240,17 @@
             transition: var(--transition-base);
             opacity: 0;
             transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .overlay-nav a span.en {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--primary-teal);
+            text-transform: uppercase;
         }
 
         .menu-overlay.active .overlay-nav a {
@@ -229,7 +278,7 @@
 
         .overlay-nav a:hover {
             color: var(--primary-teal);
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .overlay-nav a:hover::after {
@@ -309,22 +358,25 @@
             filter: brightness(1.05);
         }
 
-        /* --- 共通セクション --- */
+        /* --- 共通セクション＆見出しデザイン（日英組み） --- */
         section {
             width: min(1200px, 90%);
             margin: 0 auto;
             padding: 90px 0;
         }
 
+        .section-header {
+            margin-bottom: 48px;
+        }
+
         .section-title {
             font-size: clamp(28px, 4vw, 38px);
             font-weight: 800;
             letter-spacing: -0.01em;
-            margin-bottom: 48px;
             color: var(--primary-dark);
             display: flex;
-            align-items: center;
-            gap: 12px;
+            align-items: baseline;
+            gap: 16px;
         }
 
         .section-title::before {
@@ -334,9 +386,19 @@
             height: 32px;
             background: linear-gradient(180deg, var(--accent-mint), var(--primary-teal));
             border-radius: 4px;
+            transform: translateY(4px);
         }
 
-        /* --- カード類（グラスモーフィズム仕上げ） --- */
+        .section-title .en-sub {
+            font-size: clamp(14px, 2vw, 18px);
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--primary-teal);
+            font-family: "Inter", sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- 理念 --- */
         .vision-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -373,7 +435,7 @@
             font-size: 15px;
         }
 
-        /* 事業内容 */
+        /* --- 事業内容 --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -428,75 +490,73 @@
             transform: translateX(6px);
         }
 
-        /* 便利ツール */
+        /* --- 便利ツール（画像全撤去・極細バー形状デザイン） --- */
         .tools-list {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 16px;
         }
 
-        a.card-horizontal {
+        a.card-slim {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 32px;
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 22px 32px;
             text-decoration: none;
             color: inherit;
             box-shadow: var(--shadow-soft);
             transition: var(--transition-base);
         }
 
-        a.card-horizontal:hover {
+        a.card-slim:hover {
             border-color: var(--primary-teal);
-            transform: translateY(-4px);
+            transform: translateX(6px);
             box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        .tool-img {
-            width: 200px;
-            height: 130px;
-            object-fit: cover;
-            flex-shrink: 0;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-        .tool-info {
+        .slim-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
             flex: 1;
         }
 
-        .tool-info h3 {
-            font-size: 20px;
+        .slim-title {
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 8px;
             color: var(--primary-dark);
+            min-width: 160px;
+            flex-shrink: 0;
         }
 
-        .tool-info p {
+        .slim-desc {
             color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
         }
 
-        .tool-info .arrow {
-            display: inline-flex;
+        .slim-action {
+            display: flex;
             align-items: center;
-            gap: 6px;
-            margin-top: 12px;
+            gap: 8px;
             font-weight: 700;
-            color: var(--primary-teal);
             font-size: 14px;
+            color: var(--primary-teal);
+            flex-shrink: 0;
+            margin-left: 24px;
             transition: var(--transition-base);
         }
 
-        a.card-horizontal:hover .arrow {
-            transform: translateX(6px);
+        a.card-slim:hover .slim-action {
+            transform: translateX(4px);
             color: var(--primary-dark);
         }
 
@@ -568,16 +628,27 @@
                 padding: 60px 0;
             }
 
-            a.card-horizontal {
+            a.card-slim {
                 flex-direction: column;
                 align-items: flex-start;
                 padding: 20px;
-                gap: 16px;
+                gap: 12px;
             }
 
-            .tool-img {
+            .slim-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
                 width: 100%;
-                height: 180px;
+            }
+
+            .slim-title {
+                min-width: auto;
+            }
+
+            .slim-action {
+                margin-left: 0;
+                margin-top: 8px;
             }
 
             .footerBottom {
@@ -590,6 +661,15 @@
 </head>
 
 <body>
+
+    <!-- 背景の装飾オブジェクト（それっぽさを加えるSVG波模様＆発光オーブ） -->
+    <div class="bg-decorations">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <svg class="bg-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="rgba(45, 212, 191, 0.08)" fill-opacity="1" d="M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,213.3C672,224,768,192,864,165.3C960,139,1056,117,1152,128C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
 
     <header>
         <div class="logo">
@@ -606,13 +686,21 @@
         </div>
     </button>
 
-    <!-- フルスクリーン オーバレイメニュー -->
+    <!-- フルスクリーン オーバレイメニュー（英語サブタイトル表記付き） -->
     <div class="menu-overlay" id="menuOverlay">
         <nav class="overlay-nav">
-            <a href="#vision" class="menu-link">理念</a>
-            <a href="#service" class="menu-link">事業内容</a>
-            <a href="#tools" class="menu-link">便利ツール</a>
-            <a href="#contact" class="menu-link">お問い合わせ</a>
+            <a href="#vision" class="menu-link">
+                理念 <span class="en">A B O U T</span>
+            </a>
+            <a href="#service" class="menu-link">
+                事業内容 <span class="en">S E R V I C E</span>
+            </a>
+            <a href="#tools" class="menu-link">
+                便利ツール <span class="en">T O O L</span>
+            </a>
+            <a href="#contact" class="menu-link">
+                お問い合わせ <span class="en">C O N T A C T</span>
+            </a>
         </nav>
     </div>
 
@@ -631,8 +719,13 @@
             </a>
         </section>
 
+        <!-- 理念 -->
         <section id="vision">
-            <h2 class="section-title">理念</h2>
+            <div class="section-header">
+                <h2 class="section-title">
+                    理念 <span class="en-sub">A B O U T</span>
+                </h2>
+            </div>
             <div class="vision-list">
                 <div class="vision-item">
                     <h3>シンプルで使いやすく</h3>
@@ -655,8 +748,13 @@
             </div>
         </section>
 
+        <!-- 事業内容 -->
         <section id="service">
-            <h2 class="section-title">事業内容</h2>
+            <div class="section-header">
+                <h2 class="section-title">
+                    事業内容 <span class="en-sub">S E R V I C E</span>
+                </h2>
+            </div>
             <div class="grid">
                 <a href="#tools" class="card">
                     <div>
@@ -696,33 +794,41 @@
             </div>
         </section>
 
+        <!-- 便利ツール（画像を排除し、横長の細いバー形状に変更） -->
         <section id="tools">
-            <h2 class="section-title">便利ツール</h2>
+            <div class="section-header">
+                <h2 class="section-title">
+                    便利ツール <span class="en-sub">T O O L</span>
+                </h2>
+            </div>
             <div class="tools-list">
-                <a href="tool/BlockGame.html" class="card-horizontal">
-                    <img src="images/block-game.png" alt="ブロックゲーム" class="tool-img">
-                    <div class="tool-info">
-                        <h3>ブロックゲーム</h3>
-                        <p>直感的な操作で遊べる落下型パズルゲーム。ブロックを並べて列を消去し、スコアを競います。</p>
-                        <span class="arrow">ツールを使う →</span>
+                <a href="tool/BlockGame.html" class="card-slim">
+                    <div class="slim-content">
+                        <div class="slim-title">ブロックゲーム</div>
+                        <p class="slim-desc">直感的な操作で遊べる落下型パズルゲーム。ブロックを並べて列を消去し、スコアを競います。</p>
+                    </div>
+                    <div class="slim-action">
+                        使ってみる <span>→</span>
                     </div>
                 </a>
 
-                <a href="tool/Random.html" class="card-horizontal">
-                    <img src="images/random.png" alt="ランダム抽選" class="tool-img">
-                    <div class="tool-info">
-                        <h3>ランダム抽選</h3>
-                        <p>数値はもちろん、特定の文字や単語リストからランダムに要素を選出。複数当選や試行回数の細かな設定に対応します。</p>
-                        <span class="arrow">ツールを使う →</span>
+                <a href="tool/Random.html" class="card-slim">
+                    <div class="slim-content">
+                        <div class="slim-title">ランダム抽選</div>
+                        <p class="slim-desc">数値はもちろん、特定の文字や単語リストからランダムに要素を選出。複数当選や試行回数の設定に対応。</p>
+                    </div>
+                    <div class="slim-action">
+                        使ってみる <span>→</span>
                     </div>
                 </a>
 
-                <a href="tool/comparison.html" class="card-horizontal">
-                    <img src="images/efficiency.png" alt="日常作業効率化ツール" class="tool-img">
-                    <div class="tool-info">
-                        <h3>比較ツール</h3>
-                        <p>最大3つの対象（価格・仕様・条件など）を並列比較。買い物や意思決定時の損失を回避するための意思決定支援ツールです。</p>
-                        <span class="arrow">ツールを使う →</span>
+                <a href="tool/comparison.html" class="card-slim">
+                    <div class="slim-content">
+                        <div class="slim-title">比較ツール</div>
+                        <p class="slim-desc">最大3つの対象（価格・仕様など）を並列比較。買い物や意思決定時の損失を回避する支援ツール。</p>
+                    </div>
+                    <div class="slim-action">
+                        使ってみる <span>→</span>
                     </div>
                 </a>
             </div>
@@ -757,7 +863,6 @@
             menuBtn.classList.toggle('active');
             menuOverlay.classList.toggle('active');
             
-            // メニュー表示時の背面スクロール防止
             if (menuOverlay.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -765,7 +870,6 @@
             }
         });
 
-        // リンク選択時にスムーズに閉じる
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menuBtn.classList.remove('active');
