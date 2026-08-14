@@ -11,25 +11,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- オーシャンテーマのカラーシステム定義 --- */
+        /* --- オーシャン＆ミント（青すぎない高級感）カラー定義 --- */
         :root {
-            --ocean-dark: #0c4a6e;
-            --ocean-primary: #0284c7;
-            --ocean-light: #38bdf8;
-            --ocean-soft: #e0f2fe;
-            --ocean-bg: #f0f9ff;
+            --primary-dark: #0f2942;     /* 高級感のある深みのあるネイビー */
+            --primary-teal: #0d9488;     /* 澄んだティールグリーン（青緑） */
+            --primary-blue: #0284c7;     /* 爽やかなアクアブルー */
+            --accent-mint: #2dd4bf;      /* 輝きを与えるミントカラー */
             
             --text-primary: #0f172a;
             --text-secondary: #334155;
             --text-muted: #64748b;
             
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --card-border: rgba(56, 189, 248, 0.25);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.8);
             
-            --shadow-soft: 0 10px 30px -10px rgba(2, 132, 199, 0.08);
-            --shadow-hover: 0 20px 40px -15px rgba(2, 132, 199, 0.18);
+            --shadow-soft: 0 12px 32px -8px rgba(13, 148, 136, 0.08);
+            --shadow-hover: 0 20px 40px -12px rgba(2, 132, 199, 0.16);
             
-            --transition-base: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-base: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             --header-height: 80px;
         }
 
@@ -44,7 +43,15 @@
         }
 
         body {
-            background: linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 35%, #ffffff 100%);
+            /* 
+              青すぎず「リゾートの澄んだ水面」を感じさせる複層メッシュグラデーション
+              ミントグリーン、アクア、ソフトスカイ、光の白を拡散配置
+            */
+            background: 
+                radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(20, 184, 166, 0.12) 0px, transparent 50%),
+                linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 50%, #f8fafc 100%);
             background-attachment: fixed;
             color: var(--text-primary);
             font-family: "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -60,10 +67,10 @@
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background: rgba(240, 249, 255, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -83,55 +90,74 @@
             object-fit: contain;
         }
 
-        /* --- 丸型三本線ハンバーガーボタン --- */
+        /* --- 右上に常駐する「同じ場所で×に変形する」丸型ボタン --- */
         .menu-btn {
+            position: fixed;
+            top: 16px;
+            right: 5%;
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 16px rgba(13, 148, 136, 0.12);
             cursor: pointer;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px;
             transition: var(--transition-base);
-            z-index: 1100;
+            z-index: 1200; /* メニュー(1100)よりも前面に維持 */
         }
 
         .menu-btn:hover {
             background: #ffffff;
-            border-color: var(--ocean-primary);
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.2);
+            transform: scale(1.06);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.2);
         }
 
-        /* 三本線のデザイン */
-        .menu-btn span {
-            display: block;
+        /* ハンバーガー線の構造（3本） */
+        .icon-box {
+            position: relative;
             width: 20px;
+            height: 14px;
+        }
+
+        .icon-box span {
+            position: absolute;
+            left: 0;
+            width: 100%;
             height: 2px;
-            background-color: var(--ocean-dark);
+            background-color: var(--primary-dark);
             border-radius: 2px;
             transition: var(--transition-base);
         }
 
-        /* 開いている状態のアニメーション（3本線が「×」に変形） */
-        .menu-btn.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-            background-color: var(--ocean-primary);
+        .icon-box span:nth-child(1) { top: 0; }
+        .icon-box span:nth-child(2) { top: 6px; }
+        .icon-box span:nth-child(3) { top: 12px; }
+
+        /* active時：同じ場所でキレイな「×」に変形 */
+        .menu-btn.active {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .menu-btn.active span:nth-child(2) {
+        .menu-btn.active .icon-box span:nth-child(1) {
+            top: 6px;
+            transform: rotate(45deg);
+            background-color: var(--primary-teal);
+        }
+
+        .menu-btn.active .icon-box span:nth-child(2) {
             opacity: 0;
-            transform: translateX(-10px);
+            transform: scale(0);
         }
 
-        .menu-btn.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-            background-color: var(--ocean-primary);
+        .menu-btn.active .icon-box span:nth-child(3) {
+            top: 6px;
+            transform: rotate(-45deg);
+            background-color: var(--primary-teal);
         }
 
         /* --- フルスクリーン メニューオーバーレイ --- */
@@ -141,16 +167,16 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(240, 249, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(240, 253, 250, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition-base);
-            z-index: 1050;
+            z-index: 1100;
         }
 
         .menu-overlay.active {
@@ -158,27 +184,26 @@
             visibility: visible;
         }
 
-        /* メニュー内ナビゲーション */
+        /* メニューナビゲーション */
         .overlay-nav {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 32px;
+            gap: 36px;
         }
 
         .overlay-nav a {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
             text-decoration: none;
             position: relative;
-            padding: 8px 16px;
+            padding: 6px 16px;
             transition: var(--transition-base);
             opacity: 0;
             transform: translateY(20px);
         }
 
-        /* メニュー開閉時のリンク下からスライドイン演出 */
         .menu-overlay.active .overlay-nav a {
             opacity: 1;
             transform: translateY(0);
@@ -197,18 +222,18 @@
             transform: translateX(-50%);
             width: 0%;
             height: 3px;
-            background: linear-gradient(90deg, var(--ocean-primary), var(--ocean-light));
+            background: linear-gradient(90deg, var(--accent-mint), var(--primary-blue));
             border-radius: 2px;
             transition: var(--transition-base);
         }
 
         .overlay-nav a:hover {
-            color: var(--ocean-primary);
+            color: var(--primary-teal);
             transform: scale(1.08);
         }
 
         .overlay-nav a:hover::after {
-            width: 80%;
+            width: 100%;
         }
 
         /* --- ヒーローセクション --- */
@@ -228,11 +253,11 @@
             font-size: 13px;
             font-weight: 700;
             letter-spacing: 1.5px;
-            color: var(--ocean-primary);
-            background: rgba(2, 132, 199, 0.08);
+            color: var(--primary-teal);
+            background: rgba(13, 148, 136, 0.08);
             padding: 6px 16px;
             border-radius: 20px;
-            border: 1px solid rgba(2, 132, 199, 0.15);
+            border: 1px solid rgba(13, 148, 136, 0.2);
             text-transform: uppercase;
             margin-bottom: 24px;
             width: fit-content;
@@ -243,12 +268,12 @@
             line-height: 1.15;
             letter-spacing: -0.02em;
             font-weight: 800;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
             margin-bottom: 24px;
         }
 
         .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--ocean-primary) 0%, var(--ocean-light) 100%);
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -267,7 +292,7 @@
             justify-content: center;
             width: fit-content;
             padding: 16px 40px;
-            background: linear-gradient(135deg, var(--ocean-primary) 0%, #0369a1 100%);
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-blue) 100%);
             color: #ffffff;
             border: none;
             border-radius: 8px;
@@ -275,12 +300,12 @@
             font-size: 16px;
             text-decoration: none;
             transition: var(--transition-base);
-            box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 8px 20px -4px rgba(13, 148, 136, 0.35);
         }
 
         .button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.45);
+            box-shadow: 0 12px 28px -4px rgba(13, 148, 136, 0.45);
             filter: brightness(1.05);
         }
 
@@ -296,7 +321,7 @@
             font-weight: 800;
             letter-spacing: -0.01em;
             margin-bottom: 48px;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -307,11 +332,11 @@
             display: inline-block;
             width: 8px;
             height: 32px;
-            background: linear-gradient(180deg, var(--ocean-light), var(--ocean-primary));
+            background: linear-gradient(180deg, var(--accent-mint), var(--primary-teal));
             border-radius: 4px;
         }
 
-        /* --- 理念セクション --- */
+        /* --- カード類（グラスモーフィズム仕上げ） --- */
         .vision-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -321,9 +346,9 @@
         .vision-item {
             padding: 36px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 12px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
             border: 1px solid var(--card-border);
             box-shadow: var(--shadow-soft);
             transition: var(--transition-base);
@@ -332,14 +357,14 @@
         .vision-item:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-hover);
-            border-color: var(--ocean-light);
+            border-color: rgba(45, 212, 191, 0.5);
         }
 
         .vision-item h3 {
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 12px;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
         }
 
         .vision-item p {
@@ -348,7 +373,7 @@
             font-size: 15px;
         }
 
-        /* --- 事業内容セクション --- */
+        /* 事業内容 */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -360,10 +385,10 @@
             flex-direction: column;
             justify-content: space-between;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 36px;
             text-decoration: none;
             color: inherit;
@@ -372,7 +397,7 @@
         }
 
         a.card:hover {
-            border-color: var(--ocean-primary);
+            border-color: var(--primary-teal);
             transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
         }
@@ -381,7 +406,7 @@
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 16px;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -395,7 +420,7 @@
 
         .card-link-arrow {
             font-size: 18px;
-            color: var(--ocean-primary);
+            color: var(--primary-teal);
             transition: var(--transition-base);
         }
 
@@ -403,7 +428,7 @@
             transform: translateX(6px);
         }
 
-        /* --- 便利ツールセクション --- */
+        /* 便利ツール */
         .tools-list {
             display: flex;
             flex-direction: column;
@@ -415,10 +440,10 @@
             align-items: center;
             gap: 32px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 24px;
             text-decoration: none;
             color: inherit;
@@ -427,7 +452,7 @@
         }
 
         a.card-horizontal:hover {
-            border-color: var(--ocean-primary);
+            border-color: var(--primary-teal);
             transform: translateY(-4px);
             box-shadow: var(--shadow-hover);
         }
@@ -437,9 +462,9 @@
             height: 130px;
             object-fit: cover;
             flex-shrink: 0;
-            border-radius: 8px;
-            background: var(--ocean-soft);
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
         }
 
         .tool-info {
@@ -450,7 +475,7 @@
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 8px;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
         }
 
         .tool-info p {
@@ -465,21 +490,21 @@
             gap: 6px;
             margin-top: 12px;
             font-weight: 700;
-            color: var(--ocean-primary);
+            color: var(--primary-teal);
             font-size: 14px;
             transition: var(--transition-base);
         }
 
         a.card-horizontal:hover .arrow {
             transform: translateX(6px);
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
         }
 
         /* --- フッター --- */
         footer {
-            border-top: 1px solid rgba(56, 189, 248, 0.2);
-            background: rgba(224, 242, 254, 0.4);
-            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(240, 253, 250, 0.6);
+            backdrop-filter: blur(16px);
             margin-top: 100px;
             padding: 60px 8%;
         }
@@ -492,7 +517,7 @@
         .footerTop {
             font-size: 22px;
             font-weight: 800;
-            color: var(--ocean-dark);
+            color: var(--primary-dark);
         }
 
         .footerBottom {
@@ -518,7 +543,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--ocean-primary);
+            color: var(--primary-teal);
         }
 
         /* --- レスポンシブ対応 --- */
@@ -533,6 +558,8 @@
             }
 
             .menu-btn {
+                top: 14px;
+                right: 20px;
                 width: 42px;
                 height: 42px;
             }
@@ -568,16 +595,18 @@
         <div class="logo">
             <a href="#"><img src="MMM.png" alt="Multi Trillion"></a>
         </div>
-        
-        <!-- 丸型の三本線ボタン -->
-        <button class="menu-btn" id="menuBtn" aria-label="メニューを開く">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </header>
 
-    <!-- オーバーレイメニュー -->
+    <!-- 右上に固定された同じ場所で「×」に変形する丸型ボタン -->
+    <button class="menu-btn" id="menuBtn" aria-label="メニュー切り替え">
+        <div class="icon-box">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- フルスクリーン オーバレイメニュー -->
     <div class="menu-overlay" id="menuOverlay">
         <nav class="overlay-nav">
             <a href="#vision" class="menu-link">理念</a>
@@ -718,18 +747,17 @@
         </div>
     </footer>
 
-    <!-- JS: メニュー開閉およびクリック時自動クローズ制御 -->
+    <!-- JavaScript：メニュー開閉＆スクロール制御 -->
     <script>
         const menuBtn = document.getElementById('menuBtn');
         const menuOverlay = document.getElementById('menuOverlay');
         const menuLinks = document.querySelectorAll('.menu-link');
 
-        // メニューボタン押下時の切替
         menuBtn.addEventListener('click', () => {
             menuBtn.classList.toggle('active');
             menuOverlay.classList.toggle('active');
             
-            // 開いている間は背面スクロールを無効化
+            // メニュー表示時の背面スクロール防止
             if (menuOverlay.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -737,7 +765,7 @@
             }
         });
 
-        // メニュー内リンクをクリックしたら自動で閉じる
+        // リンク選択時にスムーズに閉じる
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menuBtn.classList.remove('active');
