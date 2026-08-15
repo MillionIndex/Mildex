@@ -554,6 +554,8 @@
             transition: var(--transition);
 
             overflow: hidden;
+
+            --card-color: #1598b8;
         }
 
 
@@ -568,12 +570,7 @@
             width: 100%;
             height: 4px;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--ocean),
-                    var(--ocean-light)
-                );
+            background: var(--card-color);
 
             opacity: 0;
 
@@ -633,6 +630,8 @@
                     184,
                     0.10
                 );
+
+            border: 4px solid var(--card-color);
         }
 
 
@@ -668,7 +667,7 @@
         .member-number {
             margin-bottom: 5px;
 
-            color: var(--ocean);
+            color: var(--card-color);
 
             font-family:
                 Arial,
@@ -712,7 +711,7 @@
         .member-arrow {
             margin-top: 18px;
 
-            color: var(--ocean);
+            color: var(--card-color);
 
             font-size: 18px;
 
@@ -1504,10 +1503,14 @@
             card.className =
                 "member-card";
 
-
             card.href =
                 "Member.html?id=" +
                 encodeURIComponent(member.id);
+
+            card.style.setProperty(
+                "--card-color",
+                member.color || "#1598b8"
+            );
 
 
             card.innerHTML = `
