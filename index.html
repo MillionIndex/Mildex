@@ -337,13 +337,13 @@
 
 
         .menu-list {
-            width: min(600px, 82%);
+            width: min(620px, 84%);
 
             display: flex;
 
             flex-direction: column;
 
-            gap: 7px;
+            gap: 4px;
         }
 
 
@@ -354,14 +354,13 @@
 
             justify-content: space-between;
 
-            padding: 18px 4px;
+            padding: 17px 4px;
 
             color: var(--ocean-deep);
 
-            font-size: 24px;
-            font-weight: 700;
-
-            border-bottom: 1px solid var(--line);
+            border-bottom:
+                1px solid
+                rgba(8, 126, 164, 0.13);
 
             opacity: 0;
 
@@ -398,19 +397,60 @@
         }
 
 
-        .menu-list a:hover {
-            padding-left: 12px;
+        .menu.active .menu-list a:nth-child(5) {
+            transition-delay: 0.25s;
+        }
 
-            color: var(--ocean);
+
+        .menu-item-text {
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 17px;
+        }
+
+
+        .menu-jp {
+            font-size: 22px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.02em;
+        }
+
+
+        .menu-en {
+            color: rgba(8, 126, 164, 0.62);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            letter-spacing: 3px;
+
+            line-height: 1;
         }
 
 
         .menu-arrow {
             color: var(--ocean);
 
-            font-size: 20px;
+            font-size: 19px;
 
             transition: var(--transition);
+        }
+
+
+        .menu-list a:hover {
+            padding-left: 12px;
+
+            color: var(--ocean);
         }
 
 
@@ -504,6 +544,11 @@
         .section-title-en {
             color: rgba(8, 126, 164, 0.72);
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size:
                 clamp(
                     14px,
@@ -511,13 +556,11 @@
                     18px
                 );
 
-            font-weight: 600;
+            font-weight: 500;
 
             letter-spacing: 4px;
 
             line-height: 1;
-
-            padding-left: 0;
         }
 
 
@@ -549,11 +592,16 @@
 
             color: var(--ocean);
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 12px;
 
-            font-weight: 700;
+            font-weight: 600;
 
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
 
@@ -622,70 +670,6 @@
         }
 
 
-        .hero-button {
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: fit-content;
-
-            margin-top: 35px;
-
-            padding: 13px 24px;
-
-            border-radius: 100px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--ocean),
-                    var(--ocean-blue)
-                );
-
-            color: white;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
-            box-shadow:
-                0 10px 25px
-                rgba(8, 126, 164, 0.17);
-
-            transition: var(--transition);
-        }
-
-
-        .hero-button span {
-            margin-left: 12px;
-
-            transition: var(--transition);
-        }
-
-
-        .hero-button:hover {
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--ocean-deep),
-                    var(--ocean)
-                );
-
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 15px 30px
-                rgba(8, 126, 164, 0.22);
-        }
-
-
-        .hero-button:hover span {
-            transform: translateX(5px);
-        }
-
-
         /* =========================================================
            ABOUT
         ========================================================= */
@@ -744,9 +728,14 @@
         .vision-number {
             color: var(--ocean);
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 13px;
 
-            font-weight: 800;
+            font-weight: 700;
 
             letter-spacing: 2px;
         }
@@ -885,11 +874,16 @@
         .service-label {
             color: var(--ocean);
 
-            font-size: 12px;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-            font-weight: 800;
+            font-size: 11px;
 
-            letter-spacing: 1px;
+            font-weight: 700;
+
+            letter-spacing: 2px;
         }
 
 
@@ -991,9 +985,14 @@
         .tool-number {
             color: var(--ocean);
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 11px;
 
-            font-weight: 800;
+            font-weight: 700;
 
             letter-spacing: 2px;
         }
@@ -1037,6 +1036,107 @@
 
         .tool-item:hover .tool-arrow {
             transform: translateX(7px);
+        }
+
+
+        /* =========================================================
+           MEMBERS
+        ========================================================= */
+
+        .member-list {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .member-item {
+            display: grid;
+
+            grid-template-columns:
+                90px
+                1fr;
+
+            gap: 35px;
+
+            align-items: center;
+
+            padding: 30px 0;
+
+            border-top:
+                1px solid
+                rgba(8, 126, 164, 0.18);
+
+            transition: var(--transition);
+        }
+
+
+        .member-item:last-child {
+            border-bottom:
+                1px solid
+                rgba(8, 126, 164, 0.18);
+        }
+
+
+        .member-number {
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .member-info {
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 22px;
+        }
+
+
+        .member-name {
+            color: var(--ocean-deep);
+
+            font-size: 21px;
+
+            font-weight: 800;
+        }
+
+
+        .member-role {
+            color: rgba(8, 126, 164, 0.68);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .member-item:hover {
+            padding-left: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.35),
+                    rgba(255, 255, 255, 0)
+                );
         }
 
 
@@ -1093,11 +1193,16 @@
 
             color: var(--ocean);
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 11px;
 
-            font-weight: 800;
+            font-weight: 700;
 
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
 
@@ -1407,6 +1512,37 @@
 
 
             /* -----------------------------------------
+               メニュー
+            ----------------------------------------- */
+
+            .menu-list {
+                width: 84%;
+            }
+
+
+            .menu-list a {
+                padding: 16px 2px;
+            }
+
+
+            .menu-item-text {
+                gap: 13px;
+            }
+
+
+            .menu-jp {
+                font-size: 19px;
+            }
+
+
+            .menu-en {
+                font-size: 10px;
+
+                letter-spacing: 2.3px;
+            }
+
+
+            /* -----------------------------------------
                セクションタイトル
             ----------------------------------------- */
 
@@ -1516,6 +1652,42 @@
 
 
             /* -----------------------------------------
+               MEMBERS
+            ----------------------------------------- */
+
+            .member-item {
+                grid-template-columns:
+                    55px
+                    1fr;
+
+                gap: 18px;
+
+                padding: 25px 0;
+            }
+
+
+            .member-info {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 2px;
+            }
+
+
+            .member-name {
+                font-size: 18px;
+            }
+
+
+            .member-role {
+                font-size: 9px;
+
+                letter-spacing: 1.2px;
+            }
+
+
+            /* -----------------------------------------
                CONTACT
             ----------------------------------------- */
 
@@ -1586,6 +1758,32 @@
 
 
             /* -----------------------------------------
+               メニュー
+            ----------------------------------------- */
+
+            .menu-list {
+                width: 82%;
+            }
+
+
+            .menu-item-text {
+                gap: 10px;
+            }
+
+
+            .menu-jp {
+                font-size: 18px;
+            }
+
+
+            .menu-en {
+                font-size: 9px;
+
+                letter-spacing: 1.8px;
+            }
+
+
+            /* -----------------------------------------
                セクションタイトル
             ----------------------------------------- */
 
@@ -1626,16 +1824,16 @@
 
 
             /* -----------------------------------------
-               MENU
+               MEMBERS
             ----------------------------------------- */
 
-            .menu-list a {
-                font-size: 21px;
+            .member-item {
+                grid-template-columns: 1fr;
             }
 
 
-            .menu-arrow {
-                font-size: 17px;
+            .member-number {
+                margin-bottom: -5px;
             }
 
         }
@@ -1696,7 +1894,7 @@
 
 
     <!-- =========================================================
-         メニューボタン
+         三本線
     ========================================================= -->
 
     <button
@@ -1723,11 +1921,20 @@
 
         <nav class="menu-list">
 
+
             <a href="#about">
 
-                <span>
-                    理念
-                </span>
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        理念
+                    </span>
+
+                    <span class="menu-en">
+                        A B O U T
+                    </span>
+
+                </div>
 
                 <span class="menu-arrow">
                     →
@@ -1738,9 +1945,17 @@
 
             <a href="#service">
 
-                <span>
-                    事業内容
-                </span>
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        事業内容
+                    </span>
+
+                    <span class="menu-en">
+                        S E R V I C E
+                    </span>
+
+                </div>
 
                 <span class="menu-arrow">
                     →
@@ -1751,9 +1966,38 @@
 
             <a href="#tools">
 
-                <span>
-                    便利ツール
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        便利ツール
+                    </span>
+
+                    <span class="menu-en">
+                        T O O L S
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
                 </span>
+
+            </a>
+
+
+            <a href="#members">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        メンバー一覧
+                    </span>
+
+                    <span class="menu-en">
+                        M E M B E R S
+                    </span>
+
+                </div>
 
                 <span class="menu-arrow">
                     →
@@ -1764,15 +2008,24 @@
 
             <a href="#contact">
 
-                <span>
-                    お問い合わせ
-                </span>
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        お問い合わせ
+                    </span>
+
+                    <span class="menu-en">
+                        C O N T A C T
+                    </span>
+
+                </div>
 
                 <span class="menu-arrow">
                     →
                 </span>
 
             </a>
+
 
         </nav>
 
@@ -1788,8 +2041,9 @@
 
         <section class="hero">
 
+
             <div class="hero-small fade">
-                MillionIndex
+                M I L L I O N I N D E X
             </div>
 
 
@@ -1813,18 +2067,6 @@
 
             </p>
 
-
-            <a
-                href="#service"
-                class="hero-button fade">
-
-                サービスを見る
-
-                <span>
-                    →
-                </span>
-
-            </a>
 
         </section>
 
@@ -1997,7 +2239,7 @@
 
 
                     <div class="service-label">
-                        Web
+                        W E B
                     </div>
 
 
@@ -2033,7 +2275,7 @@
 
 
                     <div class="service-label">
-                        学習
+                        L E A R N
                     </div>
 
 
@@ -2070,7 +2312,7 @@
 
 
                     <div class="service-label">
-                        出版
+                        P U B L I S H
                     </div>
 
 
@@ -2257,6 +2499,84 @@
 
 
         <!-- =====================================================
+             MEMBERS
+        ===================================================== -->
+
+        <section id="members">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-jp">
+                        メンバー一覧
+                    </span>
+
+                    <span class="section-title-en">
+                        M E M B E R S
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="member-list">
+
+
+                <div class="member-item fade">
+
+                    <div class="member-number">
+                        01
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-name">
+                            主
+                        </div>
+
+
+                        <div class="member-role">
+                            Mildexを立ち上げた本人
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="member-item fade">
+
+                    <div class="member-number">
+                        02
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-name">
+                            MEMBER NAME
+                        </div>
+
+
+                        <div class="member-role">
+                            MEMBER
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
              CONTACT
         ===================================================== -->
 
@@ -2266,7 +2586,7 @@
 
 
             <div class="contact-small">
-                CONTACT
+                C O N T A C T
             </div>
 
 
@@ -2341,6 +2661,10 @@
 
                     <a href="#tools">
                         便利ツール
+                    </a>
+
+                    <a href="#members">
+                        メンバー一覧
                     </a>
 
                     <a href="#contact">
