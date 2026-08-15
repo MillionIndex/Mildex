@@ -1,1919 +1,2974 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MillionIndex</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-:root{
-    --ocean:#1598b8;
-    --ocean-blue:#54c8dc;
-    --ocean-light:#9ce8ed;
-    --mint:#b9eee4;
-    --pale:#f4fdfe;
-
-    --text:#285264;
-    --text-soft:#6b8994;
-    --text-faint:#9bb4bc;
-
-    --white:#fff;
-
-    --shadow:0 15px 45px rgba(21,152,184,.09);
-    --soft-shadow:0 8px 28px rgba(21,152,184,.07);
-
-    --transition:all .4s cubic-bezier(.16,1,.3,1);
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
-    color:var(--text);
-    line-height:1.8;
-    overflow-x:hidden;
-
-    background:
-    linear-gradient(
-        180deg,
-        #fff 0%,
-        #faffff 15%,
-        #f1fcfd 34%,
-        #e6f9fb 52%,
-        #d5f4f3 72%,
-        #bcece9 88%,
-        #a9e5e5 100%
-    );
-
-    background-attachment:fixed;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-button{
-    font:inherit;
-}
-
-
-/* =========================
-   背景
-========================= */
-
-.background{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-10;
-    overflow:hidden;
-}
-
-.background::before{
-    content:"";
-    position:absolute;
-    width:650px;
-    height:650px;
-    top:-280px;
-    right:-180px;
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(119,224,235,.30) 0%,
-        rgba(119,224,235,.12) 38%,
-        rgba(119,224,235,0) 72%
-    );
-
-    animation:floatCloud 12s ease-in-out infinite;
-}
-
-.background::after{
-    content:"";
-    position:absolute;
-    width:720px;
-    height:720px;
-    bottom:-350px;
-    left:-250px;
-    border-radius:50%;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,255,255,.62) 0%,
-        rgba(255,255,255,.20) 40%,
-        rgba(255,255,255,0) 72%
-    );
-
-    animation:floatCloud 15s ease-in-out infinite reverse;
-}
-
-@keyframes floatCloud{
-    0%,100%{transform:translate3d(0,0,0)}
-    50%{transform:translate3d(20px,18px,0)}
-}
-
-
-/* =========================
-   水滴
-========================= */
-
-.bubble{
-    position:fixed;
-    pointer-events:none;
-    z-index:-5;
-    border-radius:50%;
-
-    border:1px solid rgba(21,152,184,.18);
-    background:rgba(255,255,255,.48);
-    box-shadow:0 4px 15px rgba(21,152,184,.08);
-
-    animation:bubbleFloat 8s ease-in-out infinite;
-}
-
-.bubble-1{
-    width:20px;
-    height:20px;
-    top:24%;
-    left:7%;
-}
-
-.bubble-2{
-    width:12px;
-    height:12px;
-    top:42%;
-    right:9%;
-    animation-delay:2s;
-}
-
-.bubble-3{
-    width:28px;
-    height:28px;
-    top:67%;
-    left:4%;
-    animation-delay:1s;
-}
-
-.bubble-4{
-    width:15px;
-    height:15px;
-    top:78%;
-    right:7%;
-    animation-delay:3s;
-}
-
-@keyframes bubbleFloat{
-    0%,100%{
-        transform:translateY(0);
-        opacity:.55;
-    }
-
-    50%{
-        transform:translateY(-14px);
-        opacity:.9;
-    }
-}
-
-
-/* =========================
-   ロゴ
-========================= */
-
-.logo{
-    position:fixed;
-    top:17px;
-    left:5%;
-    z-index:1000;
-    width:170px;
-    height:78px;
-    display:flex;
-    align-items:center;
-}
-
-.logo img{
-    display:block;
-    width:auto;
-    height:78px;
-    max-width:170px;
-    object-fit:contain;
-    transition:transform .35s ease,filter .35s ease;
-}
-
-.logo img:hover{
-    transform:scale(1.04) rotate(-1deg);
-}
-
-
-/* =========================
-   メニューボタン
-========================= */
-
-.menu-button{
-    position:fixed;
-    top:28px;
-    right:5%;
-    width:50px;
-    height:50px;
-    border:none;
-    background:rgba(255,255,255,.70);
-    border-radius:50%;
-    cursor:pointer;
-    z-index:1200;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:var(--transition);
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-
-    box-shadow:0 8px 25px rgba(21,152,184,.09);
-}
-
-.menu-button:hover{
-    transform:translateY(-2px) scale(1.04);
-    background:rgba(255,255,255,.90);
-}
-
-.menu-icon{
-    width:21px;
-    height:16px;
-    position:relative;
-}
-
-.menu-icon span{
-    position:absolute;
-    left:0;
-    width:100%;
-    height:2px;
-    background:var(--text);
-    border-radius:5px;
-    transition:var(--transition);
-}
-
-.menu-icon span:nth-child(1){top:0}
-.menu-icon span:nth-child(2){top:7px}
-.menu-icon span:nth-child(3){top:14px}
-
-.menu-button.active .menu-icon span:nth-child(1){
-    top:7px;
-    transform:rotate(45deg);
-}
-
-.menu-button.active .menu-icon span:nth-child(2){
-    opacity:0;
-}
-
-.menu-button.active .menu-icon span:nth-child(3){
-    top:7px;
-    transform:rotate(-45deg);
-}
-
-
-/* =========================
-   メニュー
-========================= */
-
-.menu{
-    position:fixed;
-    inset:0;
-    z-index:1100;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:rgba(248,254,255,.94);
-
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-
-    opacity:0;
-    visibility:hidden;
-    transition:var(--transition);
-}
-
-.menu.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.menu-list{
-    width:min(570px,82%);
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.menu-list a{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:18px 20px;
-
-    color:var(--text);
-    border-radius:20px;
-    background:rgba(255,255,255,.42);
-
-    opacity:0;
-    transform:translateY(18px);
-
-    transition:var(--transition);
-}
-
-.menu.active .menu-list a{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.menu.active .menu-list a:nth-child(1){transition-delay:.05s}
-.menu.active .menu-list a:nth-child(2){transition-delay:.10s}
-.menu.active .menu-list a:nth-child(3){transition-delay:.15s}
-.menu.active .menu-list a:nth-child(4){transition-delay:.20s}
-.menu.active .menu-list a:nth-child(5){transition-delay:.25s}
-.menu.active .menu-list a:nth-child(6){transition-delay:.30s}
-
-.menu-item-text{
-    display:flex;
-    align-items:baseline;
-    gap:13px;
-}
-
-.menu-jp{
-    font-size:20px;
-    font-weight:700;
-}
-
-.menu-en{
-    color:rgba(21,152,184,.62);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:10px;
-    font-weight:600;
-    letter-spacing:2.8px;
-    line-height:1;
-}
-
-.menu-arrow{
-    color:var(--ocean);
-    font-size:19px;
-    transition:var(--transition);
-}
-
-.menu-list a:hover{
-    background:rgba(255,255,255,.82);
-    transform:translateX(5px);
-}
-
-.menu-list a:hover .menu-arrow{
-    transform:translateX(5px);
-}
-
-
-/* =========================
-   共通
-========================= */
-
-section{
-    width:min(1000px,86%);
-    margin:0 auto;
-    padding:125px 0;
-}
-
-.section-heading{
-    margin-bottom:58px;
-    text-align:center;
-}
-
-.section-title{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:7px;
-    position:relative;
-    text-align:center;
-}
-
-.section-title-en{
-    order:1;
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:clamp(11px,1.8vw,13px);
-    font-weight:700;
-    letter-spacing:4px;
-    line-height:1;
-}
-
-.section-title-jp{
-    order:2;
-    color:var(--text);
-    font-size:clamp(26px,5vw,38px);
-    font-weight:800;
-    letter-spacing:-.035em;
-    line-height:1.3;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    width:min(1050px,88%);
-    min-height:100vh;
-    margin:0 auto;
-
-    padding:150px 0 90px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-    position:relative;
-}
-
-.hero-small{
-    margin-bottom:25px;
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:4px;
-}
-
-.hero h1{
-    max-width:900px;
-    color:var(--text);
-
-    font-size:clamp(40px,7vw,76px);
-    font-weight:800;
-    line-height:1.5;
-    letter-spacing:-.055em;
-}
-
-.hero h1 span{
-    color:var(--ocean);
-    position:relative;
-    display:inline-block;
-}
-
-.hero h1 span::after{
-    content:"";
-    position:absolute;
-    left:5%;
-    right:5%;
-    bottom:2px;
-    height:9px;
-    border-radius:20px;
-
-    background:linear-gradient(
-        90deg,
-        rgba(156,232,237,.55),
-        rgba(185,238,228,.45)
-    );
-
-    z-index:-1;
-}
-
-.hero-description{
-    max-width:600px;
-    margin-top:38px;
-    color:var(--text-soft);
-    font-size:14px;
-    font-weight:500;
-    line-height:2.2;
-}
-
-
-/* =========================
-   ABOUT
-========================= */
-
-.about-intro{
-    max-width:680px;
-    margin:0 auto 78px;
-    color:var(--text);
-    font-size:clamp(18px,2.8vw,24px);
-    font-weight:700;
-    line-height:2.15;
-    text-align:center;
-}
-
-.vision-list{
-    display:flex;
-    flex-direction:column;
-    gap:70px;
-}
-
-.vision-item{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    padding:0 20px;
-}
-
-.vision-number{
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:3px;
-    margin-bottom:13px;
-}
-
-.vision-content{
-    max-width:650px;
-}
-
-.vision-content h3{
-    margin-bottom:13px;
-    color:var(--text);
-    font-size:clamp(23px,4vw,31px);
-    font-weight:800;
-    line-height:1.45;
-}
-
-.vision-content p{
-    max-width:570px;
-    margin:0 auto;
-    color:var(--text-soft);
-    font-size:13px;
-    font-weight:500;
-    line-height:2.1;
-}
-
-
-/* =========================
-   SERVICE
-========================= */
-
-.service-intro,
-.tools-intro{
-    max-width:580px;
-    margin:0 auto 48px;
-    color:var(--text-soft);
-    font-size:13px;
-    font-weight:500;
-    line-height:2.15;
-    text-align:center;
-}
-
-.service-list{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-}
-
-.service-item{
-    position:relative;
-
-    display:grid;
-    grid-template-columns:115px 1fr 45px;
-    align-items:center;
-    gap:28px;
-
-    padding:27px 30px;
-    border-radius:28px;
-
-    background:rgba(255,255,255,.57);
-
-    border:1px solid rgba(255,255,255,.82);
-
-    box-shadow:var(--soft-shadow);
-
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-
-    transition:var(--transition);
-}
-
-.service-item:hover{
-    transform:translateY(-5px) scale(1.008);
-    background:rgba(255,255,255,.82);
-    box-shadow:var(--shadow);
-}
-
-.service-label{
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:2.5px;
-}
-
-.service-name{
-    margin-bottom:3px;
-    color:var(--text);
-    font-size:19px;
-    font-weight:800;
-}
-
-.service-description{
-    color:var(--text-faint);
-    font-size:11px;
-    font-weight:500;
-    line-height:1.6;
-    white-space:nowrap;
-}
-
-.service-arrow{
-    color:var(--ocean);
-    font-size:20px;
-    transition:var(--transition);
-}
-
-.service-item:hover .service-arrow{
-    transform:translateX(6px);
-}
-
-
-/* =========================
-   TOOLS
-========================= */
-
-.tools-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.tool-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:22px 24px;
-    border-radius:20px;
-
-    background:rgba(255,255,255,.34);
-    transition:var(--transition);
-}
-
-.tool-item:hover{
-    background:rgba(255,255,255,.68);
-    transform:translateX(4px);
-}
-
-.tool-left{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.tool-number{
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:2px;
-}
-
-.tool-title{
-    color:var(--text);
-    font-size:16px;
-    font-weight:700;
-    line-height:1.4;
-}
-
-.tool-description{
-    margin-top:1px;
-    color:var(--text-faint);
-    font-size:10px;
-    font-weight:500;
-    line-height:1.5;
-    white-space:nowrap;
-}
-
-.tool-arrow{
-    color:var(--ocean);
-    font-size:18px;
-    transition:var(--transition);
-}
-
-.tool-item:hover .tool-arrow{
-    transform:translateX(6px);
-}
-
-
-/* =========================
-   MEMBERS
-========================= */
-
-.member-list{
-    max-width:800px;
-    margin:0 auto;
-
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.member-item{
-    position:relative;
-    min-height:280px;
-    padding:24px;
-    border-radius:30px;
-
-    background:rgba(255,255,255,.48);
-    border:1px solid rgba(255,255,255,.78);
-
-    box-shadow:var(--soft-shadow);
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-end;
-
-    text-align:center;
-    overflow:hidden;
-
-    transition:var(--transition);
-}
-
-.member-item:hover{
-    transform:translateY(-7px);
-    background:rgba(255,255,255,.78);
-    box-shadow:var(--shadow);
-}
-
-.member-image{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px 25px 75px;
-}
-
-.member-image img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    transition:var(--transition);
-}
-
-.member-item:hover .member-image img{
-    transform:scale(1.035);
-}
-
-.member-overlay{
-    position:absolute;
-    inset:auto 0 0 0;
-    padding:30px 20px 20px;
-
-    background:linear-gradient(
-        transparent,
-        rgba(255,255,255,.94)
-    );
-}
-
-.member-number{
-    margin-bottom:4px;
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:2px;
-}
-
-.member-name{
-    color:var(--text);
-    font-size:21px;
-    font-weight:800;
-}
-
-.member-role{
-    color:var(--text-faint);
-    font-size:10px;
-    font-weight:500;
-}
-
-.member-all{
-    display:flex;
-    justify-content:center;
-    margin-top:25px;
-}
-
-.member-all-button{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-
-    padding:14px 25px;
-
-    border-radius:100px;
-
-    background:rgba(255,255,255,.65);
-    border:1px solid rgba(21,152,184,.12);
-
-    color:var(--ocean);
-    font-size:13px;
-    font-weight:700;
-
-    box-shadow:var(--soft-shadow);
-
-    transition:var(--transition);
-}
-
-.member-all-button span{
-    transition:var(--transition);
-}
-
-.member-all-button:hover{
-    background:var(--ocean);
-    color:#fff;
-    transform:translateY(-3px);
-}
-
-.member-all-button:hover span{
-    transform:translateX(5px);
-}
-
-
-/* =========================
-   CONTACT
-========================= */
-
-.contact{
-    width:min(780px,86%);
-    margin:60px auto 110px;
-    padding:80px 30px;
-
-    text-align:center;
-
-    border-radius:40px;
-
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.68),
-        rgba(255,255,255,.42)
-    );
-
-    border:1px solid rgba(255,255,255,.90);
-
-    box-shadow:var(--shadow);
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-}
-
-.contact-small{
-    margin-bottom:9px;
-    color:var(--ocean);
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:3px;
-}
-
-.contact h2{
-    margin-bottom:18px;
-    color:var(--text);
-    font-size:clamp(28px,5vw,42px);
-    font-weight:800;
-    line-height:1.5;
-}
-
-.contact p{
-    max-width:500px;
-    margin:0 auto 28px;
-    color:var(--text-soft);
-    font-size:12px;
-    font-weight:500;
-    line-height:2;
-}
-
-.contact-button{
-    display:inline-flex;
-    align-items:center;
-    padding:12px 24px;
-
-    border-radius:100px;
-
-    background:rgba(255,255,255,.88);
-    color:var(--ocean);
-
-    border:1px solid rgba(21,152,184,.13);
-
-    font-size:13px;
-    font-weight:700;
-
-    box-shadow:0 7px 20px rgba(21,152,184,.07);
-
-    transition:var(--transition);
-}
-
-.contact-button span{
-    margin-left:10px;
-    transition:var(--transition);
-}
-
-.contact-button:hover{
-    background:linear-gradient(135deg,var(--ocean),var(--ocean-blue));
-    color:#fff;
-    transform:translateY(-3px);
-}
-
-.contact-button:hover span{
-    transform:translateX(5px);
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    padding:50px 7% 28px;
-
-    background:rgba(255,255,255,.48);
-
-    border-top:1px solid rgba(255,255,255,.72);
-
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-}
-
-.footer-inner{
-    width:min(1000px,100%);
-    margin:0 auto;
-}
-
-.footer-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:40px;
-}
-
-.footer-name{
-    color:var(--text);
-    font-size:19px;
-    font-weight:800;
-}
-
-.footer-copy{
-    margin-top:3px;
-    color:var(--text-faint);
-    font-size:10px;
-    font-weight:500;
-}
-
-.footer-links{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-    gap:17px;
-}
-
-.footer-links a{
-    color:var(--text-soft);
-    font-size:11px;
-    font-weight:500;
-    transition:var(--transition);
-}
-
-.footer-links a:hover{
-    color:var(--ocean);
-}
-
-.footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-top:38px;
-    padding-top:17px;
-
-    border-top:1px solid rgba(21,152,184,.10);
-
-    color:var(--text-faint);
-    font-size:9px;
-}
-
-
-/* =========================
-   フェード
-========================= */
-
-.fade{
-    opacity:0;
-    transform:translateY(22px);
-
-    transition:
-        opacity .8s ease,
-        transform .8s cubic-bezier(.16,1,.3,1);
-}
-
-.fade.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-
-/* =========================
-   タブレット
-========================= */
-
-@media(max-width:800px){
-
-    .logo{
-        top:12px;
-        left:20px;
-        width:145px;
-        height:62px;
-    }
-
-    .logo img{
-        height:62px;
-        max-width:145px;
-    }
-
-    .menu-button{
-        top:18px;
-        right:20px;
-        width:44px;
-        height:44px;
-    }
-
-    section{
-        width:86%;
-        padding:90px 0;
-    }
-
-    .hero{
-        width:88%;
-        padding:125px 0 75px;
-    }
-
-    .hero h1{
-        font-size:clamp(36px,10vw,58px);
-        line-height:1.55;
-    }
-
-    .hero-description{
-        margin-top:30px;
-        font-size:13px;
-        line-height:2.1;
-    }
-
-    .section-heading{
-        margin-bottom:48px;
-    }
-
-    .section-title-jp{
-        font-size:28px;
-    }
-
-    .about-intro{
-        margin-bottom:65px;
-        font-size:18px;
-    }
-
-    .vision-list{
-        gap:58px;
-    }
-
-    .vision-content h3{
-        font-size:23px;
-    }
-
-    .vision-content p{
-        font-size:12px;
-    }
-
-    .service-item{
-        grid-template-columns:1fr 30px;
-        gap:3px;
-        padding:23px 21px;
-    }
-
-    .service-label{
-        margin-bottom:3px;
-    }
-
-    .service-arrow{
-        grid-column:2;
-        grid-row:1 / span 2;
-    }
-
-    .service-description{
-        font-size:10px;
-        white-space:normal;
-    }
-
-    .tool-item{
-        padding:19px 18px;
-    }
-
-    .tool-left{
-        gap:15px;
-    }
-
-    .tool-title{
-        font-size:15px;
-    }
-
-    .tool-description{
-        font-size:9px;
-        white-space:normal;
-    }
-
-    .member-list{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .member-item{
-        min-height:220px;
-    }
-
-    .contact{
-        width:86%;
-        padding:65px 20px;
-        margin-bottom:80px;
-    }
-
-    .footer-top{
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-    }
-
-    .footer-links{
-        justify-content:center;
-    }
-
-    .footer-bottom{
-        flex-direction:column;
-        gap:7px;
-        text-align:center;
-    }
-}
-
-
-/* =========================
-   スマホ
-========================= */
-
-@media(max-width:480px){
-
-    .logo{
-        width:125px;
-        height:56px;
-    }
-
-    .logo img{
-        height:56px;
-        max-width:125px;
-    }
-
-    .menu-button{
-        width:40px;
-        height:40px;
-    }
-
-    .hero{
-        min-height:94vh;
-    }
-
-    .hero h1{
-        font-size:36px;
-        line-height:1.6;
-    }
-
-    .hero h1 span::after{
-        height:6px;
-        bottom:1px;
-    }
-
-    .hero-description{
-        font-size:12px;
-    }
-
-    .menu-list{
-        width:84%;
-    }
-
-    .menu-list a{
-        padding:16px 17px;
-    }
-
-    .menu-item-text{
-        gap:9px;
-    }
-
-    .menu-jp{
-        font-size:17px;
-    }
-
-    .menu-en{
-        font-size:8px;
-        letter-spacing:1.8px;
-    }
-
-    .section-title-jp{
-        font-size:26px;
-    }
-
-    .section-title-en{
-        font-size:10px;
-        letter-spacing:3px;
-    }
-
-    .about-intro{
-        font-size:17px;
-    }
-
-    .vision-item{
-        padding:0 8px;
-    }
-
-    .vision-content h3{
-        font-size:21px;
-    }
-
-    .vision-content p{
-        font-size:11px;
-    }
-
-    .service-name{
-        font-size:17px;
-    }
-
-    .service-description{
-        font-size:9px;
-    }
-
-    .tool-item{
-        border-radius:17px;
-    }
-
-    .tool-title{
-        font-size:14px;
-    }
-
-    .tool-description{
-        font-size:8px;
-    }
-
-    .tool-number{
-        font-size:9px;
-    }
-
-    .member-list{
-        grid-template-columns:1fr;
-    }
-
-    .member-item{
-        min-height:260px;
-    }
-
-    .contact h2{
-        font-size:29px;
-    }
-
-    .contact p{
-        font-size:11px;
-    }
-}
-
-
-/* =========================
-   省電力
-========================= */
-
-@media(prefers-reduced-motion:reduce){
-
-    html{
-        scroll-behavior:auto;
-    }
-
-    *,
-    *::before,
-    *::after{
-        animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
-        transition-duration:.01ms !important;
-    }
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="background"></div>
-
-<div class="bubble bubble-1"></div>
-<div class="bubble bubble-2"></div>
-<div class="bubble bubble-3"></div>
-<div class="bubble bubble-4"></div>
-
-
-<!-- ロゴ -->
-
-<div class="logo">
-    <a href="#">
-        <img src="Mil.png" alt="MillionIndex">
-    </a>
-</div>
-
-
-<!-- メニューボタン -->
-
-<button class="menu-button" id="menuButton" aria-label="メニュー">
-    <div class="menu-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</button>
-
-
-<!-- メニュー -->
-
-<div class="menu" id="menu">
-
-    <nav class="menu-list">
-
-        <!-- TOPを一番上に追加 -->
-
-        <a href="#">
-            <div class="menu-item-text">
-                <span class="menu-jp">トップ</span>
-                <span class="menu-en">T O P</span>
-            </div>
-            <span class="menu-arrow">↑</span>
-        </a>
-
-        <a href="#about">
-            <div class="menu-item-text">
-                <span class="menu-jp">理念</span>
-                <span class="menu-en">A B O U T</span>
-            </div>
-            <span class="menu-arrow">→</span>
-        </a>
-
-        <a href="#service">
-            <div class="menu-item-text">
-                <span class="menu-jp">事業内容</span>
-                <span class="menu-en">S E R V I C E</span>
-            </div>
-            <span class="menu-arrow">→</span>
-        </a>
-
-        <a href="#tools">
-            <div class="menu-item-text">
-                <span class="menu-jp">便利ツール</span>
-                <span class="menu-en">T O O L S</span>
-            </div>
-            <span class="menu-arrow">→</span>
-        </a>
-
-        <a href="#members">
-            <div class="menu-item-text">
-                <span class="menu-jp">メンバー</span>
-                <span class="menu-en">M E M B E R S</span>
-            </div>
-            <span class="menu-arrow">→</span>
-        </a>
-
-        <a href="#contact">
-            <div class="menu-item-text">
-                <span class="menu-jp">お問い合わせ</span>
-                <span class="menu-en">C O N T A C T</span>
-            </div>
-            <span class="menu-arrow">→</span>
-        </a>
-
-    </nav>
-
-</div>
-
-
-<main>
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="hero-small fade">
-        M I L L I O N I N D E X　-　ＯＦＦＩＣＩＡＬ ＷＥＢＳＩＴＥ
-    </div>
-
-    <h1 class="fade">
-        すべての「便利」を、<br>
-        <span>ひとつの場所へ。</span>
-    </h1>
-
-    <p class="hero-description fade">
-        MillionIndexは、<br>
-        日常のちょっとした不便を減らす<br>
-        ウェブサービスや学習コンテンツ、<br>
-        便利なツールをつくっています。
-    </p>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section id="about">
-
-    <div class="section-heading fade">
-        <h2 class="section-title">
-            <span class="section-title-en">A B O U T</span>
-            <span class="section-title-jp">MillionIndexについて</span>
-        </h2>
-    </div>
-
-    <p class="about-intro fade">
-        「あったら便利」を、<br>
-        もっと身近に。
-    </p>
-
-    <div class="vision-list">
-
-        <div class="vision-item fade">
-            <div class="vision-number">
-                01　-　Wide-ranging business activities
-            </div>
-
-            <div class="vision-content">
-                <h3>
-                    幅広い<br>
-                    事業展開
-                </h3>
-
-                <p>
-                    小さな課題にも目を向け、<br>
-                    日常の様々な小さな不便を便利にします。
-                </p>
-            </div>
-        </div>
-
-        <div class="vision-item fade">
-            <div class="vision-number">
-                02　-　High quality right away
-            </div>
-
-            <div class="vision-content">
-                <h3>
-                    すぐに、<br>
-                    高クオリティ
-                </h3>
-
-                <p>
-                    どんなに急いでいても、<br>
-                    名を汚すような低品質なものはつくりません。
-                </p>
-            </div>
-        </div>
-
-        <div class="vision-item fade">
-            <div class="vision-number">
-                03　-　Everything is free of charge
-            </div>
-
-            <div class="vision-content">
-                <h3>
-                    すべてを<br>
-                    無償で
-                </h3>
-
-                <p>
-                    当事業にあたるすべてに<br>
-                    金銭的な対価は必要ありません。
-                </p>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SERVICE -->
-
-<section id="service">
-
-    <div class="section-heading fade">
-        <h2 class="section-title">
-            <span class="section-title-en">S E R V I C E</span>
-            <span class="section-title-jp">
-                MillionIndexの<br>
-                サービス
-            </span>
-        </h2>
-    </div>
-
-    <p class="service-intro fade">
-        高クオリティなで幅広い事業を展開し、<br>
-        いろいろな「便利」を届けています。
-    </p>
-
-    <div class="service-list">
-
-        <a href="#tools" class="service-item fade">
-
-            <div class="service-label">W E B</div>
-
-            <div>
-                <div class="service-name">ウェブサービス</div>
-
-                <p class="service-description">
-                    日常のちょっとした作業を、もっと快適に。
-                </p>
-            </div>
-
-            <div class="service-arrow">→</div>
-
-        </a>
-
-
-        <a href="test.html" class="service-item fade">
-
-            <div class="service-label">L E A R N</div>
-
-            <div>
-                <div class="service-name">学力テスト</div>
-
-                <p class="service-description">
-                    無料で手軽に受けられるオンライン学力テスト。
-                </p>
-            </div>
-
-            <div class="service-arrow">→</div>
-
-        </a>
-
-
-        <a href="#" class="service-item fade">
-
-            <div class="service-label">P U B L I S H</div>
-
-            <div>
-                <div class="service-name">オリジナル本の出版</div>
-
-                <p class="service-description">
-                    学習資料や書籍をデジタルで。
-                </p>
-            </div>
-
-            <div class="service-arrow">→</div>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- TOOLS -->
-
-<section id="tools">
-
-    <div class="section-heading fade">
-        <h2 class="section-title">
-            <span class="section-title-en">T O O L S</span>
-            <span class="section-title-jp">
-                便利な<br>
-                ツール
-            </span>
-        </h2>
-    </div>
-
-    <p class="tools-intro fade">
-        日常の小さな「不便」を、<br>
-        便利に。
-    </p>
-
-    <div class="tools-list">
-
-        <a href="tool/BlockGame.html" class="tool-item fade">
-            <div class="tool-left">
-                <div class="tool-number">01</div>
-
-                <div>
-                    <div class="tool-title">ブロックゲーム</div>
-                    <div class="tool-description">
-                        直感的に遊べる落下型パズルゲーム
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-arrow">→</div>
-        </a>
-
-
-        <a href="tool/Random.html" class="tool-item fade">
-            <div class="tool-left">
-                <div class="tool-number">02</div>
-
-                <div>
-                    <div class="tool-title">ランダム抽選</div>
-                    <div class="tool-description">
-                        数値やリストからランダムに抽選
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-arrow">→</div>
-        </a>
-
-
-        <a href="tool/comparison.html" class="tool-item fade">
-            <div class="tool-left">
-                <div class="tool-number">03</div>
-
-                <div>
-                    <div class="tool-title">比較ツール</div>
-                    <div class="tool-description">
-                        最大3つの対象を並べて比較
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-arrow">→</div>
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- MEMBERS -->
-
-<section id="members">
-
-    <div class="section-heading fade">
-        <h2 class="section-title">
-            <span class="section-title-en">M E M B E R S</span>
-
-            <span class="section-title-jp">
-                MillionIndexの<br>
-                メンバー
-            </span>
-        </h2>
-    </div>
-
-
-    <div class="member-list">
-
-        <!-- メンバー01 -->
-
-        <a href="Mem.html#member-01" class="member-item fade">
-
-            <div class="member-image">
-                <img src="Mem1.png" alt="メンバー01">
-            </div>
-
-            <div class="member-overlay">
-
-                <div class="member-number">
-                    01
-                </div>
-
-                <div class="member-name">
-                    主
-                </div>
-
-                <div class="member-role">
-                    MillionIndexを立ち上げた本人
-                </div>
-
-            </div>
-
-        </a>
-
-
-        <!-- メンバー02 -->
-
-        <a href="Mem.html#member-02" class="member-item fade">
-
-            <div class="member-image">
-                <img src="Mem2.png" alt="メンバー02">
-            </div>
-
-            <div class="member-overlay">
-
-                <div class="member-number">
-                    02
-                </div>
-
-                <div class="member-name">
-                    MEMBER NAME
-                </div>
-
-                <div class="member-role">
-                    MEMBER
-                </div>
-
-            </div>
-
-        </a>
-
-    </div>
-
-
-    <!-- メンバー一覧 -->
-
-    <div class="member-all fade">
-
-        <a href="Mem.html" class="member-all-button">
-
-            メンバー一覧
-
-            <span>→</span>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact" class="contact fade">
-
-    <div class="contact-small">
-        C O N T A C T
-    </div>
-
-    <h2>
-        お気軽にどうぞ。
-    </h2>
-
-    <p>
-        サービスについてのご質問や、<br>
-        MillionIndexに関するお問い合わせはこちらから。
-    </p>
-
-    <a href="#" class="contact-button">
-        お問い合わせはこちら
-        <span>→</span>
-    </a>
-
-</section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-inner">
-
-        <div class="footer-top">
-
-            <div>
-                <div class="footer-name">
-                    MillionIndex
-                </div>
-
-                <div class="footer-copy">
-                    すべての「便利」を、ひとつの場所へ。
-                </div>
-            </div>
-
-
-            <div class="footer-links">
-
-                <a href="#">TOP</a>
-                <a href="#about">ABOUT</a>
-                <a href="#service">SERVICE</a>
-                <a href="#tools">TOOLS</a>
-                <a href="#members">MEMBERS</a>
-                <a href="#contact">CONTACT</a>
-
-            </div>
-
-        </div>
-
-
-        <div class="footer-bottom">
-
-            <span>
-                © 2026 MillionIndex
-            </span>
-
-            <span>
-                All Rights Reserved.
-            </span>
-
-        </div>
-
-    </div>
-
-</footer>
-
-
-<script>
-
-const menuButton=document.getElementById("menuButton");
-const menu=document.getElementById("menu");
-
-menuButton.addEventListener("click",()=>{
-
-    menuButton.classList.toggle("active");
-    menu.classList.toggle("active");
-
-    document.body.style.overflow=
-        menu.classList.contains("active")
-        ? "hidden"
-        : "";
-
-});
-
-
-document
-.querySelectorAll(".menu-list a")
-.forEach(link=>{
-
-    link.addEventListener("click",()=>{
-
-        menuButton.classList.remove("active");
-        menu.classList.remove("active");
-
-        document.body.style.overflow="";
-
-    });
-
-});
-
-
-const fadeElements=document.querySelectorAll(".fade");
-
-const observer=
-new IntersectionObserver(
-entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("show");
-
-            observer.unobserve(entry.target);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MillionIndex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================================================
+           基本設定
+        ========================================================= */
+
+        :root {
+            --ocean: #1598b8;
+            --ocean-blue: #54c8dc;
+            --ocean-light: #9ce8ed;
+            --mint: #b9eee4;
+            --pale: #f4fdfe;
+
+            --text: #285264;
+            --text-soft: #6b8994;
+            --text-faint: #9bb4bc;
+
+            --white: #ffffff;
+
+            --shadow:
+                0 15px 45px rgba(21, 152, 184, 0.09);
+
+            --soft-shadow:
+                0 8px 28px rgba(21, 152, 184, 0.07);
+
+            --transition:
+                all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                "Noto Sans JP",
+                -apple-system,
+                BlinkMacSystemFont,
+                sans-serif;
+
+            color: var(--text);
+
+            line-height: 1.8;
+
+            overflow-x: hidden;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #faffff 15%,
+                    #f1fcfd 34%,
+                    #e6f9fb 52%,
+                    #d5f4f3 72%,
+                    #bcece9 88%,
+                    #a9e5e5 100%
+                );
+
+            background-attachment: fixed;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button {
+            font: inherit;
+        }
+
+
+        /* =========================================================
+           ロゴ
+        ========================================================= */
+
+        .logo {
+            position: fixed;
+
+            top: 17px;
+            left: 5%;
+
+            z-index: 1000;
+        }
+
+
+        .logo img {
+            display: block;
+
+            width: auto;
+            height: 78px;
+
+            object-fit: contain;
+
+            transition:
+                transform 0.35s ease,
+                filter 0.35s ease;
+        }
+
+
+        .logo img:hover {
+            transform:
+                scale(1.04)
+                rotate(-1deg);
+        }
+
+
+        /* =========================================================
+           三本線
+        ========================================================= */
+
+        .menu-button {
+            position: fixed;
+
+            top: 28px;
+            right: 5%;
+
+            width: 50px;
+            height: 50px;
+
+            border: none;
+
+            background:
+                rgba(255, 255, 255, 0.70);
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            z-index: 1200;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            transition: var(--transition);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 8px 25px rgba(21, 152, 184, 0.09);
+        }
+
+
+        .menu-button:hover {
+            transform:
+                translateY(-2px)
+                scale(1.04);
+
+            background:
+                rgba(255, 255, 255, 0.90);
+
+            box-shadow:
+                0 12px 30px rgba(21, 152, 184, 0.13);
+        }
+
+
+        .menu-icon {
+            width: 21px;
+            height: 16px;
+
+            position: relative;
+        }
+
+
+        .menu-icon span {
+            position: absolute;
+
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background: var(--text);
+
+            border-radius: 5px;
+
+            transition: var(--transition);
+        }
+
+
+        .menu-icon span:nth-child(1) {
+            top: 0;
+        }
+
+
+        .menu-icon span:nth-child(2) {
+            top: 7px;
+        }
+
+
+        .menu-icon span:nth-child(3) {
+            top: 14px;
+        }
+
+
+        .menu-button.active .menu-icon span:nth-child(1) {
+            top: 7px;
+
+            transform: rotate(45deg);
+        }
+
+
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+
+        .menu-button.active .menu-icon span:nth-child(3) {
+            top: 7px;
+
+            transform: rotate(-45deg);
+        }
+
+
+        /* =========================================================
+           メニュー
+        ========================================================= */
+
+        .menu {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 1100;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+                rgba(248, 254, 255, 0.94);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: var(--transition);
+        }
+
+
+        .menu.active {
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        .menu-list {
+            width: min(570px, 82%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .menu-list a {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 18px 20px;
+
+            color: var(--text);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255, 255, 255, 0.42);
+
+            opacity: 0;
+
+            transform: translateY(18px);
+
+            transition: var(--transition);
+        }
+
+
+        .menu.active .menu-list a {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        .menu.active .menu-list a:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(2) {
+            transition-delay: 0.10s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(4) {
+            transition-delay: 0.20s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(5) {
+            transition-delay: 0.25s;
+        }
+
+
+        .menu.active .menu-list a:nth-child(6) {
+            transition-delay: 0.30s;
+        }
+
+
+        .menu-item-text {
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 13px;
+        }
+
+
+        .menu-jp {
+            font-size: 20px;
+
+            font-weight: 700;
+        }
+
+
+        .menu-en {
+            color: rgba(21, 152, 184, 0.62);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 2.8px;
+
+            line-height: 1;
+        }
+
+
+        .menu-arrow {
+            color: var(--ocean);
+
+            font-size: 19px;
+
+            transition: var(--transition);
+        }
+
+
+        .menu-list a:hover {
+            background:
+                rgba(255, 255, 255, 0.82);
+
+            transform:
+                translateX(5px);
+        }
+
+
+        .menu-list a:hover .menu-arrow {
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================================================
+           共通
+        ========================================================= */
+
+        section {
+            width: min(1000px, 86%);
+
+            margin: 0 auto;
+
+            padding: 125px 0;
+        }
+
+
+        .section-heading {
+            margin-bottom: 58px;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           セクションタイトル
+        ========================================================= */
+
+        .section-title {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 7px;
+
+            position: relative;
+
+            text-align: center;
+        }
+
+
+        .section-title::after {
+            content: none;
+        }
+
+
+        .section-title-jp {
+            order: 2;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    26px,
+                    5vw,
+                    38px
+                );
+
+            font-weight: 800;
+
+            letter-spacing: -0.035em;
+
+            line-height: 1.3;
+        }
+
+
+        .section-title-en {
+            order: 1;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size:
+                clamp(
+                    11px,
+                    1.8vw,
+                    13px
+                );
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            line-height: 1;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            width: min(1050px, 88%);
+
+            min-height: 100vh;
+
+            margin: 0 auto;
+
+            padding:
+                150px 0
+                90px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+        }
+
+
+        .hero-small {
+            margin-bottom: 25px;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+        }
+
+
+        .hero h1 {
+            max-width: 900px;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    40px,
+                    7vw,
+                    76px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.5;
+
+            letter-spacing: -0.055em;
+        }
+
+
+        .hero h1 span {
+            color: var(--ocean);
+
+            position: relative;
+
+            display: inline-block;
+        }
+
+
+        .hero h1 span::after {
+            content: "";
+
+            position: absolute;
+
+            left: 5%;
+
+            right: 5%;
+
+            bottom: 2px;
+
+            height: 9px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(156, 232, 237, 0.55),
+                    rgba(185, 238, 228, 0.45)
+                );
+
+            z-index: -1;
+        }
+
+
+        .hero-description {
+            max-width: 600px;
+
+            margin-top: 38px;
+
+            color: var(--text-soft);
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            line-height: 2.2;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-intro {
+            max-width: 680px;
+
+            margin:
+                0 auto
+                78px;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    18px,
+                    2.8vw,
+                    24px
+                );
+
+            font-weight: 700;
+
+            line-height: 2.15;
+
+            text-align: center;
+        }
+
+
+        .vision-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 70px;
+        }
+
+
+        .vision-item {
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 0 20px;
+        }
+
+
+        .vision-number {
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .vision-content {
+            max-width: 650px;
+        }
+
+
+        .vision-content h3 {
+            margin-bottom: 13px;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    23px,
+                    4vw,
+                    31px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.45;
+        }
+
+
+        .vision-content p {
+            max-width: 570px;
+
+            margin: 0 auto;
+
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            line-height: 2.1;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           SERVICE
+        ========================================================= */
+
+        .service-intro {
+            max-width: 580px;
+
+            margin:
+                0 auto
+                48px;
+
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            line-height: 2.15;
+
+            text-align: center;
+        }
+
+
+        .service-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+        }
+
+
+        .service-item {
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                115px
+                1fr
+                45px;
+
+            align-items: center;
+
+            gap: 28px;
+
+            padding:
+                27px
+                30px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.57
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--soft-shadow);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            transition: var(--transition);
+        }
+
+
+        .service-item:hover {
+            transform:
+                translateY(-5px)
+                scale(1.008);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--shadow);
+        }
+
+
+        .service-label {
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2.5px;
+        }
+
+
+        .service-name {
+            margin-bottom: 3px;
+
+            color: var(--text);
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .service-description {
+            color: var(--text-faint);
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            line-height: 1.6;
+
+            white-space: nowrap;
+        }
+
+
+        .service-arrow {
+            color: var(--ocean);
+
+            font-size: 20px;
+
+            transition: var(--transition);
+        }
+
+
+        .service-item:hover .service-arrow {
+            transform:
+                translateX(6px);
+        }
+
+
+        /* =========================================================
+           TOOLS
+        ========================================================= */
+
+        .tools-intro {
+            max-width: 560px;
+
+            margin:
+                0 auto
+                48px;
+
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            line-height: 2.15;
+
+            text-align: center;
+        }
+
+
+        .tools-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        .tool-item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                22px
+                24px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.34
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .tool-item:hover {
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
+            transform:
+                translateX(4px);
+        }
+
+
+        .tool-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .tool-number {
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .tool-title {
+            color: var(--text);
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+        }
+
+
+        .tool-description {
+            margin-top: 1px;
+
+            color: var(--text-faint);
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            line-height: 1.5;
+
+            white-space: nowrap;
+        }
+
+
+        .tool-arrow {
+            color: var(--ocean);
+
+            font-size: 18px;
+
+            transition: var(--transition);
+        }
+
+
+        .tool-item:hover .tool-arrow {
+            transform:
+                translateX(6px);
+        }
+
+
+        /* =========================================================
+           MEMBERS
+        ========================================================= */
+
+        .member-list {
+            max-width: 680px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+
+        .member-item {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 170px;
+
+            padding: 25px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.45
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.75
+                );
+
+            text-align: center;
+
+            transition: var(--transition);
+        }
+
+
+        .member-item:hover {
+            transform:
+                translateY(-4px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+        }
+
+
+        .member-number {
+            margin-bottom: 10px;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .member-info {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 3px;
+        }
+
+
+        .member-name {
+            color: var(--text);
+
+            font-size: 20px;
+
+            font-weight: 800;
+        }
+
+
+        .member-role {
+            color: var(--text-faint);
+
+            font-size: 10px;
+
+            font-weight: 500;
+        }
+
+
+        /* メンバー一覧ボタン */
+
+        .member-all {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: fit-content;
+
+            margin:
+                30px auto
+                0;
+
+            padding:
+                13px
+                25px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            color: var(--ocean);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 24px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.06
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .member-all span {
+            margin-left: 10px;
+
+            transition: var(--transition);
+        }
+
+
+        .member-all:hover {
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+        }
+
+
+        .member-all:hover span {
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+            width: min(780px, 86%);
+
+            margin:
+                60px auto
+                110px;
+
+            padding:
+                80px
+                30px;
+
+            text-align: center;
+
+            border-radius: 40px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.68),
+                    rgba(255, 255, 255, 0.42)
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+
+        .contact-small {
+            margin-bottom: 9px;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+        }
+
+
+        .contact h2 {
+            margin-bottom: 18px;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    28px,
+                    5vw,
+                    42px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.5;
+        }
+
+
+        .contact p {
+            max-width: 500px;
+
+            margin:
+                0 auto
+                28px;
+
+            color: var(--text-soft);
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            line-height: 2;
+        }
+
+
+        .contact-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding:
+                12px
+                24px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.88
+                );
+
+            color: var(--ocean);
+
+            border:
+                1px solid
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.13
+                );
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.07
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .contact-button span {
+            margin-left: 10px;
+
+            transition: var(--transition);
+        }
+
+
+        .contact-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--ocean),
+                    var(--ocean-blue)
+                );
+
+            color: white;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.14
+                );
+        }
+
+
+        .contact-button:hover span {
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding:
+                50px
+                7%
+                28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.48
+                );
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+
+        .footer-inner {
+            width: min(1000px, 100%);
+
+            margin: 0 auto;
+        }
+
+
+        .footer-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 40px;
+        }
+
+
+        .footer-name {
+            color: var(--text);
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+
+        .footer-copy {
+            margin-top: 3px;
+
+            color: var(--text-faint);
+
+            font-size: 10px;
+
+            font-weight: 500;
+        }
+
+
+        .footer-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+
+            gap: 17px;
+        }
+
+
+        .footer-links a {
+            color: var(--text-soft);
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            transition: var(--transition);
+        }
+
+
+        .footer-links a:hover {
+            color: var(--ocean);
+        }
+
+
+        .footer-bottom {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 38px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.10
+                );
+
+            color: var(--text-faint);
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================================
+           アニメーション
+        ========================================================= */
+
+        .fade {
+            opacity: 0;
+
+            transform:
+                translateY(22px);
+
+            transition:
+                opacity 0.8s ease,
+                transform
+                0.8s
+                cubic-bezier(
+                    0.16,
+                    1,
+                    0.3,
+                    1
+                );
+        }
+
+
+        .fade.show {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================================================
+           タブレット・スマホ
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .logo {
+                top: 12px;
+                left: 20px;
+            }
+
+
+            .logo img {
+                height: 62px;
+            }
+
+
+            .menu-button {
+                top: 18px;
+                right: 20px;
+
+                width: 44px;
+                height: 44px;
+            }
+
+
+            section {
+                width: 86%;
+
+                padding:
+                    90px 0;
+            }
+
+
+            .hero {
+                width: 88%;
+
+                padding:
+                    125px 0
+                    75px;
+            }
+
+
+            .hero h1 {
+                font-size:
+                    clamp(
+                        36px,
+                        10vw,
+                        58px
+                    );
+
+                line-height: 1.55;
+            }
+
+
+            .hero-description {
+                margin-top: 30px;
+
+                font-size: 13px;
+
+                line-height: 2.1;
+            }
+
+
+            .section-heading {
+                margin-bottom: 48px;
+            }
+
+
+            .section-title-jp {
+                font-size: 28px;
+            }
+
+
+            .section-title-en {
+                font-size: 11px;
+
+                letter-spacing: 3.5px;
+            }
+
+
+            /* ABOUT */
+
+            .about-intro {
+                margin-bottom: 65px;
+
+                font-size: 18px;
+
+                line-height: 2.15;
+            }
+
+
+            .vision-list {
+                gap: 58px;
+            }
+
+
+            .vision-content h3 {
+                font-size: 23px;
+            }
+
+
+            .vision-content p {
+                font-size: 12px;
+
+                line-height: 2;
+            }
+
+
+            /* SERVICE */
+
+            .service-item {
+                grid-template-columns:
+                    1fr
+                    30px;
+
+                gap: 3px;
+
+                padding:
+                    23px
+                    21px;
+            }
+
+
+            .service-label {
+                margin-bottom: 3px;
+            }
+
+
+            .service-arrow {
+                grid-column: 2;
+
+                grid-row:
+                    1 / span 2;
+            }
+
+
+            .service-description {
+                font-size: 10px;
+
+                white-space: normal;
+            }
+
+
+            /* TOOLS */
+
+            .tool-item {
+                padding:
+                    19px
+                    18px;
+            }
+
+
+            .tool-left {
+                gap: 15px;
+            }
+
+
+            .tool-title {
+                font-size: 15px;
+            }
+
+
+            .tool-description {
+                font-size: 9px;
+
+                white-space: normal;
+            }
+
+
+            /* MEMBERS */
+
+            .member-list {
+                grid-template-columns:
+                    1fr
+                    1fr;
+            }
+
+
+            .member-item {
+                min-height: 150px;
+            }
+
+
+            .member-name {
+                font-size: 18px;
+            }
+
+
+            /* CONTACT */
+
+            .contact {
+                width: 86%;
+
+                padding:
+                    65px
+                    20px;
+
+                margin-bottom: 80px;
+            }
+
+
+            /* FOOTER */
+
+            .footer-top {
+                flex-direction: column;
+
+                align-items: center;
+
+                text-align: center;
+            }
+
+
+            .footer-links {
+                justify-content: center;
+            }
+
+
+            .footer-bottom {
+                flex-direction: column;
+
+                gap: 7px;
+
+                text-align: center;
+            }
 
         }
 
-    });
 
-},
-{
-    threshold:.12
-});
+        /* =========================================================
+           小さいスマホ
+        ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .logo img {
+                height: 56px;
+            }
 
 
-fadeElements.forEach(element=>{
-    observer.observe(element);
-});
+            .menu-button {
+                width: 40px;
+                height: 40px;
+
+                border-radius: 50%;
+            }
 
 
-window.addEventListener("load",()=>{
+            .hero {
+                min-height: 94vh;
+            }
 
-    document
-    .querySelectorAll(".hero .fade")
-    .forEach((element,index)=>{
 
-        setTimeout(()=>{
+            .hero h1 {
+                font-size: 36px;
 
-            element.classList.add("show");
+                line-height: 1.6;
+            }
 
-        },150+index*130);
 
-    });
+            .hero h1 span::after {
+                height: 6px;
 
-});
+                bottom: 1px;
+            }
 
-</script>
+
+            .hero-description {
+                font-size: 12px;
+
+                line-height: 2.15;
+            }
+
+
+            /* メニュー */
+
+            .menu-list {
+                width: 84%;
+            }
+
+
+            .menu-list a {
+                padding:
+                    16px
+                    17px;
+            }
+
+
+            .menu-item-text {
+                gap: 9px;
+            }
+
+
+            .menu-jp {
+                font-size: 17px;
+            }
+
+
+            .menu-en {
+                font-size: 8px;
+
+                letter-spacing: 1.8px;
+            }
+
+
+            /* セクション */
+
+            .section-title-jp {
+                font-size: 26px;
+            }
+
+
+            .section-title-en {
+                font-size: 10px;
+
+                letter-spacing: 3px;
+            }
+
+
+            /* ABOUT */
+
+            .about-intro {
+                font-size: 17px;
+            }
+
+
+            .vision-item {
+                padding:
+                    0
+                    8px;
+            }
+
+
+            .vision-content h3 {
+                font-size: 21px;
+
+                line-height: 1.6;
+            }
+
+
+            .vision-content p {
+                font-size: 11px;
+            }
+
+
+            /* SERVICE */
+
+            .service-name {
+                font-size: 17px;
+            }
+
+
+            .service-description {
+                font-size: 9px;
+            }
+
+
+            /* TOOLS */
+
+            .tool-item {
+                border-radius: 17px;
+            }
+
+
+            .tool-title {
+                font-size: 14px;
+            }
+
+
+            .tool-description {
+                font-size: 8px;
+            }
+
+
+            .tool-number {
+                font-size: 9px;
+            }
+
+
+            /* MEMBERS */
+
+            .member-list {
+                grid-template-columns: 1fr;
+            }
+
+
+            .member-item {
+                min-height: 135px;
+            }
+
+
+            /* CONTACT */
+
+            .contact h2 {
+                font-size: 29px;
+
+                line-height: 1.6;
+            }
+
+
+            .contact p {
+                font-size: 11px;
+            }
+
+        }
+
+
+        /* =========================================================
+           省電力設定
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         ロゴ
+    ========================================================= -->
+
+    <div class="logo">
+
+        <a href="#">
+
+            <img
+                src="Mil.png"
+                alt="MillionIndex">
+
+        </a>
+
+    </div>
+
+
+    <!-- =========================================================
+         三本線
+    ========================================================= -->
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="メニュー">
+
+        <div class="menu-icon">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </button>
+
+
+    <!-- =========================================================
+         メニュー
+    ========================================================= -->
+
+    <div class="menu" id="menu">
+
+        <nav class="menu-list">
+
+
+            <a href="#">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        トップ
+                    </span>
+
+                    <span class="menu-en">
+                        T O P
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="#about">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        理念
+                    </span>
+
+                    <span class="menu-en">
+                        A B O U T
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="#service">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        事業内容
+                    </span>
+
+                    <span class="menu-en">
+                        S E R V I C E
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="#tools">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        便利ツール
+                    </span>
+
+                    <span class="menu-en">
+                        T O O L S
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="#members">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        メンバー
+                    </span>
+
+                    <span class="menu-en">
+                        M E M B E R S
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="#contact">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        お問い合わせ
+                    </span>
+
+                    <span class="menu-en">
+                        C O N T A C T
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </div>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main>
+
+
+        <section class="hero">
+
+
+            <div class="hero-small fade">
+                M I L L I O N I N D E X　-　ＯＦＦＩＣＩＡＬ ＷＥＢＳＩＴＥ
+            </div>
+
+
+            <h1 class="fade">
+
+                すべての「便利」を、<br>
+
+                <span>
+                    ひとつの場所へ。
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description fade">
+
+                MillionIndexは、<br>
+                日常のちょっとした不便を減らす<br>
+                ウェブサービスや学習コンテンツ、<br>
+                便利なツールをつくっています。
+
+            </p>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ===================================================== -->
+
+        <section id="about">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-en">
+                        A B O U T
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexについて
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <p class="about-intro fade">
+
+                「あったら便利」を、<br>
+                もっと身近に。
+
+            </p>
+
+
+            <div class="vision-list">
+
+
+                <div class="vision-item fade">
+
+                    <div class="vision-number">
+                        01　-　Wide-ranging business activities
+                    </div>
+
+
+                    <div class="vision-content">
+
+                        <h3>
+                            幅広い<br>
+                            事業展開
+                        </h3>
+
+
+                        <p>
+                            小さな課題にも目を向け、<br>
+                            日常の様々な小さな不便を便利にします。
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vision-item fade">
+
+                    <div class="vision-number">
+                        02　-　High quality right away
+                    </div>
+
+
+                    <div class="vision-content">
+
+                        <h3>
+                            すぐに、<br>
+                            高クオリティ
+                        </h3>
+
+
+                        <p>
+                            どんなに急いでいても、<br>
+                            名を汚すような低品質なものはつくりません。
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="vision-item fade">
+
+                    <div class="vision-number">
+                        03　-　Everything is free of charge
+                    </div>
+
+
+                    <div class="vision-content">
+
+                        <h3>
+                            すべてを<br>
+                            無償で
+                        </h3>
+
+
+                        <p>
+                            当事業にあたるすべてに<br>
+                            金銭的な対価は必要ありません。
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SERVICE
+        ===================================================== -->
+
+        <section id="service">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-en">
+                        S E R V I C E
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexの<br>
+                        サービス
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <p class="service-intro fade">
+
+                高クオリティなで幅広い事業を展開し、<br>
+                いろいろな「便利」を届けています。
+
+            </p>
+
+
+            <div class="service-list">
+
+
+                <a
+                    href="#tools"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        W E B
+                    </div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            ウェブサービス
+                        </div>
+
+
+                        <p class="service-description">
+                            日常のちょっとした作業を、もっと快適に。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="test.html"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        L E A R N
+                    </div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            学力テスト
+                        </div>
+
+
+                        <p class="service-description">
+                            無料で手軽に受けられるオンライン学力テスト。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        P U B L I S H
+                    </div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            オリジナル本の出版
+                        </div>
+
+
+                        <p class="service-description">
+                            学習資料や書籍をデジタルで。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TOOLS
+        ===================================================== -->
+
+        <section id="tools">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-en">
+                        T O O L S
+                    </span>
+
+                    <span class="section-title-jp">
+                        便利な<br>
+                        ツール
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <p class="tools-intro fade">
+
+                日常の小さな「不便」を、<br>
+                便利に。
+
+            </p>
+
+
+            <div class="tools-list">
+
+
+                <a
+                    href="tool/BlockGame.html"
+                    class="tool-item fade">
+
+                    <div class="tool-left">
+
+                        <div class="tool-number">
+                            01
+                        </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                ブロックゲーム
+                            </div>
+
+
+                            <div class="tool-description">
+                                直感的に遊べる落下型パズルゲーム
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="tool/Random.html"
+                    class="tool-item fade">
+
+                    <div class="tool-left">
+
+                        <div class="tool-number">
+                            02
+                        </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                ランダム抽選
+                            </div>
+
+
+                            <div class="tool-description">
+                                数値やリストからランダムに抽選
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="tool/comparison.html"
+                    class="tool-item fade">
+
+                    <div class="tool-left">
+
+                        <div class="tool-number">
+                            03
+                        </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                比較ツール
+                            </div>
+
+
+                            <div class="tool-description">
+                                最大3つの対象を並べて比較
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MEMBERS
+        ===================================================== -->
+
+        <section id="members">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-en">
+                        M E M B E R S
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexの<br>
+                        メンバー
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="member-list">
+
+
+                <a
+                    href="Mem.html#member1"
+                    class="member-item fade">
+
+                    <div class="member-number">
+                        01
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-name">
+                            主
+                        </div>
+
+
+                        <div class="member-role">
+                            MillionIndexを立ち上げた本人
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="Mem.html#member2"
+                    class="member-item fade">
+
+                    <div class="member-number">
+                        02
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-name">
+                            MEMBER NAME
+                        </div>
+
+
+                        <div class="member-role">
+                            MEMBER
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+
+            <a
+                href="Mem.html"
+                class="member-all fade">
+
+                メンバー一覧
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ===================================================== -->
+
+        <section
+            id="contact"
+            class="contact fade">
+
+
+            <div class="contact-small">
+                C O N T A C T
+            </div>
+
+
+            <h2>
+                お気軽にどうぞ。
+            </h2>
+
+
+            <p>
+                サービスについてのご質問や、<br>
+                MillionIndexに関するお問い合わせはこちらから。
+            </p>
+
+
+            <a
+                href="#"
+                class="contact-button">
+
+                お問い合わせはこちら
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+
+        <div class="footer-inner">
+
+
+            <div class="footer-top">
+
+
+                <div>
+
+                    <div class="footer-name">
+                        MillionIndex
+                    </div>
+
+
+                    <div class="footer-copy">
+                        すべての「便利」を、ひとつの場所へ。
+                    </div>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <a href="#">
+                        TOP
+                    </a>
+
+                    <a href="#about">
+                        ABOUT
+                    </a>
+
+                    <a href="#service">
+                        SERVICE
+                    </a>
+
+                    <a href="#tools">
+                        TOOLS
+                    </a>
+
+                    <a href="#members">
+                        MEMBERS
+                    </a>
+
+                    <a href="#contact">
+                        CONTACT
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 MillionIndex
+                </span>
+
+
+                <span>
+                    All Rights Reserved.
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JavaScript
+    ========================================================= -->
+
+    <script>
+
+
+        /* =========================================================
+           メニュー
+        ========================================================= */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+
+        const menu =
+            document.getElementById("menu");
+
+
+        menuButton.addEventListener(
+            "click",
+            () => {
+
+                menuButton.classList.toggle("active");
+
+                menu.classList.toggle("active");
+
+
+                if (
+                    menu.classList.contains("active")
+                ) {
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                } else {
+
+                    document.body.style.overflow =
+                        "";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           メニュークリック
+        ========================================================= */
+
+        document
+            .querySelectorAll(".menu-list a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        menuButton.classList.remove(
+                            "active"
+                        );
+
+
+                        menu.classList.remove(
+                            "active"
+                        );
+
+
+                        document.body.style.overflow =
+                            "";
+
+                    }
+                );
+
+            });
+
+
+        /* =========================================================
+           フェード表示
+        ========================================================= */
+
+        const fadeElements =
+            document.querySelectorAll(".fade");
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "show"
+                            );
+
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        fadeElements.forEach(element => {
+
+            observer.observe(element);
+
+        });
+
+
+        /* =========================================================
+           ページ読み込み時
+        ========================================================= */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".hero .fade"
+                    )
+                    .forEach(
+                        (element, index) => {
+
+                            setTimeout(
+                                () => {
+
+                                    element.classList.add(
+                                        "show"
+                                    );
+
+                                },
+                                150 + index * 130
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
+
+    </script>
+
 
 </body>
 </html>
