@@ -512,6 +512,11 @@
         }
 
 
+        .menu.active .menu-list a:nth-child(6) {
+            transition-delay: 0.30s;
+        }
+
+
         .menu-item-text {
             display: flex;
 
@@ -608,8 +613,6 @@
             text-align: center;
         }
 
-
-        /* タイトル下の水滴は削除 */
 
         .section-title::after {
             content: none;
@@ -2154,6 +2157,27 @@
         <nav class="menu-list">
 
 
+            <a href="#">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        トップ
+                    </span>
+
+                    <span class="menu-en">
+                        T O P
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
             <a href="#about">
 
                 <div class="menu-item-text">
@@ -2738,7 +2762,9 @@
             <div class="member-list">
 
 
-                <div class="member-item fade">
+                <a
+                    href="Mem.html#member-01"
+                    class="member-item fade">
 
                     <div class="member-number">
                         01
@@ -2758,7 +2784,7 @@
 
                     </div>
 
-                </div>
+                </a>
 
 
                 <div class="member-item fade">
