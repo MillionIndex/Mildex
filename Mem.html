@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Member - MillionIndex</title>
-
+<title>Members - MillionIndex</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
+
 
 :root{
     --ocean:#1598b8;
@@ -20,8 +18,6 @@
     --text:#285264;
     --text-soft:#6b8994;
     --text-faint:#9bb4bc;
-
-    --member-color:#1598b8;
 
     --shadow:0 15px 45px rgba(21,152,184,.09);
     --soft-shadow:0 8px 28px rgba(21,152,184,.07);
@@ -41,8 +37,11 @@ html{
 
 body{
     font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+
     color:var(--text);
+
     line-height:1.8;
+
     overflow-x:hidden;
 
     background:
@@ -58,6 +57,7 @@ body{
     );
 
     background-attachment:fixed;
+
     -webkit-font-smoothing:antialiased;
 }
 
@@ -139,6 +139,20 @@ a{
 
 }
 
+@keyframes bubbleFloat{
+
+    0%,100%{
+        transform:translateY(0);
+        opacity:.55;
+    }
+
+    50%{
+        transform:translateY(-14px);
+        opacity:.9;
+    }
+
+}
+
 
 /* =========================
    ロゴ
@@ -164,6 +178,7 @@ a{
 
     width:auto;
     height:78px;
+    max-width:170px;
 
     object-fit:contain;
 
@@ -374,126 +389,113 @@ a{
 
 main{
     width:min(1000px,86%);
-
     margin:0 auto;
-
     padding-top:190px;
 }
 
 
 /* =========================
-   戻る
+   ページタイトル
 ========================= */
 
-.back-top{
-    margin-bottom:35px;
+.page-heading{
+    text-align:center;
+    margin-bottom:70px;
 }
 
-.back-link{
-    display:inline-flex;
+.page-en{
+    color:var(--ocean);
 
-    align-items:center;
-
-    gap:8px;
-
-    color:var(--text-soft);
+    font-family:Arial,Helvetica,sans-serif;
 
     font-size:12px;
 
-    font-weight:600;
+    font-weight:700;
 
-    transition:var(--transition);
+    letter-spacing:5px;
+
+    margin-bottom:10px;
 }
 
-.back-link:hover{
-    color:var(--member-color);
-    transform:translateX(-4px);
+.page-title{
+    color:var(--text);
+
+    font-size:clamp(35px,6vw,55px);
+
+    font-weight:800;
+
+    line-height:1.4;
+}
+
+.page-description{
+    max-width:550px;
+
+    margin:25px auto 0;
+
+    color:var(--text-soft);
+
+    font-size:13px;
+
+    line-height:2.1;
 }
 
 
 /* =========================
-   プロフィール
+   メンバー一覧
 ========================= */
 
-.profile{
+.members-grid{
     display:grid;
 
-    grid-template-columns:420px 1fr;
+    grid-template-columns:
+    repeat(2,1fr);
 
-    gap:65px;
+    gap:22px;
 
-    align-items:center;
+    margin-bottom:130px;
+}
 
-    padding:45px;
-
-    border-radius:36px;
-
-    background:rgba(255,255,255,.50);
-
-    border:
-    1px solid
-    color-mix(
-        in srgb,
-        var(--member-color) 22%,
-        white
-    );
-
-    box-shadow:
-    0 18px 55px
-    color-mix(
-        in srgb,
-        var(--member-color) 12%,
-        transparent
-    );
-
+.member-card{
     position:relative;
+
+    min-height:350px;
+
+    border-radius:32px;
 
     overflow:hidden;
 
-    animation:profileIn .7s cubic-bezier(.16,1,.3,1);
+    background:rgba(255,255,255,.50);
+
+    border:1px solid rgba(255,255,255,.82);
+
+    box-shadow:var(--soft-shadow);
+
+    transition:var(--transition);
 }
 
-.profile::before{
-    content:"";
+.member-card:hover{
+    transform:translateY(-7px);
 
+    background:rgba(255,255,255,.78);
+
+    box-shadow:var(--shadow);
+}
+
+.member-card-image{
     position:absolute;
 
-    top:0;
-    left:0;
-    right:0;
-
-    height:4px;
-
-    background:var(--member-color);
-
-    opacity:.8;
-}
-
-@keyframes profileIn{
-
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-.profile-image{
-    width:100%;
-    height:390px;
+    inset:0;
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
+
+    padding:25px 30px 85px;
 }
 
-.profile-image img{
+.member-card-image img{
     width:100%;
     height:100%;
 
@@ -502,12 +504,112 @@ main{
     transition:var(--transition);
 }
 
-.profile-image img:hover{
-    transform:scale(1.03);
+.member-card:hover img{
+    transform:scale(1.04);
+}
+
+.member-card-info{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:50px 25px 23px;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(255,255,255,.95)
+    );
+
+    text-align:center;
+}
+
+.member-card-number{
+    color:var(--ocean);
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+}
+
+.member-card-name{
+    margin-top:3px;
+
+    color:var(--text);
+
+    font-size:23px;
+
+    font-weight:800;
+}
+
+.member-card-role{
+    color:var(--text-faint);
+
+    font-size:10px;
+}
+
+
+/* =========================
+   詳細
+========================= */
+
+.profile-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:100px;
+
+    padding-bottom:100px;
+}
+
+.profile{
+    scroll-margin-top:100px;
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:55px;
+
+    align-items:center;
+
+    padding:45px;
+
+    border-radius:36px;
+
+    background:rgba(255,255,255,.48);
+
+    border:1px solid rgba(255,255,255,.82);
+
+    box-shadow:var(--soft-shadow);
+}
+
+.profile-image{
+    width:100%;
+    height:330px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.profile-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }
 
 .profile-number{
-    color:var(--member-color);
+    color:var(--ocean);
 
     font-family:Arial,Helvetica,sans-serif;
 
@@ -523,21 +625,21 @@ main{
 .profile-name{
     color:var(--text);
 
-    font-size:clamp(34px,5vw,50px);
+    font-size:clamp(30px,5vw,43px);
 
     font-weight:800;
 
-    line-height:1.3;
+    line-height:1.35;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 }
 
 .profile-role{
-    color:var(--member-color);
+    color:var(--ocean);
 
-    font-size:13px;
+    font-size:12px;
 
-    font-weight:700;
+    font-weight:600;
 
     margin-bottom:25px;
 }
@@ -552,153 +654,46 @@ main{
 
 
 /* =========================
-   Q&A
+   戻る
 ========================= */
 
-.questions-section{
-    margin-top:90px;
+.back-area{
+    display:flex;
+    justify-content:center;
 
-    padding-bottom:100px;
+    margin-bottom:110px;
 }
 
-.questions-heading{
-    text-align:center;
+.back-button{
+    display:inline-flex;
 
-    margin-bottom:38px;
-}
+    align-items:center;
 
-.questions-en{
-    color:var(--member-color);
+    gap:10px;
 
-    font-family:Arial,Helvetica,sans-serif;
+    padding:13px 25px;
 
-    font-size:11px;
+    border-radius:100px;
+
+    background:rgba(255,255,255,.65);
+
+    border:1px solid rgba(21,152,184,.12);
+
+    color:var(--ocean);
+
+    font-size:13px;
 
     font-weight:700;
-
-    letter-spacing:4px;
-
-    margin-bottom:8px;
-}
-
-.questions-heading h2{
-    color:var(--text);
-
-    font-size:clamp(27px,4vw,36px);
-
-    font-weight:800;
-}
-
-.questions-heading p{
-    margin-top:8px;
-
-    color:var(--text-faint);
-
-    font-size:11px;
-}
-
-.questions-list{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:13px;
-}
-
-.question-item{
-    display:grid;
-
-    grid-template-columns:55px 1fr;
-
-    gap:20px;
-
-    align-items:start;
-
-    padding:25px 28px;
-
-    border-radius:25px;
-
-    background:rgba(255,255,255,.55);
-
-    border:1px solid rgba(25,40,45,.12);
 
     box-shadow:var(--soft-shadow);
 
     transition:var(--transition);
 }
 
-.question-item:hover{
+.back-button:hover{
+    background:var(--ocean);
+    color:#fff;
     transform:translateY(-3px);
-
-    background:rgba(255,255,255,.78);
-
-    border-color:
-    color-mix(
-        in srgb,
-        var(--member-color) 25%,
-        white
-    );
-}
-
-.question-number{
-    color:var(--member-color);
-
-    font-family:Arial,Helvetica,sans-serif;
-
-    font-size:10px;
-
-    font-weight:700;
-
-    letter-spacing:2px;
-
-    padding-top:4px;
-}
-
-.question-content h3{
-    color:var(--text);
-
-    font-size:16px;
-
-    font-weight:800;
-
-    line-height:1.6;
-
-    margin-bottom:7px;
-}
-
-.question-content p{
-    color:var(--text-soft);
-
-    font-size:12px;
-
-    line-height:2;
-}
-
-
-/* =========================
-   エラー
-========================= */
-
-.error{
-    text-align:center;
-
-    padding:80px 20px;
-}
-
-.error h1{
-    font-size:32px;
-
-    color:var(--text);
-
-    margin-bottom:15px;
-}
-
-.error p{
-    color:var(--text-soft);
-
-    font-size:13px;
-
-    margin-bottom:30px;
 }
 
 
@@ -719,7 +714,6 @@ footer{
 
 .footer-inner{
     width:min(1000px,100%);
-
     margin:0 auto;
 }
 
@@ -768,7 +762,7 @@ footer{
 }
 
 .footer-links a:hover{
-    color:var(--member-color);
+    color:var(--ocean);
 }
 
 .footer-bottom{
@@ -791,6 +785,26 @@ footer{
 
 
 /* =========================
+   フェード
+========================= */
+
+.fade{
+    opacity:0;
+
+    transform:translateY(22px);
+
+    transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.16,1,.3,1);
+}
+
+.fade.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================
    タブレット
 ========================= */
 
@@ -806,6 +820,7 @@ footer{
 
     .logo img{
         height:62px;
+        max-width:145px;
     }
 
     .menu-button{
@@ -818,26 +833,44 @@ footer{
 
     main{
         width:86%;
-
         padding-top:140px;
+    }
+
+    .members-grid{
+        gap:15px;
+    }
+
+    .member-card{
+        min-height:270px;
     }
 
     .profile{
         grid-template-columns:1fr;
 
-        gap:30px;
+        gap:25px;
 
-        padding:35px 28px;
+        padding:30px;
     }
 
     .profile-image{
-        height:330px;
+        height:280px;
     }
 
-    .questions-section{
-        margin-top:70px;
+    .footer-top{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
     }
 
+    .footer-links{
+        justify-content:center;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:7px;
+        text-align:center;
+    }
 }
 
 
@@ -845,127 +878,195 @@ footer{
    スマホ
 ========================= */
 
-@media(max-width:560px){
+@media(max-width:480px){
 
     .logo{
-        left:15px;
+        width:125px;
+        height:56px;
+    }
+
+    .logo img{
+        height:56px;
+        max-width:125px;
     }
 
     .menu-button{
-        right:15px;
+        width:40px;
+        height:40px;
     }
 
     main{
-        width:90%;
+        width:88%;
+        padding-top:125px;
+    }
 
-        padding-top:120px;
+    .page-title{
+        font-size:34px;
+    }
+
+    .page-description{
+        font-size:11px;
+    }
+
+    .members-grid{
+        grid-template-columns:1fr;
+    }
+
+    .member-card{
+        min-height:330px;
     }
 
     .profile{
-        padding:30px 20px;
+        padding:23px;
 
         border-radius:28px;
     }
 
     .profile-image{
-        height:280px;
+        height:240px;
     }
 
     .profile-name{
-        font-size:34px;
+        font-size:31px;
     }
 
-    .question-item{
-        grid-template-columns:1fr;
-
-        gap:5px;
-
-        padding:21px;
+    .profile-text{
+        font-size:11px;
     }
 
-    .question-number{
-        padding-top:0;
+    .menu-list{
+        width:84%;
     }
 
-    .footer-top{
-        flex-direction:column;
+    .menu-list a{
+        padding:16px 17px;
     }
 
-    .footer-links{
-        justify-content:flex-start;
+    .menu-item-text{
+        gap:9px;
     }
 
-    .footer-bottom{
-        flex-direction:column;
+    .menu-jp{
+        font-size:17px;
+    }
 
-        align-items:flex-start;
+    .menu-en{
+        font-size:8px;
+        letter-spacing:1.8px;
+    }
+}
 
-        gap:5px;
+
+/* =========================
+   省電力
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
     }
 
 }
 
+
+
+/* =========================================================
+   メンバー一覧用の確実なクリック表示
+   ========================================================= */
+.member-card {
+    cursor: pointer;
+    border-color: rgba(40,82,100,.16);
+}
+
+.member-card::after {
+    content: "詳細を見る  →";
+    position: absolute;
+    right: 22px;
+    top: 18px;
+    color: var(--ocean);
+    font-size: 10px;
+    font-weight: 700;
+    opacity: .75;
+    letter-spacing: .08em;
+    transition: .35s ease;
+}
+
+.member-card:hover::after {
+    transform: translateX(4px);
+    opacity: 1;
+}
+
+@media(max-width:800px){
+    .member-card::after {
+        right: 14px;
+        top: 13px;
+        font-size: 8px;
+    }
+}
 </style>
 </head>
-
 
 <body>
 
 <div class="background"></div>
 
+<!-- ロゴ -->
+<div class="logo">
+    <a href="index.html">
+        <img src="Mil.png" alt="MillionIndex">
+    </a>
+</div>
 
-<!-- =========================
-     ロゴ
-========================= -->
-
-<a href="index.html" class="logo">
-    <img src="MillionIndex.png" alt="MillionIndex">
-</a>
-
-
-<!-- =========================
-     メニューボタン
-========================= -->
-
-<button class="menu-button" id="menuButton" aria-label="メニュー">
-
+<!-- メニュー -->
+<button class="menu-button" id="menuButton" aria-label="メニュー" aria-expanded="false">
     <div class="menu-icon">
         <span></span>
         <span></span>
         <span></span>
     </div>
-
 </button>
 
-
-<!-- =========================
-     メニュー
-========================= -->
-
-<nav class="menu" id="menu">
-
-    <div class="menu-list">
-
+<div class="menu" id="menu">
+    <nav class="menu-list">
         <a href="index.html">
             <div class="menu-item-text">
                 <span class="menu-jp">トップ</span>
-                <span class="menu-en">TOP</span>
+                <span class="menu-en">T O P</span>
+            </div>
+            <span class="menu-arrow">↑</span>
+        </a>
+
+        <a href="index.html#about">
+            <div class="menu-item-text">
+                <span class="menu-jp">理念</span>
+                <span class="menu-en">A B O U T</span>
             </div>
             <span class="menu-arrow">→</span>
         </a>
 
-        <a href="About.html">
+        <a href="index.html#service">
             <div class="menu-item-text">
-                <span class="menu-jp">私たちについて</span>
-                <span class="menu-en">ABOUT</span>
+                <span class="menu-jp">事業内容</span>
+                <span class="menu-en">S E R V I C E</span>
             </div>
             <span class="menu-arrow">→</span>
         </a>
 
-        <a href="Service.html">
+        <a href="index.html#tools">
             <div class="menu-item-text">
-                <span class="menu-jp">サービス</span>
-                <span class="menu-en">SERVICE</span>
+                <span class="menu-jp">便利ツール</span>
+                <span class="menu-en">T O O L S</span>
             </div>
             <span class="menu-arrow">→</span>
         </a>
@@ -973,308 +1074,146 @@ footer{
         <a href="Mem.html">
             <div class="menu-item-text">
                 <span class="menu-jp">メンバー</span>
-                <span class="menu-en">MEMBERS</span>
+                <span class="menu-en">M E M B E R S</span>
             </div>
             <span class="menu-arrow">→</span>
         </a>
 
-        <a href="Contact.html">
+        <a href="index.html#contact">
             <div class="menu-item-text">
                 <span class="menu-jp">お問い合わせ</span>
-                <span class="menu-en">CONTACT</span>
+                <span class="menu-en">C O N T A C T</span>
             </div>
             <span class="menu-arrow">→</span>
+        </a>
+    </nav>
+</div>
+
+<main>
+
+    <div class="page-heading fade">
+        <div class="page-en">M E M B E R S</div>
+
+        <h1 class="page-title">
+            メンバー
+        </h1>
+
+        <p class="page-description">
+            MillionIndexをつくるメンバーをご紹介します。
+        </p>
+    </div>
+
+    <div class="members-grid">
+
+        <a href="Member.html?id=member1" class="member-card fade">
+            <div class="member-card-image">
+                <img src="Mem1.png" alt="主">
+            </div>
+
+            <div class="member-card-info">
+                <div class="member-card-number">01</div>
+                <div class="member-card-name">主</div>
+                <div class="member-card-role">MillionIndexを立ち上げた本人</div>
+            </div>
+        </a>
+
+        <a href="Member.html?id=member2" class="member-card fade">
+            <div class="member-card-image">
+                <img src="Mem2.png" alt="MEMBER NAME">
+            </div>
+
+            <div class="member-card-info">
+                <div class="member-card-number">02</div>
+                <div class="member-card-name">MEMBER NAME</div>
+                <div class="member-card-role">MEMBER</div>
+            </div>
         </a>
 
     </div>
 
-</nav>
-
-
-<!-- =========================
-     メイン
-========================= -->
-
-<main>
-
-    <div id="memberProfile"></div>
+    <div class="back-area">
+        <a href="index.html" class="back-button">
+            ←　トップへ戻る
+        </a>
+    </div>
 
 </main>
 
-
-<!-- =========================
-     フッター
-========================= -->
-
 <footer>
-
     <div class="footer-inner">
 
         <div class="footer-top">
 
             <div>
-
-                <div class="footer-name">
-                    MillionIndex
-                </div>
-
+                <div class="footer-name">MillionIndex</div>
                 <div class="footer-copy">
-                    © 2026 MillionIndex
+                    すべての「便利」を、ひとつの場所へ。
                 </div>
-
             </div>
 
             <div class="footer-links">
-
-                <a href="index.html">トップ</a>
-                <a href="About.html">私たちについて</a>
-                <a href="Service.html">サービス</a>
-                <a href="Mem.html">メンバー</a>
-                <a href="Contact.html">お問い合わせ</a>
-
+                <a href="index.html">TOP</a>
+                <a href="index.html#about">ABOUT</a>
+                <a href="index.html#service">SERVICE</a>
+                <a href="index.html#tools">TOOLS</a>
+                <a href="Mem.html">MEMBERS</a>
+                <a href="index.html#contact">CONTACT</a>
             </div>
 
         </div>
 
         <div class="footer-bottom">
-
-            <span>MillionIndex</span>
-
-            <span>Creative Digital Project</span>
-
+            <span>© 2026 MillionIndex</span>
+            <span>All Rights Reserved.</span>
         </div>
 
     </div>
-
 </footer>
 
-
-<!-- =========================
-     Mem.js
-========================= -->
-
-<script src="Mem.js"></script>
-
-
 <script>
-
-/* =========================
-   メニュー
-========================= */
-
 const menuButton = document.getElementById("menuButton");
 const menu = document.getElementById("menu");
 
-menuButton.addEventListener("click", () => {
-
-    menuButton.classList.toggle("active");
-    menu.classList.toggle("active");
-
-});
-
-
-document.querySelectorAll(".menu-list a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        menuButton.classList.remove("active");
-        menu.classList.remove("active");
-
-    });
-
-});
-
-
-/* =========================
-   メンバー取得
-========================= */
-
-const params = new URLSearchParams(window.location.search);
-
-const memberId = params.get("member");
-
-const memberProfile = document.getElementById("memberProfile");
-
-
-/* =========================
-   メンバーが存在しない場合
-========================= */
-
-if(
-    typeof members === "undefined" ||
-    !memberId ||
-    !members[memberId]
-){
-
-    memberProfile.innerHTML = `
-
-        <div class="error">
-
-            <h1>メンバーが見つかりません</h1>
-
-            <p>
-                指定されたメンバーは存在しないか、
-                URLが正しくありません。
-            </p>
-
-            <a
-                href="Mem.html"
-                class="back-link"
-            >
-                ← メンバー一覧へ戻る
-            </a>
-
-        </div>
-
-    `;
-
-}else{
-
-    const member = members[memberId];
-
-
-    /* =========================
-       メンバーカラー
-    ========================= */
-
-    document.documentElement.style.setProperty(
-        "--member-color",
-        member.color || "#1598b8"
-    );
-
-
-    /* =========================
-       プロフィール
-    ========================= */
-
-    memberProfile.innerHTML = `
-
-        <div class="back-top">
-
-            <a
-                href="Mem.html"
-                class="back-link"
-            >
-                ← メンバー一覧へ戻る
-            </a>
-
-        </div>
-
-
-        <section class="profile">
-
-            <div class="profile-image">
-
-                <img
-                    src="${member.image}"
-                    alt="${member.name}"
-                >
-
-            </div>
-
-
-            <div>
-
-                <div class="profile-number">
-                    MEMBER ${member.number}
-                </div>
-
-                <h1 class="profile-name">
-                    ${member.name}
-                </h1>
-
-                <div class="profile-role">
-                    ${member.role}
-                </div>
-
-                <p class="profile-text">
-                    ${member.description}
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <section class="questions-section">
-
-            <div class="questions-heading">
-
-                <div class="questions-en">
-                    Q &amp; A
-                </div>
-
-                <h2>
-                    ちょっと聞いてみました。
-                </h2>
-
-                <p>
-                    ${member.name}について、いくつか質問してみました。
-                </p>
-
-            </div>
-
-
-            <div class="questions-list">
-
-                ${
-                    Array.isArray(member.questions)
-                    ?
-                    member.questions.map((item,index) => `
-
-                        <article class="question-item">
-
-                            <div class="question-number">
-                                Q${String(index + 1).padStart(2,"0")}
-                            </div>
-
-                            <div class="question-content">
-
-                                <h3>
-                                    ${item.question}
-                                </h3>
-
-                                <p>
-                                    ${item.answer}
-                                </p>
-
-                            </div>
-
-                        </article>
-
-                    `).join("")
-                    :
-                    `
-                        <article class="question-item">
-
-                            <div class="question-number">
-                                Q01
-                            </div>
-
-                            <div class="question-content">
-
-                                <h3>
-                                    Q&amp;A準備中
-                                </h3>
-
-                                <p>
-                                    現在、質問を準備中です。
-                                </p>
-
-                            </div>
-
-                        </article>
-                    `
-                }
-
-            </div>
-
-        </section>
-
-    `;
-
+function closeMenu() {
+    menuButton.classList.remove("active");
+    menu.classList.remove("active");
+    menuButton.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
 }
 
+menuButton.addEventListener("click", () => {
+    const isOpen = menu.classList.toggle("active");
+    menuButton.classList.toggle("active", isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    document.body.style.overflow = isOpen ? "hidden" : "";
+});
+
+document.querySelectorAll(".menu-list a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+});
+
+const fadeElements = document.querySelectorAll(".fade");
+
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    fadeElements.forEach(element => observer.observe(element));
+} else {
+    fadeElements.forEach(element => element.classList.add("show"));
+}
+
+window.addEventListener("load", () => {
+    document.querySelectorAll(".page-heading.fade").forEach(element => {
+        element.classList.add("show");
+    });
+});
 </script>
 
 </body>
