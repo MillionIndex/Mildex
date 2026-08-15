@@ -181,6 +181,90 @@
 
 
         /* =========================================================
+           背景の水滴
+        ========================================================= */
+
+        .bubble {
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: -5;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(21, 152, 184, 0.10);
+
+            background:
+                rgba(255, 255, 255, 0.28);
+
+            animation:
+                bubbleFloat 8s ease-in-out infinite;
+        }
+
+
+        .bubble-1 {
+            width: 20px;
+            height: 20px;
+
+            top: 24%;
+            left: 7%;
+
+            animation-delay: 0s;
+        }
+
+
+        .bubble-2 {
+            width: 12px;
+            height: 12px;
+
+            top: 42%;
+            right: 9%;
+
+            animation-delay: 2s;
+        }
+
+
+        .bubble-3 {
+            width: 28px;
+            height: 28px;
+
+            top: 67%;
+            left: 4%;
+
+            animation-delay: 1s;
+        }
+
+
+        .bubble-4 {
+            width: 15px;
+            height: 15px;
+
+            top: 78%;
+            right: 7%;
+
+            animation-delay: 3s;
+        }
+
+
+        @keyframes bubbleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.45;
+            }
+
+            50% {
+                transform: translateY(-14px);
+                opacity: 0.8;
+            }
+        }
+
+
+        /* =========================================================
            ロゴ
         ========================================================= */
 
@@ -525,25 +609,10 @@
         }
 
 
+        /* タイトル下の水滴は削除 */
+
         .section-title::after {
-            content: "";
-
-            width: 8px;
-            height: 8px;
-
-            margin-top: 15px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--ocean-blue),
-                    var(--mint)
-                );
-
-            box-shadow:
-                0 4px 12px rgba(21, 152, 184, 0.15);
+            content: none;
         }
 
 
@@ -2033,6 +2102,11 @@
 
     <div class="background"></div>
 
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+
 
     <!-- =========================================================
          ロゴ
@@ -2282,8 +2356,7 @@
                         <p>
 
                             複雑な機能や過剰な装飾を削ぎ落とし、<br>
-                            誰でも直感的に使えるものを。<br>
-                            「迷わず使えること」を大切にしています。
+                            誰でも直感的に使えるものを。
 
                         </p>
 
@@ -2309,9 +2382,8 @@
 
                         <p>
 
-                            一般的なサービスでは見落とされがちな<br>
                             小さな課題にも目を向け、<br>
-                            本当に必要としている人に届くものをつくります。
+                            本当に必要なものをつくります。
 
                         </p>
 
@@ -2337,9 +2409,8 @@
 
                         <p>
 
-                            Webサービスだけにとどまらず、<br>
-                            学習や出版、さまざまなツールなど、<br>
-                            暮らしや学びを少し豊かにするものを展開します。
+                            Web・学習・出版など、<br>
+                            暮らしや学びを少し豊かに。
 
                         </p>
 
@@ -2369,7 +2440,8 @@
                     </span>
 
                     <span class="section-title-jp">
-                        MillionIndexのサービス
+                        MillionIndexの<br>
+                        サービス
                     </span>
 
                 </h2>
@@ -2379,9 +2451,8 @@
 
             <p class="service-intro fade">
 
-                Web・教育・出版など、<br>
-                さまざまな分野から<br>
-                「便利」や「学び」を届けています。
+                Web・教育・出版など。<br>
+                いろいろな「便利」を届けています。
 
             </p>
 
@@ -2407,7 +2478,7 @@
 
 
                         <p class="service-description">
-                            日常のちょっとした作業を効率化・快適化するWebアプリケーション
+                            日常のちょっとした作業を、もっと快適に。
                         </p>
 
                     </div>
@@ -2439,7 +2510,7 @@
 
 
                         <p class="service-description">
-                            無料で手軽に受検できるオンライン学力テスト
+                            無料で手軽に受けられるオンライン学力テスト。
                         </p>
 
                     </div>
@@ -2471,7 +2542,7 @@
 
 
                         <p class="service-description">
-                            独自の学習資料や書籍をデジタル形式で公開
+                            学習資料や書籍をデジタルで。
                         </p>
 
                     </div>
@@ -2506,7 +2577,8 @@
                     </span>
 
                     <span class="section-title-jp">
-                        便利なツール
+                        便利な<br>
+                        ツール
                     </span>
 
                 </h2>
@@ -2654,7 +2726,8 @@
                     </span>
 
                     <span class="section-title-jp">
-                        MillionIndexのメンバー
+                        MillionIndexの<br>
+                        メンバー
                     </span>
 
                 </h2>
