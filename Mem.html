@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Members | MillionIndex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        /* =========================================================
+           基本設定
+        ========================================================= */
+
+        :root {
+            --ocean: #1598b8;
+            --ocean-blue: #54c8dc;
+            --ocean-light: #9ce8ed;
+            --mint: #b9eee4;
+
+            --text: #285264;
+            --text-soft: #6b8994;
+            --text-faint: #9bb4bc;
+
+            --white: #ffffff;
+
+            --shadow:
+                0 15px 45px rgba(21, 152, 184, 0.09);
+
+            --soft-shadow:
+                0 8px 28px rgba(21, 152, 184, 0.07);
+
+            --transition:
+                all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                "Noto Sans JP",
+                -apple-system,
+                BlinkMacSystemFont,
+                sans-serif;
+
+            color: var(--text);
+
+            line-height: 1.8;
+
+            overflow-x: hidden;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #faffff 15%,
+                    #f1fcfd 35%,
+                    #e6f9fb 52%,
+                    #d5f4f3 72%,
+                    #bcece9 88%,
+                    #a9e5e5 100%
+                );
+
+            background-attachment: fixed;
+
+            -webkit-font-smoothing: antialiased;
+
+            text-rendering: optimizeLegibility;
+        }
+
+
+        a {
+            color: inherit;
+
+            text-decoration: none;
+        }
+
+
+        /* =========================================================
+           背景
+        ========================================================= */
+
+        .background {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -10;
+
+            overflow: hidden;
+        }
+
+
+        .background::before {
+            content: "";
+
+            position: absolute;
+
+            width: 650px;
+            height: 650px;
+
+            top: -280px;
+            right: -180px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(119, 224, 235, 0.30) 0%,
+                    rgba(119, 224, 235, 0.12) 38%,
+                    rgba(119, 224, 235, 0) 72%
+                );
+
+            animation:
+                floatCloud 12s ease-in-out infinite;
+        }
+
+
+        .background::after {
+            content: "";
+
+            position: absolute;
+
+            width: 720px;
+            height: 720px;
+
+            bottom: -350px;
+            left: -250px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.62) 0%,
+                    rgba(255, 255, 255, 0.20) 40%,
+                    rgba(255, 255, 255, 0) 72%
+                );
+
+            animation:
+                floatCloud 15s ease-in-out infinite reverse;
+        }
+
+
+        @keyframes floatCloud {
+
+            0% {
+                transform:
+                    translate3d(
+                        0,
+                        0,
+                        0
+                    );
+            }
+
+            50% {
+                transform:
+                    translate3d(
+                        20px,
+                        18px,
+                        0
+                    );
+            }
+
+            100% {
+                transform:
+                    translate3d(
+                        0,
+                        0,
+                        0
+                    );
+            }
+
+        }
+
+
+        /* =========================================================
+           水滴
+        ========================================================= */
+
+        .bubble {
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: -5;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(21, 152, 184, 0.10);
+
+            background:
+                rgba(255, 255, 255, 0.28);
+
+            animation:
+                bubbleFloat 8s ease-in-out infinite;
+        }
+
+
+        .bubble-1 {
+            width: 20px;
+            height: 20px;
+
+            top: 24%;
+            left: 7%;
+        }
+
+
+        .bubble-2 {
+            width: 12px;
+            height: 12px;
+
+            top: 42%;
+            right: 9%;
+
+            animation-delay: 2s;
+        }
+
+
+        .bubble-3 {
+            width: 28px;
+            height: 28px;
+
+            top: 67%;
+            left: 4%;
+
+            animation-delay: 1s;
+        }
+
+
+        .bubble-4 {
+            width: 15px;
+            height: 15px;
+
+            top: 78%;
+            right: 7%;
+
+            animation-delay: 3s;
+        }
+
+
+        @keyframes bubbleFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+
+                opacity: 0.45;
+            }
+
+            50% {
+                transform:
+                    translateY(-14px);
+
+                opacity: 0.8;
+            }
+
+        }
+
+
+        /* =========================================================
+           ロゴ
+        ========================================================= */
+
+        .logo {
+            position: fixed;
+
+            top: 17px;
+            left: 5%;
+
+            z-index: 1000;
+        }
+
+
+        .logo img {
+            display: block;
+
+            width: auto;
+            height: 78px;
+
+            object-fit: contain;
+
+            transition: var(--transition);
+        }
+
+
+        .logo img:hover {
+            transform:
+                scale(1.04)
+                rotate(-1deg);
+        }
+
+
+        /* =========================================================
+           戻る
+        ========================================================= */
+
+        .back {
+            position: fixed;
+
+            top: 28px;
+            right: 5%;
+
+            z-index: 1000;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                11px
+                18px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.08
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .back:hover {
+            transform:
+                translateY(-2px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.92
+                );
+
+            color: var(--ocean);
+        }
+
+
+        /* =========================================================
+           メイン
+        ========================================================= */
+
+        main {
+            width:
+                min(
+                    900px,
+                    86%
+                );
+
+            margin:
+                0 auto;
+
+            padding:
+                170px 0
+                120px;
+        }
+
+
+        /* =========================================================
+           ページタイトル
+        ========================================================= */
+
+        .page-heading {
+            text-align: center;
+
+            margin-bottom: 80px;
+        }
+
+
+        .page-en {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+        }
+
+
+        .page-title {
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    30px,
+                    6vw,
+                    48px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           メンバー詳細
+        ========================================================= */
+
+        .member-detail {
+            scroll-margin-top: 100px;
+
+            margin-bottom: 100px;
+
+            padding:
+                60px
+                50px;
+
+            border-radius: 36px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.55
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+
+        .member-number {
+            margin-bottom: 12px;
+
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+        }
+
+
+        .member-name {
+            margin-bottom: 8px;
+
+            color: var(--text);
+
+            font-size:
+                clamp(
+                    28px,
+                    5vw,
+                    40px
+                );
+
+            font-weight: 800;
+
+            line-height: 1.4;
+        }
+
+
+        .member-role {
+            margin-bottom: 35px;
+
+            color: var(--text-faint);
+
+            font-size: 12px;
+
+            font-weight: 500;
+        }
+
+
+        .member-description {
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            line-height: 2.2;
+        }
+
+
+        /* =========================================================
+           メンバー一覧
+        ========================================================= */
+
+        .member-list-section {
+            padding: 0;
+
+            width: 100%;
+        }
+
+
+        .member-list-title {
+            margin-bottom: 25px;
+
+            color: var(--text);
+
+            font-size: 24px;
+
+            font-weight: 800;
+        }
+
+
+        .member-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        .member-link {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                20px
+                24px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.40
+                );
+
+            transition: var(--transition);
+        }
+
+
+        .member-link:hover {
+            transform:
+                translateX(5px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.78
+                );
+        }
+
+
+        .member-link-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+
+        .member-link-number {
+            color: var(--ocean);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .member-link-name {
+            color: var(--text);
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+
+        .member-link-arrow {
+            color: var(--ocean);
+
+            font-size: 18px;
+
+            transition: var(--transition);
+        }
+
+
+        .member-link:hover .member-link-arrow {
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================================================
+           スマホ
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            .logo {
+                top: 12px;
+                left: 20px;
+            }
+
+
+            .logo img {
+                height: 58px;
+            }
+
+
+            .back {
+                top: 18px;
+                right: 20px;
+
+                padding:
+                    9px
+                    14px;
+            }
+
+
+            main {
+                width: 88%;
+
+                padding:
+                    130px 0
+                    80px;
+            }
+
+
+            .page-heading {
+                margin-bottom: 55px;
+            }
+
+
+            .member-detail {
+                padding:
+                    38px
+                    25px;
+
+                border-radius: 28px;
+            }
+
+
+            .member-description {
+                font-size: 12px;
+            }
+
+
+            .member-list-title {
+                font-size: 22px;
+            }
+
+
+            .member-link {
+                padding:
+                    18px
+                    20px;
+            }
+
+        }
+
+
+        /* =========================================================
+           省電力設定
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         背景
+    ========================================================= -->
+
+    <div class="background"></div>
+
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+
+
+    <!-- =========================================================
+         ロゴ
+    ========================================================= -->
+
+    <div class="logo">
+
+        <a href="index.html">
+
+            <img
+                src="Mil.png"
+                alt="MillionIndex">
+
+        </a>
+
+    </div>
+
+
+    <!-- =========================================================
+         戻る
+    ========================================================= -->
+
+    <a
+        href="index.html#members"
+        class="back">
+
+        ← 戻る
+
+    </a>
+
+
+    <!-- =========================================================
+         メイン
+    ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             ページタイトル
+        ===================================================== -->
+
+        <div class="page-heading">
+
+            <span class="page-en">
+                M E M B E R S
+            </span>
+
+            <h1 class="page-title">
+                メンバー
+            </h1>
+
+        </div>
+
+
+        <!-- =====================================================
+             メンバー 01
+        ===================================================== -->
+
+        <section
+            id="member-01"
+            class="member-detail">
+
+            <div class="member-number">
+                01
+            </div>
+
+
+            <h2 class="member-name">
+                主
+            </h2>
+
+
+            <div class="member-role">
+                MillionIndexを立ち上げた本人
+            </div>
+
+
+            <p class="member-description">
+
+                MillionIndexの立ち上げや、
+                ウェブサービス・学習コンテンツなどの
+                制作を行っています。
+
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             メンバー一覧
+        ===================================================== -->
+
+        <section class="member-list-section">
+
+
+            <h2 class="member-list-title">
+                メンバー一覧
+            </h2>
+
+
+            <div class="member-list">
+
+
+                <a
+                    href="#member-01"
+                    class="member-link">
+
+                    <div class="member-link-left">
+
+                        <div class="member-link-number">
+                            01
+                        </div>
+
+
+                        <div class="member-link-name">
+                            主
+                        </div>
+
+                    </div>
+
+
+                    <div class="member-link-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+</html>
