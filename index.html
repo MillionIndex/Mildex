@@ -1518,38 +1518,25 @@
 
 
         /* =========================================================
-           アニメーション
+           フェード表示（追加）
         ========================================================= */
 
         .fade {
             opacity: 0;
-
-            transform:
-                translateY(22px);
-
+            transform: translateY(28px);
             transition:
-                opacity 0.8s ease,
-                transform
-                0.8s
-                cubic-bezier(
-                    0.16,
-                    1,
-                    0.3,
-                    1
-                );
+                opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
 
         .fade.show {
             opacity: 1;
-
-            transform:
-                translateY(0);
+            transform: translateY(0);
         }
 
 
         /* =========================================================
-           タブレット・スマホ
+           スマホ
         ========================================================= */
 
         @media (max-width: 800px) {
@@ -2622,7 +2609,7 @@
 
 
                 <a
-                    href="Member.html?id=member1"
+                    href="Mem/Member.html?id=1"
                     class="member-item fade">
 
                     <div class="member-number">
@@ -2647,7 +2634,7 @@
 
 
                 <a
-                    href="Member.html?id=member2"
+                    href="Mem/Member.html?id=member2"
                     class="member-item fade">
 
                     <div class="member-number">
@@ -2675,7 +2662,7 @@
 
 
             <a
-                href="Mem.html"
+                href="Mem/MenList.html"
                 class="member-all fade">
 
                 メンバー一覧
