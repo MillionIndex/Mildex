@@ -1069,6 +1069,11 @@
         }
 
 
+        .member-item {
+            border-left: 3px solid var(--member-color, var(--ocean));
+        }
+
+
         .member-item:hover {
             transform:
                 translateY(-4px);
@@ -2618,60 +2623,7 @@
             </div>
 
 
-            <div class="member-list">
-
-
-                <a
-                    href="Mem.html#member1"
-                    class="member-item fade">
-
-                    <div class="member-number">
-                        01
-                    </div>
-
-
-                    <div class="member-info">
-
-                        <div class="member-name">
-                            主
-                        </div>
-
-
-                        <div class="member-role">
-                            MillionIndexを立ち上げた本人
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-                <a
-                    href="Mem.html#member2"
-                    class="member-item fade">
-
-                    <div class="member-number">
-                        02
-                    </div>
-
-
-                    <div class="member-info">
-
-                        <div class="member-name">
-                            MEMBER NAME
-                        </div>
-
-
-                        <div class="member-role">
-                            MEMBER
-                        </div>
-
-                    </div>
-
-                </a>
-
-
-            </div>
+            <div class="member-list" id="memberList"></div>
 
 
             <a
@@ -2816,7 +2768,42 @@
          JavaScript
     ========================================================= -->
 
+    <script src="Mem.js"></script>
+
     <script>
+
+        /* =========================================================
+           メンバー生成
+        ========================================================= */
+
+        const memberList = document.getElementById("memberList");
+
+        if (memberList) {
+            Object.entries(members).forEach(([id, member]) => {
+                memberList.insertAdjacentHTML("beforeend", `
+                    <a
+                        href="Mem.html?member=${id}"
+                        class="member-item fade"
+                        style="--member-color:${member.color};">
+
+                        <div class="member-number" style="color:${member.color};">
+                            ${member.number}
+                        </div>
+
+                        <div class="member-info">
+                            <div class="member-name">
+                                ${member.name}
+                            </div>
+
+                            <div class="member-role">
+                                ${member.shortRole}
+                            </div>
+                        </div>
+
+                    </a>
+                `);
+            });
+        }
 
 
         /* =========================================================
