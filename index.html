@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MillionIndex</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+
         /* =========================================================
            基本設定
         ========================================================= */
@@ -22,25 +24,19 @@
             --pale: #f4fdfe;
 
             --text: #285264;
-            --text-soft: #5a7a88;
-            --text-faint: #8aa4ae;
+            --text-soft: #6b8994;
+            --text-faint: #9bb4bc;
 
             --white: #ffffff;
 
             --shadow:
-                0 15px 45px rgba(21, 152, 184, 0.12);
+                0 15px 45px rgba(21, 152, 184, 0.09);
 
             --soft-shadow:
-                0 8px 28px rgba(21, 152, 184, 0.10);
-
-            --cute-shadow:
-                0 12px 32px rgba(21, 152, 184, 0.16);
+                0 8px 28px rgba(21, 152, 184, 0.07);
 
             --transition:
                 all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
-            --transition-soft:
-                all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
 
@@ -64,22 +60,25 @@
                 sans-serif;
 
             color: var(--text);
+
             line-height: 1.8;
+
             overflow-x: hidden;
 
             background:
                 linear-gradient(
                     180deg,
                     #ffffff 0%,
-                    #faffff 12%,
-                    #f2fcfd 28%,
-                    #e8f9fb 48%,
-                    #d8f5f4 68%,
-                    #c5efe9 85%,
-                    #b4e8e6 100%
+                    #faffff 15%,
+                    #f1fcfd 34%,
+                    #e6f9fb 52%,
+                    #d5f4f3 72%,
+                    #bcece9 88%,
+                    #a9e5e5 100%
                 );
 
             background-attachment: fixed;
+
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
@@ -93,9 +92,6 @@
 
         button {
             font: inherit;
-            border: none;
-            background: none;
-            cursor: pointer;
         }
 
 
@@ -105,94 +101,141 @@
 
         .logo {
             position: fixed;
-            top: 14px;
-            left: 4.5%;
+
+            top: 17px;
+            left: 5%;
+
             z-index: 1000;
         }
 
 
         .logo img {
             display: block;
+
             width: auto;
-            height: 74px;
+            height: 78px;
+
             object-fit: contain;
-            transition: var(--transition);
-            filter: drop-shadow(0 4px 12px rgba(21, 152, 184, 0.15));
+
+            transition:
+                transform 0.35s ease,
+                filter 0.35s ease;
         }
 
 
         .logo img:hover {
-            transform: scale(1.06) rotate(-2deg);
-            filter: drop-shadow(0 6px 18px rgba(21, 152, 184, 0.25));
+            transform:
+                scale(1.04)
+                rotate(-1deg);
         }
 
 
         /* =========================================================
-           三本線（前の仕様に近づけた）
+           三本線
         ========================================================= */
 
         .menu-button {
             position: fixed;
+
             top: 28px;
             right: 5%;
+
             width: 50px;
             height: 50px;
+
             border: none;
-            background: rgba(255, 255, 255, 0.78);
+
+            background:
+                rgba(255, 255, 255, 0.70);
+
             border-radius: 50%;
+
             cursor: pointer;
+
             z-index: 1200;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             transition: var(--transition);
+
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 25px rgba(21, 152, 184, 0.12);
+
+            box-shadow:
+                0 8px 25px rgba(21, 152, 184, 0.09);
         }
 
 
         .menu-button:hover {
-            transform: translateY(-2px) scale(1.04);
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow: 0 12px 30px rgba(21, 152, 184, 0.16);
+            transform:
+                translateY(-2px)
+                scale(1.04);
+
+            background:
+                rgba(255, 255, 255, 0.90);
+
+            box-shadow:
+                0 12px 30px rgba(21, 152, 184, 0.13);
         }
 
 
         .menu-icon {
             width: 21px;
             height: 16px;
+
             position: relative;
         }
 
 
         .menu-icon span {
             position: absolute;
+
             left: 0;
+
             width: 100%;
             height: 2px;
+
             background: var(--text);
+
             border-radius: 5px;
+
             transition: var(--transition);
         }
 
 
-        .menu-icon span:nth-child(1) { top: 0; }
-        .menu-icon span:nth-child(2) { top: 7px; }
-        .menu-icon span:nth-child(3) { top: 14px; }
+        .menu-icon span:nth-child(1) {
+            top: 0;
+        }
+
+
+        .menu-icon span:nth-child(2) {
+            top: 7px;
+        }
+
+
+        .menu-icon span:nth-child(3) {
+            top: 14px;
+        }
 
 
         .menu-button.active .menu-icon span:nth-child(1) {
             top: 7px;
+
             transform: rotate(45deg);
         }
+
 
         .menu-button.active .menu-icon span:nth-child(2) {
             opacity: 0;
         }
 
+
         .menu-button.active .menu-icon span:nth-child(3) {
             top: 7px;
+
             transform: rotate(-45deg);
         }
 
@@ -203,102 +246,142 @@
 
         .menu {
             position: fixed;
+
             inset: 0;
+
             z-index: 1100;
+
             display: flex;
+
             justify-content: center;
             align-items: center;
-            background: rgba(248, 254, 255, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+
+            background:
+                rgba(248, 254, 255, 0.94);
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition-soft);
+
+            transition: var(--transition);
         }
 
 
         .menu.active {
             opacity: 1;
+
             visibility: visible;
         }
 
 
         .menu-list {
-            width: min(540px, 84%);
+            width: min(570px, 82%);
+
             display: flex;
+
             flex-direction: column;
-            gap: 10px;
+
+            gap: 8px;
         }
 
 
         .menu-list a {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
-            padding: 18px 22px;
+
+            padding: 18px 20px;
+
             color: var(--text);
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.55);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255, 255, 255, 0.42);
+
             opacity: 0;
-            transform: translateY(22px) scale(0.98);
+
+            transform: translateY(18px);
+
             transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(21, 152, 184, 0.04);
         }
 
 
         .menu.active .menu-list a {
             opacity: 1;
-            transform: translateY(0) scale(1);
+
+            transform: translateY(0);
         }
 
 
-        .menu.active .menu-list a:nth-child(1) { transition-delay: 0.04s; }
-        .menu.active .menu-list a:nth-child(2) { transition-delay: 0.09s; }
-        .menu.active .menu-list a:nth-child(3) { transition-delay: 0.14s; }
-        .menu.active .menu-list a:nth-child(4) { transition-delay: 0.19s; }
-        .menu.active .menu-list a:nth-child(5) { transition-delay: 0.24s; }
-        .menu.active .menu-list a:nth-child(6) { transition-delay: 0.29s; }
+        .menu.active .menu-list a:nth-child(1) { transition-delay: 0.05s; }
+        .menu.active .menu-list a:nth-child(2) { transition-delay: 0.10s; }
+        .menu.active .menu-list a:nth-child(3) { transition-delay: 0.15s; }
+        .menu.active .menu-list a:nth-child(4) { transition-delay: 0.20s; }
+        .menu.active .menu-list a:nth-child(5) { transition-delay: 0.25s; }
+        .menu.active .menu-list a:nth-child(6) { transition-delay: 0.30s; }
+        .menu.active .menu-list a:nth-child(7) { transition-delay: 0.35s; }
 
 
         .menu-item-text {
             display: flex;
+
             align-items: baseline;
-            gap: 12px;
+
+            gap: 13px;
         }
 
 
         .menu-jp {
-            font-size: 19px;
+            font-size: 20px;
+
             font-weight: 700;
         }
 
 
         .menu-en {
-            color: rgba(21, 152, 184, 0.7);
-            font-family: Arial, Helvetica, sans-serif;
+            color: rgba(21, 152, 184, 0.62);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 10px;
+
             font-weight: 600;
-            letter-spacing: 2.6px;
+
+            letter-spacing: 2.8px;
+
             line-height: 1;
         }
 
 
         .menu-arrow {
             color: var(--ocean);
-            font-size: 18px;
+
+            font-size: 19px;
+
             transition: var(--transition);
         }
 
 
         .menu-list a:hover {
-            background: rgba(255, 255, 255, 0.92);
-            transform: translateX(6px) scale(1.01);
-            box-shadow: 0 8px 24px rgba(21, 152, 184, 0.1);
+            background:
+                rgba(255, 255, 255, 0.82);
+
+            transform:
+                translateX(5px);
         }
 
 
         .menu-list a:hover .menu-arrow {
-            transform: translateX(6px);
+            transform:
+                translateX(5px);
         }
 
 
@@ -308,13 +391,16 @@
 
         section {
             width: min(1000px, 86%);
+
             margin: 0 auto;
-            padding: 120px 0;
+
+            padding: 125px 0;
         }
 
 
         .section-heading {
-            margin-bottom: 54px;
+            margin-bottom: 58px;
+
             text-align: center;
         }
 
@@ -325,31 +411,65 @@
 
         .section-title {
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
-            gap: 8px;
+
+            gap: 7px;
+
             position: relative;
+
             text-align: center;
+        }
+
+
+        .section-title::after {
+            content: none;
         }
 
 
         .section-title-jp {
             order: 2;
+
             color: var(--text);
-            font-size: clamp(26px, 5vw, 36px);
+
+            font-size:
+                clamp(
+                    26px,
+                    5vw,
+                    38px
+                );
+
             font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.35;
+
+            letter-spacing: -0.035em;
+
+            line-height: 1.3;
         }
 
 
         .section-title-en {
             order: 1;
+
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: clamp(11px, 1.8vw, 12px);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size:
+                clamp(
+                    11px,
+                    1.8vw,
+                    13px
+                );
+
             font-weight: 700;
-            letter-spacing: 4.2px;
+
+            letter-spacing: 4px;
+
             line-height: 1;
         }
 
@@ -360,99 +480,116 @@
 
         .hero {
             width: min(1050px, 88%);
+
             min-height: 100vh;
+
             margin: 0 auto;
-            padding: 140px 0 80px;
+
+            padding:
+                150px 0
+                90px;
+
             display: flex;
+
             flex-direction: column;
+
             justify-content: center;
+
             align-items: center;
+
             text-align: center;
+
             position: relative;
         }
 
 
         .hero-small {
-            margin-bottom: 22px;
+            margin-bottom: 25px;
+
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 11px;
+
             font-weight: 700;
-            letter-spacing: 3.8px;
+
+            letter-spacing: 4px;
         }
 
 
         .hero h1 {
             max-width: 900px;
+
             color: var(--text);
-            font-size: clamp(38px, 6.8vw, 72px);
+
+            font-size:
+                clamp(
+                    40px,
+                    7vw,
+                    76px
+                );
+
             font-weight: 800;
-            line-height: 1.48;
-            letter-spacing: -0.05em;
+
+            line-height: 1.5;
+
+            letter-spacing: -0.055em;
         }
 
 
         .hero h1 span {
             color: var(--ocean);
+
             position: relative;
+
             display: inline-block;
         }
 
 
         .hero h1 span::after {
             content: "";
+
             position: absolute;
-            left: 4%;
-            right: 4%;
-            bottom: 3px;
-            height: 10px;
+
+            left: 5%;
+
+            right: 5%;
+
+            bottom: 2px;
+
+            height: 9px;
+
             border-radius: 20px;
-            background: linear-gradient(
-                90deg,
-                rgba(156, 232, 237, 0.7),
-                rgba(185, 238, 228, 0.55),
-                rgba(255, 232, 240, 0.3)
-            );
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(156, 232, 237, 0.55),
+                    rgba(185, 238, 228, 0.45)
+                );
+
             z-index: -1;
         }
 
 
         .hero-description {
-            max-width: 580px;
-            margin-top: 36px;
+            max-width: 600px;
+
+            margin-top: 38px;
+
             color: var(--text-soft);
+
             font-size: 14px;
+
             font-weight: 500;
-            line-height: 2.15;
+
+            line-height: 2.2;
+
             text-align: center;
-        }
-
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(156, 232, 237, 0.3) 0%, transparent 70%);
-            top: 12%;
-            left: -8%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 232, 240, 0.25) 0%, transparent 70%);
-            bottom: 18%;
-            right: -5%;
-            pointer-events: none;
-            z-index: -1;
         }
 
 
@@ -461,64 +598,107 @@
         ========================================================= */
 
         .about-intro {
-            max-width: 660px;
-            margin: 0 auto 72px;
+            max-width: 680px;
+
+            margin:
+                0 auto
+                78px;
+
             color: var(--text);
-            font-size: clamp(18px, 2.7vw, 23px);
+
+            font-size:
+                clamp(
+                    18px,
+                    2.8vw,
+                    24px
+                );
+
             font-weight: 700;
-            line-height: 2.1;
+
+            line-height: 2.15;
+
             text-align: center;
         }
 
 
         .vision-list {
             display: flex;
+
             flex-direction: column;
-            gap: 64px;
+
+            gap: 70px;
         }
 
 
         .vision-item {
             position: relative;
+
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
             text-align: center;
-            padding: 0 16px;
+
+            padding: 0 20px;
         }
 
 
         .vision-number {
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 11px;
+
             font-weight: 700;
-            letter-spacing: 2.8px;
-            margin-bottom: 12px;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 13px;
         }
 
 
         .vision-content {
-            max-width: 620px;
+            max-width: 650px;
         }
 
 
         .vision-content h3 {
-            margin-bottom: 12px;
+            margin-bottom: 13px;
+
             color: var(--text);
-            font-size: clamp(22px, 3.8vw, 30px);
+
+            font-size:
+                clamp(
+                    23px,
+                    4vw,
+                    31px
+                );
+
             font-weight: 800;
+
             line-height: 1.45;
         }
 
 
         .vision-content p {
-            max-width: 540px;
+            max-width: 570px;
+
             margin: 0 auto;
+
             color: var(--text-soft);
+
             font-size: 13px;
+
             font-weight: 500;
-            line-height: 2.05;
+
+            line-height: 2.1;
+
             text-align: center;
         }
 
@@ -528,82 +708,150 @@
         ========================================================= */
 
         .service-intro {
-            max-width: 560px;
-            margin: 0 auto 46px;
+            max-width: 580px;
+
+            margin:
+                0 auto
+                48px;
+
             color: var(--text-soft);
+
             font-size: 13px;
+
             font-weight: 500;
-            line-height: 2.1;
+
+            line-height: 2.15;
+
             text-align: center;
         }
 
 
         .service-list {
             display: flex;
+
             flex-direction: column;
-            gap: 14px;
+
+            gap: 16px;
         }
 
 
         .service-item {
             position: relative;
+
             display: grid;
-            grid-template-columns: 110px 1fr 42px;
+
+            grid-template-columns:
+                115px
+                1fr
+                45px;
+
             align-items: center;
-            gap: 24px;
-            padding: 26px 28px;
-            border-radius: 26px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: var(--soft-shadow);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+
+            gap: 28px;
+
+            padding:
+                27px
+                30px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.57
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--soft-shadow);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
             transition: var(--transition);
         }
 
 
         .service-item:hover {
-            transform: translateY(-5px) scale(1.01);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: var(--cute-shadow);
+            transform:
+                translateY(-5px)
+                scale(1.008);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--shadow);
         }
 
 
         .service-label {
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 10px;
+
             font-weight: 700;
-            letter-spacing: 2.4px;
+
+            letter-spacing: 2.5px;
         }
 
 
         .service-name {
             margin-bottom: 3px;
+
             color: var(--text);
-            font-size: 18px;
+
+            font-size: 19px;
+
             font-weight: 800;
         }
 
 
         .service-description {
             color: var(--text-faint);
+
             font-size: 11px;
+
             font-weight: 500;
-            line-height: 1.55;
+
+            line-height: 1.6;
+
             white-space: nowrap;
         }
 
 
         .service-arrow {
             color: var(--ocean);
-            font-size: 19px;
+
+            font-size: 20px;
+
             transition: var(--transition);
         }
 
 
         .service-item:hover .service-arrow {
-            transform: translateX(7px);
+            transform:
+                translateX(6px);
         }
 
 
@@ -612,247 +860,445 @@
         ========================================================= */
 
         .tools-intro {
-            max-width: 540px;
-            margin: 0 auto 46px;
+            max-width: 560px;
+
+            margin:
+                0 auto
+                48px;
+
             color: var(--text-soft);
+
             font-size: 13px;
+
             font-weight: 500;
-            line-height: 2.1;
+
+            line-height: 2.15;
+
             text-align: center;
         }
 
 
         .tools-list {
             display: flex;
+
             flex-direction: column;
+
             gap: 12px;
         }
 
 
         .tool-item {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
-            padding: 20px 22px;
+
+            padding:
+                22px
+                24px;
+
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.62);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.34
+                );
+
             transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
 
         .tool-item:hover {
-            background: rgba(255, 255, 255, 0.92);
-            transform: translateX(5px);
-            border-color: rgba(21, 152, 184, 0.18);
-            box-shadow: 0 6px 20px rgba(21, 152, 184, 0.12);
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
+            transform:
+                translateX(4px);
         }
 
 
         .tool-left {
             display: flex;
+
             align-items: center;
-            gap: 18px;
+
+            gap: 20px;
         }
 
 
         .tool-number {
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 10px;
+
             font-weight: 700;
+
             letter-spacing: 2px;
-            min-width: 22px;
         }
 
 
         .tool-title {
             color: var(--text);
-            font-size: 15px;
+
+            font-size: 16px;
+
             font-weight: 700;
-            line-height: 1.35;
+
+            line-height: 1.4;
         }
 
 
         .tool-description {
-            margin-top: 2px;
+            margin-top: 1px;
+
             color: var(--text-faint);
+
             font-size: 10px;
+
             font-weight: 500;
-            line-height: 1.45;
+
+            line-height: 1.5;
+
             white-space: nowrap;
         }
 
 
         .tool-arrow {
             color: var(--ocean);
-            font-size: 17px;
+
+            font-size: 18px;
+
             transition: var(--transition);
         }
 
 
         .tool-item:hover .tool-arrow {
-            transform: translateX(6px);
+            transform:
+                translateX(6px);
         }
 
 
         /* =========================================================
-           MEMBERS（主のみ・画像付き）
+           MEMBERS
         ========================================================= */
 
         .member-list {
-            max-width: 720px;
+            max-width: 340px;
+
             margin: 0 auto;
+
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-            justify-items: center;
+
+            grid-template-columns: 1fr;
+
+            gap: 16px;
         }
 
 
         .member-item {
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 300px;
-            min-height: 240px;
-            padding: 28px 22px 24px;
+
+            justify-content: center;
+
+            min-height: 170px;
+
+            padding: 25px;
+
             border-radius: 28px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(255, 255, 255, 0.95);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.45
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.75
+                );
+
             text-align: center;
+
             transition: var(--transition);
-            box-shadow: var(--soft-shadow);
-            overflow: hidden;
-            position: relative;
         }
 
 
         .member-item:hover {
-            transform: translateY(-6px) scale(1.015);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: var(--cute-shadow);
-        }
+            transform:
+                translateY(-4px);
 
-
-        .member-img-wrap {
-            width: 92px;
-            height: 92px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 16px;
-            border: 3px solid rgba(255, 255, 255, 0.95);
-            box-shadow:
-                0 6px 20px rgba(21, 152, 184, 0.18),
-                0 0 0 4px rgba(156, 232, 237, 0.45);
-            transition: var(--transition);
-            background: linear-gradient(135deg, var(--ocean-light), var(--mint));
-        }
-
-
-        .member-item:hover .member-img-wrap {
-            transform: scale(1.06);
-            box-shadow:
-                0 8px 26px rgba(21, 152, 184, 0.25),
-                0 0 0 5px rgba(156, 232, 237, 0.55);
-        }
-
-
-        .member-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: var(--transition-soft);
-        }
-
-
-        .member-item:hover .member-img {
-            transform: scale(1.05);
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
         }
 
 
         .member-number {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 10px;
+
             font-weight: 700;
-            letter-spacing: 2.2px;
+
+            letter-spacing: 2px;
         }
 
 
         .member-info {
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
-            gap: 4px;
+
+            gap: 3px;
         }
 
 
         .member-name {
             color: var(--text);
-            font-size: 19px;
+
+            font-size: 20px;
+
             font-weight: 800;
-            letter-spacing: -0.02em;
         }
 
 
         .member-role {
             color: var(--text-faint);
-            font-size: 11px;
+
+            font-size: 10px;
+
             font-weight: 500;
-            line-height: 1.5;
-            max-width: 200px;
         }
 
 
-        .member-desc {
-            margin-top: 8px;
-            color: var(--text-soft);
-            font-size: 11px;
-            font-weight: 500;
-            line-height: 1.6;
-            max-width: 220px;
-            opacity: 0.9;
-        }
-
+        /* メンバー一覧ボタン */
 
         .member-all {
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             width: fit-content;
-            margin: 32px auto 0;
-            padding: 13px 26px;
+
+            margin:
+                30px auto
+                0;
+
+            padding:
+                13px
+                25px;
+
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
             color: var(--ocean);
+
             font-size: 13px;
+
             font-weight: 700;
-            box-shadow: 0 8px 24px rgba(21, 152, 184, 0.08);
+
+            box-shadow:
+                0 8px 24px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.06
+                );
+
             transition: var(--transition);
         }
 
 
         .member-all span {
             margin-left: 10px;
+
             transition: var(--transition);
         }
 
 
         .member-all:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 12px 28px rgba(21, 152, 184, 0.14);
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
         }
 
 
         .member-all:hover span {
-            transform: translateX(6px);
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================================================
+           TERMS & GUIDELINES (追加セクション)
+        ========================================================= */
+
+        .terms-intro {
+            max-width: 580px;
+
+            margin:
+                0 auto
+                35px;
+
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            line-height: 2.15;
+
+            text-align: center;
+        }
+
+
+        .terms-box {
+            max-width: 780px;
+
+            margin: 0 auto;
+
+            padding: 40px 35px;
+
+            border-radius: 28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.57
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            box-shadow:
+                var(--soft-shadow);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+
+        .terms-item {
+            margin-bottom: 28px;
+        }
+
+
+        .terms-item:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .terms-item-title {
+            margin-bottom: 8px;
+
+            color: var(--text);
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .terms-item-title::before {
+            content: "";
+
+            display: inline-block;
+
+            width: 6px;
+
+            height: 16px;
+
+            background: var(--ocean);
+
+            border-radius: 10px;
+        }
+
+
+        .terms-item-text {
+            color: var(--text-soft);
+
+            font-size: 12px;
+
+            line-height: 2;
+
+            padding-left: 16px;
         }
 
 
@@ -861,99 +1307,178 @@
         ========================================================= */
 
         .contact {
-            width: min(760px, 86%);
-            margin: 50px auto 100px;
-            padding: 72px 28px;
+            width: min(780px, 86%);
+
+            margin:
+                60px auto
+                60px;
+
+            padding:
+                80px
+                30px;
+
             text-align: center;
-            border-radius: 36px;
-            background: linear-gradient(
-                145deg,
-                rgba(255, 255, 255, 0.82),
-                rgba(255, 255, 255, 0.55)
-            );
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            position: relative;
-            overflow: hidden;
-        }
 
+            border-radius: 40px;
 
-        .contact::before {
-            content: "";
-            position: absolute;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(156, 232, 237, 0.35) 0%, transparent 70%);
-            top: -40px;
-            right: -30px;
-            pointer-events: none;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.68),
+                    rgba(255, 255, 255, 0.42)
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
 
         .contact-small {
-            margin-bottom: 8px;
+            margin-bottom: 9px;
+
             color: var(--ocean);
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 10px;
+
             font-weight: 700;
-            letter-spacing: 3.2px;
+
+            letter-spacing: 3px;
         }
 
 
         .contact h2 {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
+
             color: var(--text);
-            font-size: clamp(26px, 4.8vw, 40px);
+
+            font-size:
+                clamp(
+                    28px,
+                    5vw,
+                    42px
+                );
+
             font-weight: 800;
-            line-height: 1.45;
+
+            line-height: 1.5;
         }
 
 
         .contact p {
-            max-width: 480px;
-            margin: 0 auto 26px;
+            max-width: 500px;
+
+            margin:
+                0 auto
+                28px;
+
             color: var(--text-soft);
+
             font-size: 12px;
+
             font-weight: 500;
-            line-height: 1.95;
+
+            line-height: 2;
         }
 
 
         .contact-button {
             display: inline-flex;
+
             align-items: center;
-            padding: 13px 26px;
+
+            padding:
+                12px
+                24px;
+
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.95);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.88
+                );
+
             color: var(--ocean);
-            border: 1px solid rgba(21, 152, 184, 0.2);
+
+            border:
+                1px solid
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.13
+                );
+
             font-size: 13px;
+
             font-weight: 700;
-            box-shadow: 0 7px 22px rgba(21, 152, 184, 0.1);
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.07
+                );
+
             transition: var(--transition);
         }
 
 
         .contact-button span {
             margin-left: 10px;
+
             transition: var(--transition);
         }
 
 
         .contact-button:hover {
-            background: linear-gradient(135deg, var(--ocean), var(--ocean-blue));
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--ocean),
+                    var(--ocean-blue)
+                );
+
             color: white;
-            transform: translateY(-4px);
-            box-shadow: 0 14px 28px rgba(21, 152, 184, 0.22);
-            border-color: transparent;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.14
+                );
         }
 
 
         .contact-button:hover span {
-            transform: translateX(6px);
+            transform:
+                translateX(5px);
         }
 
 
@@ -962,56 +1487,90 @@
         ========================================================= */
 
         footer {
-            padding: 48px 6% 26px;
-            background: rgba(255, 255, 255, 0.6);
-            border-top: 1px solid rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding:
+                50px
+                7%
+                28px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.48
+                );
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
 
         .footer-inner {
             width: min(1000px, 100%);
+
             margin: 0 auto;
         }
 
 
         .footer-top {
             display: flex;
+
             justify-content: space-between;
+
             align-items: flex-start;
-            gap: 36px;
+
+            gap: 40px;
         }
 
 
         .footer-name {
             color: var(--text);
-            font-size: 18px;
+
+            font-size: 19px;
+
             font-weight: 800;
         }
 
 
         .footer-copy {
             margin-top: 3px;
+
             color: var(--text-faint);
+
             font-size: 10px;
+
             font-weight: 500;
         }
 
 
         .footer-links {
             display: flex;
+
             flex-wrap: wrap;
+
             justify-content: flex-end;
-            gap: 16px;
+
+            gap: 17px;
         }
 
 
         .footer-links a {
             color: var(--text-soft);
+
             font-size: 11px;
+
             font-weight: 500;
-            transition: var(--transition-soft);
+
+            transition: var(--transition);
         }
 
 
@@ -1022,26 +1581,40 @@
 
         .footer-bottom {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            margin-top: 34px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(21, 152, 184, 0.12);
+
+            margin-top: 38px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.10
+                );
+
             color: var(--text-faint);
+
             font-size: 9px;
         }
 
 
         /* =========================================================
-           フェード表示
+           フェード表示（追加）
         ========================================================= */
 
         .fade {
             opacity: 0;
-            transform: translateY(26px);
+            transform: translateY(28px);
             transition:
-                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .fade.show {
@@ -1057,271 +1630,409 @@
         @media (max-width: 800px) {
 
             .logo {
-                top: 10px;
-                left: 18px;
+                top: 12px;
+                left: 20px;
             }
+
 
             .logo img {
-                height: 60px;
+                height: 62px;
             }
 
+
             .menu-button {
-                top: 16px;
-                right: 18px;
-                width: 46px;
-                height: 46px;
+                top: 18px;
+                right: 20px;
+
+                width: 44px;
+                height: 44px;
             }
+
 
             section {
                 width: 86%;
-                padding: 88px 0;
+
+                padding:
+                    90px 0;
             }
+
 
             .hero {
                 width: 88%;
-                padding: 120px 0 70px;
+
+                padding:
+                    125px 0
+                    75px;
             }
+
 
             .hero h1 {
-                font-size: clamp(34px, 9.5vw, 54px);
-                line-height: 1.52;
+                font-size:
+                    clamp(
+                        36px,
+                        10vw,
+                        58px
+                    );
+
+                line-height: 1.55;
             }
+
 
             .hero-description {
-                margin-top: 28px;
+                margin-top: 30px;
+
                 font-size: 13px;
-                line-height: 2.05;
-            }
 
-            .section-heading {
-                margin-bottom: 44px;
-            }
-
-            .section-title-jp {
-                font-size: 26px;
-            }
-
-            .section-title-en {
-                font-size: 11px;
-                letter-spacing: 3.4px;
-            }
-
-            .about-intro {
-                margin-bottom: 58px;
-                font-size: 17px;
                 line-height: 2.1;
             }
 
-            .vision-list {
-                gap: 52px;
+
+            .section-heading {
+                margin-bottom: 48px;
             }
 
-            .vision-content h3 {
-                font-size: 22px;
+
+            .section-title-jp {
+                font-size: 28px;
             }
+
+
+            .section-title-en {
+                font-size: 11px;
+
+                letter-spacing: 3.5px;
+            }
+
+
+            /* ABOUT */
+
+            .about-intro {
+                margin-bottom: 65px;
+
+                font-size: 18px;
+
+                line-height: 2.15;
+            }
+
+
+            .vision-list {
+                gap: 58px;
+            }
+
+
+            .vision-content h3 {
+                font-size: 23px;
+            }
+
 
             .vision-content p {
                 font-size: 12px;
-                line-height: 1.95;
+
+                line-height: 2;
             }
+
+
+            /* SERVICE */
 
             .service-item {
-                grid-template-columns: 1fr 28px;
-                gap: 4px;
-                padding: 22px 20px;
+                grid-template-columns:
+                    1fr
+                    30px;
+
+                gap: 3px;
+
+                padding:
+                    23px
+                    21px;
             }
 
+
             .service-label {
-                margin-bottom: 2px;
+                margin-bottom: 3px;
             }
+
 
             .service-arrow {
                 grid-column: 2;
-                grid-row: 1 / span 2;
+
+                grid-row:
+                    1 / span 2;
             }
+
 
             .service-description {
                 font-size: 10px;
+
                 white-space: normal;
             }
 
+
+            /* TOOLS */
+
             .tool-item {
-                padding: 18px 16px;
+                padding:
+                    19px
+                    18px;
             }
+
 
             .tool-left {
-                gap: 14px;
+                gap: 15px;
             }
 
+
             .tool-title {
-                font-size: 14px;
+                font-size: 15px;
             }
+
 
             .tool-description {
                 font-size: 9px;
+
                 white-space: normal;
             }
 
+
+            /* MEMBERS */
+
             .member-list {
-                grid-template-columns: 1fr 1fr;
-                gap: 14px;
+                max-width: 100%;
             }
+
 
             .member-item {
-                min-height: 220px;
-                padding: 22px 14px 20px;
+                min-height: 150px;
             }
 
-            .member-img-wrap {
-                width: 78px;
-                height: 78px;
-            }
 
             .member-name {
-                font-size: 17px;
+                font-size: 18px;
             }
+
+
+            /* TERMS */
+
+            .terms-box {
+                padding: 28px 20px;
+            }
+
+
+            /* CONTACT */
 
             .contact {
                 width: 86%;
-                padding: 58px 18px;
-                margin-bottom: 70px;
+
+                padding:
+                    65px
+                    20px;
+
+                margin-bottom: 60px;
             }
+
+
+            /* FOOTER */
 
             .footer-top {
                 flex-direction: column;
+
                 align-items: center;
+
                 text-align: center;
             }
+
 
             .footer-links {
                 justify-content: center;
             }
 
+
             .footer-bottom {
                 flex-direction: column;
-                gap: 6px;
+
+                gap: 7px;
+
                 text-align: center;
             }
+
         }
 
+
+        /* =========================================================
+           小さいスマホ
+        ========================================================= */
 
         @media (max-width: 480px) {
 
             .logo img {
-                height: 54px;
+                height: 56px;
             }
+
 
             .menu-button {
-                width: 42px;
-                height: 42px;
+                width: 40px;
+                height: 40px;
+
+                border-radius: 50%;
             }
+
 
             .hero {
-                min-height: 92vh;
+                min-height: 94vh;
             }
+
 
             .hero h1 {
-                font-size: 34px;
-                line-height: 1.55;
+                font-size: 36px;
+
+                line-height: 1.6;
             }
 
+
             .hero h1 span::after {
-                height: 7px;
-                bottom: 2px;
+                height: 6px;
+
+                bottom: 1px;
             }
+
 
             .hero-description {
                 font-size: 12px;
-                line-height: 2.1;
+
+                line-height: 2.15;
             }
+
+
+            /* メニュー */
 
             .menu-list {
-                width: 86%;
+                width: 84%;
             }
+
 
             .menu-list a {
-                padding: 15px 16px;
+                padding:
+                    16px
+                    17px;
             }
 
-            .menu-jp {
-                font-size: 16px;
+
+            .menu-item-text {
+                gap: 9px;
             }
+
+
+            .menu-jp {
+                font-size: 17px;
+            }
+
 
             .menu-en {
                 font-size: 8px;
-                letter-spacing: 1.6px;
+
+                letter-spacing: 1.8px;
             }
 
+
+            /* セクション */
+
             .section-title-jp {
-                font-size: 24px;
+                font-size: 26px;
             }
+
 
             .section-title-en {
                 font-size: 10px;
-                letter-spacing: 2.8px;
+
+                letter-spacing: 3px;
             }
+
+
+            /* ABOUT */
 
             .about-intro {
-                font-size: 16px;
+                font-size: 17px;
             }
+
 
             .vision-item {
-                padding: 0 6px;
+                padding:
+                    0
+                    8px;
             }
 
+
             .vision-content h3 {
-                font-size: 20px;
-                line-height: 1.55;
+                font-size: 21px;
+
+                line-height: 1.6;
             }
+
 
             .vision-content p {
                 font-size: 11px;
             }
 
+
+            /* SERVICE */
+
             .service-name {
-                font-size: 16px;
+                font-size: 17px;
             }
+
 
             .service-description {
                 font-size: 9px;
             }
 
+
+            /* TOOLS */
+
             .tool-item {
-                border-radius: 16px;
+                border-radius: 17px;
             }
 
+
             .tool-title {
-                font-size: 13px;
+                font-size: 14px;
             }
+
 
             .tool-description {
                 font-size: 8px;
             }
 
-            .member-list {
-                grid-template-columns: 1fr;
-                max-width: 280px;
+
+            .tool-number {
+                font-size: 9px;
             }
+
+
+            /* MEMBERS */
 
             .member-item {
-                min-height: 210px;
+                min-height: 135px;
             }
 
-            .member-img-wrap {
-                width: 86px;
-                height: 86px;
-            }
+
+            /* CONTACT */
 
             .contact h2 {
-                font-size: 27px;
-                line-height: 1.55;
+                font-size: 29px;
+
+                line-height: 1.6;
             }
+
 
             .contact p {
                 font-size: 11px;
             }
+
         }
 
+
+        /* =========================================================
+           省電力設定
+        ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -1329,397 +2040,1087 @@
                 scroll-behavior: auto;
             }
 
+
             *,
             *::before,
             *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
             }
+
         }
+
     </style>
 </head>
 
 
 <body>
 
+
+    <!-- =========================================================
+         ロゴ
+    ========================================================= -->
+
     <div class="logo">
+
         <a href="#">
-            <img src="Mil.png" alt="MillionIndex">
+
+            <img
+                src="Mil.png"
+                alt="MillionIndex">
+
         </a>
+
     </div>
 
 
-    <button class="menu-button" id="menuButton" aria-label="メニューを開く">
+    <!-- =========================================================
+         三本線
+    ========================================================= -->
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="メニュー">
+
         <div class="menu-icon">
+
             <span></span>
             <span></span>
             <span></span>
+
         </div>
+
     </button>
 
 
+    <!-- =========================================================
+         メニュー
+    ========================================================= -->
+
     <div class="menu" id="menu">
+
         <nav class="menu-list">
+
+
             <a href="#">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">トップ</span>
-                    <span class="menu-en">T O P</span>
+
+                    <span class="menu-jp">
+                        トップ
+                    </span>
+
+                    <span class="menu-en">
+                        T O P
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
             <a href="#about">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">理念</span>
-                    <span class="menu-en">A B O U T</span>
+
+                    <span class="menu-jp">
+                        理念
+                    </span>
+
+                    <span class="menu-en">
+                        A B O U T
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
             <a href="#service">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">事業内容</span>
-                    <span class="menu-en">S E R V I C E</span>
+
+                    <span class="menu-jp">
+                        事業内容
+                    </span>
+
+                    <span class="menu-en">
+                        S E R V I C E
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
             <a href="#tools">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">便利ツール</span>
-                    <span class="menu-en">T O O L S</span>
+
+                    <span class="menu-jp">
+                        便利ツール
+                    </span>
+
+                    <span class="menu-en">
+                        T O O L S
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
             <a href="#members">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">メンバー</span>
-                    <span class="menu-en">M E M B E R S</span>
+
+                    <span class="menu-jp">
+                        メンバー
+                    </span>
+
+                    <span class="menu-en">
+                        M E M B E R S
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
             <a href="#contact">
+
                 <div class="menu-item-text">
-                    <span class="menu-jp">お問い合わせ</span>
-                    <span class="menu-en">C O N T A C T</span>
+
+                    <span class="menu-jp">
+                        お問い合わせ
+                    </span>
+
+                    <span class="menu-en">
+                        C O N T A C T
+                    </span>
+
                 </div>
-                <span class="menu-arrow">→</span>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
             </a>
+
+
+            <a href="#terms">
+
+                <div class="menu-item-text">
+
+                    <span class="menu-jp">
+                        利用規約 / ガイドライン
+                    </span>
+
+                    <span class="menu-en">
+                        T E R M S
+                    </span>
+
+                </div>
+
+                <span class="menu-arrow">
+                    →
+                </span>
+
+            </a>
+
+
         </nav>
+
     </div>
 
 
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
     <main>
 
+
         <section class="hero">
+
+
             <div class="hero-small fade">
-                M I L L I O N I N D E X　-　ＯＦＦＩＣＩＡＬ ＷＥＢＳＩＴＥ
+                M I L L I O N I N D E X - ＯＦＦＩＣＩＡＬ ＷＥＢＳＩＴＥ
             </div>
 
+
             <h1 class="fade">
+
                 すべての「便利」を、<br>
-                <span>ひとつの場所へ。</span>
+
+                <span>
+                    ひとつの場所へ。
+                </span>
+
             </h1>
 
+
             <p class="hero-description fade">
+
                 MillionIndexは、<br>
                 日常のちょっとした不便を減らす<br>
                 ウェブサービスや学習コンテンツ、<br>
                 便利なツールをつくっています。
+
             </p>
+
+
         </section>
 
 
+        <!-- =====================================================
+             ABOUT
+        ===================================================== -->
+
         <section id="about">
+
+
             <div class="section-heading fade">
+
                 <h2 class="section-title">
-                    <span class="section-title-en">A B O U T</span>
-                    <span class="section-title-jp">MillionIndexについて</span>
+
+                    <span class="section-title-en">
+                        A B O U T
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexについて
+                    </span>
+
                 </h2>
+
             </div>
 
+
             <p class="about-intro fade">
+
                 「あったら便利」を、<br>
                 もっと身近に。
+
             </p>
 
+
             <div class="vision-list">
+
+
                 <div class="vision-item fade">
-                    <div class="vision-number">01　-　Wide-ranging business activities</div>
+
+                    <div class="vision-number">
+                        01 - Wide-ranging business activities
+                    </div>
+
+
                     <div class="vision-content">
-                        <h3>幅広い<br>事業展開</h3>
+
+                        <h3>
+                            幅広い<br>
+                            事業展開
+                        </h3>
+
+
                         <p>
                             小さな課題にも目を向け、<br>
                             日常の様々な小さな不便を便利にします。
                         </p>
+
                     </div>
+
                 </div>
 
+
                 <div class="vision-item fade">
-                    <div class="vision-number">02　-　High quality right away</div>
+
+                    <div class="vision-number">
+                        02 - High quality right away
+                    </div>
+
+
                     <div class="vision-content">
-                        <h3>すぐに、<br>高クオリティ</h3>
+
+                        <h3>
+                            すぐに、<br>
+                            高クオリティ
+                        </h3>
+
+
                         <p>
                             どんなに急いでいても、<br>
                             名を汚すような低品質なものはつくりません。
                         </p>
+
                     </div>
+
                 </div>
 
+
                 <div class="vision-item fade">
-                    <div class="vision-number">03　-　Everything is free of charge</div>
+
+                    <div class="vision-number">
+                        03 - Everything is free of charge
+                    </div>
+
+
                     <div class="vision-content">
-                        <h3>すべてを<br>無償で</h3>
+
+                        <h3>
+                            すべてを<br>
+                            無償で
+                        </h3>
+
+
                         <p>
                             当事業にあたるすべてに<br>
                             金銭的な対価は必要ありません。
                         </p>
+
                     </div>
+
                 </div>
+
+
             </div>
+
         </section>
 
+
+        <!-- =====================================================
+             SERVICE
+        ===================================================== -->
 
         <section id="service">
+
+
             <div class="section-heading fade">
+
                 <h2 class="section-title">
-                    <span class="section-title-en">S E R V I C E</span>
-                    <span class="section-title-jp">MillionIndexの<br>サービス</span>
+
+                    <span class="section-title-en">
+                        S E R V I C E
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexの<br>
+                        サービス
+                    </span>
+
                 </h2>
+
             </div>
+
 
             <p class="service-intro fade">
-                高クオリティで幅広い事業を展開し、<br>
+
+                高クオリティなで幅広い事業を展開し、<br>
                 いろいろな「便利」を届けています。
+
             </p>
+
 
             <div class="service-list">
-                <a href="#tools" class="service-item fade">
-                    <div class="service-label">W E B</div>
-                    <div>
-                        <div class="service-name">ウェブサービス</div>
-                        <p class="service-description">日常のちょっとした作業を、もっと快適に。</p>
+
+
+                <a
+                    href="#tools"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        W E B
                     </div>
-                    <div class="service-arrow">→</div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            ウェブサービス
+                        </div>
+
+
+                        <p class="service-description">
+                            日常のちょっとした作業を、もっと快適に。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
                 </a>
 
-                <a href="test.html" class="service-item fade">
-                    <div class="service-label">L E A R N</div>
-                    <div>
-                        <div class="service-name">学力テスト</div>
-                        <p class="service-description">無料で手軽に受けられるオンライン学力テスト。</p>
+
+                <a
+                    href="test.html"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        L E A R N
                     </div>
-                    <div class="service-arrow">→</div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            学力テスト
+                        </div>
+
+
+                        <p class="service-description">
+                            無料で手軽に受けられるオンライン学力テスト。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
                 </a>
 
-                <a href="#" class="service-item fade">
-                    <div class="service-label">P U B L I S H</div>
-                    <div>
-                        <div class="service-name">オリジナル本の出版</div>
-                        <p class="service-description">学習資料や書籍をデジタルで。</p>
+
+                <a
+                    href="#"
+                    class="service-item fade">
+
+                    <div class="service-label">
+                        P U B L I S H
                     </div>
-                    <div class="service-arrow">→</div>
+
+
+                    <div>
+
+                        <div class="service-name">
+                            オリジナル本の出版
+                        </div>
+
+
+                        <p class="service-description">
+                            学習資料や書籍をデジタルで。
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-arrow">
+                        →
+                    </div>
+
                 </a>
+
+
             </div>
+
         </section>
 
+
+        <!-- =====================================================
+             TOOLS
+        ===================================================== -->
 
         <section id="tools">
+
+
             <div class="section-heading fade">
+
                 <h2 class="section-title">
-                    <span class="section-title-en">T O O L S</span>
-                    <span class="section-title-jp">便利な<br>ツール</span>
+
+                    <span class="section-title-en">
+                        T O O L S
+                    </span>
+
+                    <span class="section-title-jp">
+                        便利な<br>
+                        ツール
+                    </span>
+
                 </h2>
+
             </div>
+
 
             <p class="tools-intro fade">
+
                 日常の小さな「不便」を、<br>
                 便利に。
+
             </p>
 
+
             <div class="tools-list">
-                <a href="tool/BlockGame.html" class="tool-item fade">
+
+
+                <a
+                    href="tool/BlockGame.html"
+                    class="tool-item fade">
+
                     <div class="tool-left">
-                        <div class="tool-number">01</div>
-                        <div>
-                            <div class="tool-title">ブロックゲーム</div>
-                            <div class="tool-description">直感的に遊べる落下型パズルゲーム</div>
+
+                        <div class="tool-number">
+                            01
                         </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                ブロックゲーム
+                            </div>
+
+
+                            <div class="tool-description">
+                                直感的に遊べる落下型パズルゲーム
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="tool-arrow">→</div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
                 </a>
 
-                <a href="tool/Random.html" class="tool-item fade">
+
+                <a
+                    href="tool/Random.html"
+                    class="tool-item fade">
+
                     <div class="tool-left">
-                        <div class="tool-number">02</div>
-                        <div>
-                            <div class="tool-title">ランダム抽選</div>
-                            <div class="tool-description">数値やリストからランダムに抽選</div>
+
+                        <div class="tool-number">
+                            02
                         </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                ランダム抽選
+                            </div>
+
+
+                            <div class="tool-description">
+                                数値やリストからランダムに抽選
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="tool-arrow">→</div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
                 </a>
 
-                <a href="tool/comparison.html" class="tool-item fade">
+
+                <a
+                    href="tool/comparison.html"
+                    class="tool-item fade">
+
                     <div class="tool-left">
-                        <div class="tool-number">03</div>
-                        <div>
-                            <div class="tool-title">比較ツール</div>
-                            <div class="tool-description">最大3つの対象を並べて比較</div>
+
+                        <div class="tool-number">
+                            03
                         </div>
+
+
+                        <div>
+
+                            <div class="tool-title">
+                                比較ツール
+                            </div>
+
+
+                            <div class="tool-description">
+                                最大3つの対象を並べて比較
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="tool-arrow">→</div>
+
+
+                    <div class="tool-arrow">
+                        →
+                    </div>
+
                 </a>
+
+
             </div>
+
         </section>
 
+
+        <!-- =====================================================
+             MEMBERS
+        ===================================================== -->
 
         <section id="members">
+
+
             <div class="section-heading fade">
+
                 <h2 class="section-title">
-                    <span class="section-title-en">M E M B E R S</span>
-                    <span class="section-title-jp">MillionIndexの<br>メンバー</span>
+
+                    <span class="section-title-en">
+                        M E M B E R S
+                    </span>
+
+                    <span class="section-title-jp">
+                        MillionIndexの<br>
+                        メンバー
+                    </span>
+
                 </h2>
+
             </div>
 
-            <div class="member-list" id="memberList">
-                <!-- JSで動的生成（主のみ） -->
+
+            <div class="member-list">
+
+
+                <a
+                    href="Mem/Member.html?id=1"
+                    class="member-item fade">
+
+                    <div class="member-number">
+                        01
+                    </div>
+
+
+                    <div class="member-info">
+
+                        <div class="member-name">
+                            主
+                        </div>
+
+
+                        <div class="member-role">
+                            MillionIndexを立ち上げた本人
+                        </div>
+
+                    </div>
+
+                </a>
+
+
             </div>
 
-            <a href="Mem/MenList.html" class="member-all fade">
+
+            <a
+                href="Mem/MenList.html"
+                class="member-all fade">
+
                 メンバー一覧
-                <span>→</span>
+
+                <span>
+                    →
+                </span>
+
             </a>
+
+
         </section>
 
 
-        <section id="contact" class="contact fade">
-            <div class="contact-small">C O N T A C T</div>
-            <h2>お気軽にどうぞ。</h2>
+        <!-- =====================================================
+             CONTACT
+        ===================================================== -->
+
+        <section
+            id="contact"
+            class="contact fade">
+
+
+            <div class="contact-small">
+                C O N T A C T
+            </div>
+
+
+            <h2>
+                お気軽にどうぞ。
+            </h2>
+
+
             <p>
                 サービスについてのご質問や、<br>
                 MillionIndexに関するお問い合わせはこちらから。
             </p>
-            <a href="#" class="contact-button">
+
+
+            <a
+                href="#"
+                class="contact-button">
+
                 お問い合わせはこちら
-                <span>→</span>
+
+                <span>
+                    →
+                </span>
+
             </a>
+
+
         </section>
+
+
+        <!-- =====================================================
+             TERMS & GUIDELINES（追加部分）
+        ===================================================== -->
+
+        <section id="terms">
+
+
+            <div class="section-heading fade">
+
+                <h2 class="section-title">
+
+                    <span class="section-title-en">
+                        T E R M S
+                    </span>
+
+                    <span class="section-title-jp">
+                        利用規約 / ガイドライン
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <p class="terms-intro fade">
+
+                MillionIndexの各種サービスを安全かつ快適にご利用いただくためのルールです。
+
+            </p>
+
+
+            <div class="terms-box fade">
+
+                <div class="terms-item">
+
+                    <div class="terms-item-title">
+                        サービスの利用について
+                    </div>
+
+                    <div class="terms-item-text">
+                        当サイトで提供しているすべてのツールおよびコンテンツは、非営利・個人利用の範囲でご自由にご利用いただけます。商用利用や再配布を行う場合は、事前にお問い合わせよりご連絡ください。
+                    </div>
+
+                </div>
+
+
+                <div class="terms-item">
+
+                    <div class="terms-item-title">
+                        免責事項
+                    </div>
+
+                    <div class="terms-item-text">
+                        当サイトの利用により生じたトラブルや損害等について、MillionIndexは一切の責任を負いかねます。ツールの出力結果や提供情報の正確性については万全を期しておりますが、保証するものではありません。
+                    </div>
+
+                </div>
+
+
+                <div class="terms-item">
+
+                    <div class="terms-item-title">
+                        禁止事項
+                    </div>
+
+                    <div class="terms-item-text">
+                        サーバーへ過度な負荷をかける行為、リバースエンジニアリング、法令または公序良俗に反する目的での利用を固く禁止します。
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
 
     </main>
 
 
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
     <footer>
+
+
         <div class="footer-inner">
+
+
             <div class="footer-top">
+
+
                 <div>
-                    <div class="footer-name">MillionIndex</div>
-                    <div class="footer-copy">すべての「便利」を、ひとつの場所へ。</div>
+
+                    <div class="footer-name">
+                        MillionIndex
+                    </div>
+
+
+                    <div class="footer-copy">
+                        すべての「便利」を、ひとつの場所へ。
+                    </div>
+
                 </div>
+
+
                 <div class="footer-links">
-                    <a href="#">TOP</a>
-                    <a href="#about">ABOUT</a>
-                    <a href="#service">SERVICE</a>
-                    <a href="#tools">TOOLS</a>
-                    <a href="#members">MEMBERS</a>
-                    <a href="#contact">CONTACT</a>
+
+                    <a href="#">
+                        TOP
+                    </a>
+
+                    <a href="#about">
+                        ABOUT
+                    </a>
+
+                    <a href="#service">
+                        SERVICE
+                    </a>
+
+                    <a href="#tools">
+                        TOOLS
+                    </a>
+
+                    <a href="#members">
+                        MEMBERS
+                    </a>
+
+                    <a href="#contact">
+                        CONTACT
+                    </a>
+
+                    <a href="#terms">
+                        TERMS
+                    </a>
+
                 </div>
+
+
             </div>
+
+
             <div class="footer-bottom">
-                <span>© 2026 MillionIndex</span>
-                <span>All Rights Reserved.</span>
+
+                <span>
+                    © 2026 MillionIndex
+                </span>
+
+
+                <span>
+                    All Rights Reserved.
+                </span>
+
             </div>
+
+
         </div>
+
     </footer>
 
 
-    <script src="Mem.js"></script>
+    <!-- =========================================================
+         JavaScript
+    ========================================================= -->
 
     <script>
-        const menuButton = document.getElementById("menuButton");
-        const menu = document.getElementById("menu");
-
-        menuButton.addEventListener("click", () => {
-            const isActive = menu.classList.toggle("active");
-            menuButton.classList.toggle("active", isActive);
-            document.body.style.overflow = isActive ? "hidden" : "";
-            menuButton.setAttribute("aria-label", isActive ? "メニューを閉じる" : "メニューを開く");
-        });
-
-        document.querySelectorAll(".menu-list a").forEach(link => {
-            link.addEventListener("click", () => {
-                menuButton.classList.remove("active");
-                menu.classList.remove("active");
-                document.body.style.overflow = "";
-                menuButton.setAttribute("aria-label", "メニューを開く");
-            });
-        });
 
 
-        function renderMembers() {
-            const list = document.getElementById("memberList");
-            if (!list || typeof MEMBERS === "undefined") return;
+        /* =========================================================
+           メニュー
+        ========================================================= */
 
-            list.innerHTML = "";
-
-            MEMBERS.forEach((member, index) => {
-                const num = String(index + 1).padStart(2, "0");
-                const href = `Mem/Member.html?id=${encodeURIComponent(member.id)}`;
-                const imgSrc = member.image || "Mem1.png";
-
-                const a = document.createElement("a");
-                a.href = href;
-                a.className = "member-item fade";
-
-                a.innerHTML = `
-                    <div class="member-img-wrap">
-                        <img
-                            class="member-img"
-                            src="${imgSrc}"
-                            alt="${member.name}"
-                            loading="lazy"
-                            width="92"
-                            height="92"
-                            onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #9ce8ed, #b9eee4)';"
-                        >
-                    </div>
-                    <div class="member-number">${num}</div>
-                    <div class="member-info">
-                        <div class="member-name">${member.name}</div>
-                        <div class="member-role">${member.role || ""}</div>
-                    </div>
-                    ${member.description ? `<div class="member-desc">${member.description}</div>` : ""}
-                `;
-
-                list.appendChild(a);
-            });
-
-            list.querySelectorAll(".fade").forEach(el => observer.observe(el));
-        }
+        const menuButton =
+            document.getElementById("menuButton");
 
 
-        const fadeElements = document.querySelectorAll(".fade");
-        const observer = new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.12 }
+        const menu =
+            document.getElementById("menu");
+
+
+        menuButton.addEventListener(
+            "click",
+            () => {
+
+                menuButton.classList.toggle("active");
+
+                menu.classList.toggle("active");
+
+
+                if (
+                    menu.classList.contains("active")
+                ) {
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                } else {
+
+                    document.body.style.overflow =
+                        "";
+
+                }
+
+            }
         );
 
-        fadeElements.forEach(el => observer.observe(el));
+
+        /* =========================================================
+           メニュークリック
+        ========================================================= */
+
+        document
+            .querySelectorAll(".menu-list a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        menuButton.classList.remove(
+                            "active"
+                        );
 
 
-        window.addEventListener("load", () => {
-            document.querySelectorAll(".hero .fade").forEach((el, i) => {
-                setTimeout(() => el.classList.add("show"), 140 + i * 120);
+                        menu.classList.remove(
+                            "active"
+                        );
+
+
+                        document.body.style.overflow =
+                            "";
+
+                    }
+                );
+
             });
 
-            renderMembers();
+
+        /* =========================================================
+           フェード表示
+        ========================================================= */
+
+        const fadeElements =
+            document.querySelectorAll(".fade");
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "show"
+                            );
+
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        fadeElements.forEach(element => {
+
+            observer.observe(element);
+
         });
+
+
+        /* =========================================================
+           ページ読み込み時
+        ========================================================= */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".hero .fade"
+                    )
+                    .forEach(
+                        (element, index) => {
+
+                            setTimeout(
+                                () => {
+
+                                    element.classList.add(
+                                        "show"
+                                    );
+
+                                },
+                                150 + index * 130
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
+
     </script>
+
 
 </body>
 </html>
