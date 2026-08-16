@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用規約・ガイドライン | MillionIndex</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================================
+           基本設定・デザイン変数の継承
+        ========================================================= */
+        :root {
+            --ocean: #1598b8;
+            --ocean-blue: #54c8dc;
+            --ocean-light: #9ce8ed;
+            --mint: #b9eee4;
+            --pale: #f4fdfe;
+
+            --text: #285264;
+            --text-soft: #6b8994;
+            --text-faint: #9bb4bc;
+
+            --white: #ffffff;
+
+            --shadow: 0 15px 45px rgba(21, 152, 184, 0.09);
+            --soft-shadow: 0 8px 28px rgba(21, 152, 184, 0.07);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+            background: linear-gradient(
+                180deg,
+                #ffffff 0%,
+                #faffff 15%,
+                #f1fcfd 34%,
+                #e6f9fb 52%,
+                #d5f4f3 72%,
+                #bcece9 88%,
+                #a9e5e5 100%
+            );
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* =========================================================
+           ロゴ
+        ========================================================= */
+        .logo {
+            position: fixed;
+            top: 17px;
+            left: 5%;
+            z-index: 1000;
+        }
+
+        .logo img {
+            display: block;
+            width: auto;
+            height: 78px;
+            object-fit: contain;
+            transition: transform 0.35s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.04) rotate(-1deg);
+        }
+
+        /* =========================================================
+           三本線メニュー
+        ========================================================= */
+        .menu-button {
+            position: fixed;
+            top: 28px;
+            right: 5%;
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.70);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(21, 152, 184, 0.09);
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px) scale(1.04);
+            background: rgba(255, 255, 255, 0.90);
+        }
+
+        .menu-icon {
+            width: 21px;
+            height: 16px;
+            position: relative;
+        }
+
+        .menu-icon span {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .menu-icon span:nth-child(1) { top: 0; }
+        .menu-icon span:nth-child(2) { top: 7px; }
+        .menu-icon span:nth-child(3) { top: 14px; }
+
+        .menu-button.active .menu-icon span:nth-child(1) {
+            top: 7px;
+            transform: rotate(45deg);
+        }
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-button.active .menu-icon span:nth-child(3) {
+            top: 7px;
+            transform: rotate(-45deg);
+        }
+
+        .menu {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(248, 254, 255, 0.94);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-list {
+            width: min(570px, 82%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            color: var(--text);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.42);
+            opacity: 0;
+            transform: translateY(18px);
+            transition: var(--transition);
+        }
+
+        .menu.active .menu-list a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item-text {
+            display: flex;
+            align-items: baseline;
+            gap: 13px;
+        }
+
+        .menu-jp { font-size: 20px; font-weight: 700; }
+        .menu-en { color: rgba(21, 152, 184, 0.62); font-family: Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.8px; }
+        .menu-arrow { color: var(--ocean); font-size: 19px; }
+
+        /* =========================================================
+           コンテンツエリア
+        ========================================================= */
+        main {
+            width: min(860px, 86%);
+            margin: 0 auto;
+            padding: 160px 0 100px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header-en {
+            color: var(--ocean);
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .page-header-jp {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        /* 規約カード・セクション */
+        .guide-section {
+            background: rgba(255, 255, 255, 0.57);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--soft-shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .guide-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(21, 152, 184, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .guide-title::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 22px;
+            background: var(--ocean);
+            border-radius: 10px;
+        }
+
+        .guide-body {
+            font-size: 14px;
+            color: var(--text-soft);
+            line-height: 2.1;
+        }
+
+        .guide-body p {
+            margin-bottom: 16px;
+        }
+
+        .guide-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 各項目の「一番上に戻る」ボタン */
+        .back-to-top-item {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(21, 152, 184, 0.2);
+        }
+
+        .back-to-top-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ocean);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 100px;
+            border: 1px solid rgba(21, 152, 184, 0.15);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .back-to-top-button:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(21, 152, 184, 0.1);
+        }
+
+        /* =========================================================
+           フッター
+        ========================================================= */
+        footer {
+            padding: 50px 7% 28px;
+            background: rgba(255, 255, 255, 0.48);
+            border-top: 1px solid rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(8px);
+        }
+
+        .footer-inner {
+            width: min(1000px, 100%);
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .footer-name {
+            color: var(--text);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .footer-copy {
+            margin-top: 3px;
+            color: var(--text-faint);
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 17px;
+        }
+
+        .footer-links a {
+            color: var(--text-soft);
+            font-size: 11px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--ocean);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 38px;
+            padding-top: 17px;
+            border-top: 1px solid rgba(21, 152, 184, 0.10);
+            color: var(--text-faint);
+            font-size: 9px;
+        }
+
+        /* アニメーション */
+        .fade {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 800px) {
+            .logo top: 12px; left: 20px;
+            .logo img { height: 62px; }
+            .menu-button { top: 18px; right: 20px; width: 44px; height: 44px; }
+            main { padding: 120px 0 60px; }
+            .guide-section { padding: 25px 20px; }
+            .footer-top { flex-direction: column; align-items: center; text-align: center; }
+            .footer-links { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 7px; text-align: center; }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- ロゴ -->
+    <div class="logo">
+        <a href="index.html">
+            <img src="Mil.png" alt="MillionIndex">
+        </a>
+    </div>
+
+    <!-- 三本線ボタン -->
+    <button class="menu-button" id="menuButton" aria-label="メニュー">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- メニュー -->
+    <div class="menu" id="menu">
+        <nav class="menu-list">
+            <a href="index.html">
+                <div class="menu-item-text">
+                    <span class="menu-jp">トップ</span>
+                    <span class="menu-en">T O P</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="index.html#about">
+                <div class="menu-item-text">
+                    <span class="menu-jp">理念</span>
+                    <span class="menu-en">A B O U T</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="index.html#service">
+                <div class="menu-item-text">
+                    <span class="menu-jp">事業内容</span>
+                    <span class="menu-en">S E R V I C E</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="index.html#tools">
+                <div class="menu-item-text">
+                    <span class="menu-jp">便利ツール</span>
+                    <span class="menu-en">T O O L S</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="index.html#members">
+                <div class="menu-item-text">
+                    <span class="menu-jp">メンバー</span>
+                    <span class="menu-en">M E M B E R S</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="index.html#contact">
+                <div class="menu-item-text">
+                    <span class="menu-jp">お問い合わせ</span>
+                    <span class="menu-en">C O N T A C T</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+            <a href="Gide.html">
+                <div class="menu-item-text">
+                    <span class="menu-jp">利用規約 / ガイドライン</span>
+                    <span class="menu-en">T E R M S</span>
+                </div>
+                <span class="menu-arrow">→</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main>
+
+        <div class="page-header fade">
+            <div class="page-header-en">T E R M S & G U I D E L I N E S</div>
+            <h1 class="page-header-jp">利用規約 / ガイドライン</h1>
+        </div>
+
+        <!-- 項目1：はじめに -->
+        <section class="guide-section fade" id="intro">
+            <h2 class="guide-title">はじめに</h2>
+            <div class="guide-body">
+                <p>
+                    MillionIndex（以下「当事業」）が提供するウェブサイト、アプリケーション、ならびにすべての各種サービス（以下「本サービス」）をご利用いただき、誠にありがとうございます。
+                </p>
+                <p>
+                    本ガイドラインは、ユーザーの皆様に本サービスを安心・快適にご利用いただくための基本的なルールを定めたものです。ご利用を開始された時点で、本規約に同意いただいたものとみなします。
+                </p>
+            </div>
+            <div class="back-to-top-item">
+                <a href="#top" class="back-to-top-button">▲ ページの一番上へ</a>
+            </div>
+        </section>
+
+
+        <!-- 項目2：当事業（サービス）を利用するにあたって -->
+        <section class="guide-section fade" id="terms-of-use">
+            <h2 class="guide-title">当事業（サービス）を利用するにあたって</h2>
+            <div class="guide-body">
+                <p>
+                    当事業で提供しているツールおよびコンテンツは、原則としてどなたでも無償・非営利目的の個人利用の範囲でご自由にご利用いただけます。
+                </p>
+                <p>
+                    商用利用、二次配布、または外部媒体での掲載を行う場合は、事前に「お問い合わせ」よりご連絡のうえ、許諾を得ていただきますようお願いいたします。
+                </p>
+            </div>
+            <div class="back-to-top-item">
+                <a href="#top" class="back-to-top-button">▲ ページの一番上へ</a>
+            </div>
+        </section>
+
+
+        <!-- ★ 今後項目を追加したい場合は、以下のブロックをコピーして増やしてください ★ -->
+        <!--
+        <section class="guide-section fade" id="section-id">
+            <h2 class="guide-title">追加したい項目名</h2>
+            <div class="guide-body">
+                <p>ここにテキストを入力します。</p>
+            </div>
+            <div class="back-to-top-item">
+                <a href="#top" class="back-to-top-button">▲ ページの一番上へ</a>
+            </div>
+        </section>
+        -->
+
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-name">MillionIndex</div>
+                    <div class="footer-copy">すべての「便利」を、ひとつの場所へ。</div>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">TOP</a>
+                    <a href="index.html#about">ABOUT</a>
+                    <a href="index.html#service">SERVICE</a>
+                    <a href="index.html#tools">TOOLS</a>
+                    <a href="index.html#members">MEMBERS</a>
+                    <a href="index.html#contact">CONTACT</a>
+                    <a href="Gide.html">TERMS</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 MillionIndex</span>
+                <span>All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // メニュー開閉処理
+        const menuButton = document.getElementById("menuButton");
+        const menu = document.getElementById("menu");
+
+        menuButton.addEventListener("click", () => {
+            menuButton.classList.toggle("active");
+            menu.classList.toggle("active");
+            document.body.style.overflow = menu.classList.contains("active") ? "hidden" : "";
+        });
+
+        // フェード表示アニメーション
+        const fadeElements = document.querySelectorAll(".fade");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
