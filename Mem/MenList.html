@@ -69,19 +69,7 @@
 
             overflow-x: hidden;
 
-            background:
-                linear-gradient(
-                    180deg,
-                    #ffffff 0%,
-                    #faffff 15%,
-                    #f1fcfd 34%,
-                    #e6f9fb 52%,
-                    #d5f4f3 72%,
-                    #bcece9 88%,
-                    #a9e5e5 100%
-                );
-
-            background-attachment: fixed;
+            background: #ffffff;
 
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
@@ -120,17 +108,6 @@
             height: 78px;
 
             object-fit: contain;
-
-            transition:
-                transform 0.35s ease,
-                filter 0.35s ease;
-        }
-
-
-        .logo img:hover {
-            transform:
-                scale(1.04)
-                rotate(-1deg);
         }
 
 
@@ -554,8 +531,6 @@
             transition: var(--transition);
 
             overflow: hidden;
-
-            --card-color: #1598b8;
         }
 
 
@@ -570,7 +545,12 @@
             width: 100%;
             height: 4px;
 
-            background: var(--card-color);
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--ocean),
+                    var(--ocean-light)
+                );
 
             opacity: 0;
 
@@ -630,8 +610,6 @@
                     184,
                     0.10
                 );
-
-            border: 4px solid var(--card-color);
         }
 
 
@@ -667,7 +645,7 @@
         .member-number {
             margin-bottom: 5px;
 
-            color: var(--card-color);
+            color: var(--ocean);
 
             font-family:
                 Arial,
@@ -711,7 +689,7 @@
         .member-arrow {
             margin-top: 18px;
 
-            color: var(--card-color);
+            color: var(--ocean);
 
             font-size: 18px;
 
@@ -817,107 +795,17 @@
 
         footer {
             padding:
-                50px
+                70px
                 7%
-                28px;
+                40px;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.48
+                linear-gradient(
+                    180deg,
+                    #c8f0ee 0%,
+                    #aee8e5 35%,
+                    #95dfdc 100%
                 );
-
-            border-top:
-                1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.72
-                );
-
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-
-        .footer-inner {
-            width: min(1000px, 100%);
-
-            margin: 0 auto;
-        }
-
-
-        .footer-top {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: flex-start;
-
-            gap: 40px;
-        }
-
-
-        .footer-name {
-            color: var(--text);
-
-            font-size: 19px;
-
-            font-weight: 800;
-        }
-
-
-        .footer-copy {
-            margin-top: 3px;
-
-            color: var(--text-faint);
-
-            font-size: 10px;
-
-            font-weight: 500;
-        }
-
-
-        .footer-links {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: flex-end;
-
-            gap: 17px;
-        }
-
-
-        .footer-links a {
-            color: var(--text-soft);
-
-            font-size: 11px;
-
-            font-weight: 500;
-
-            transition: var(--transition);
-        }
-
-
-        .footer-links a:hover {
-            color: var(--ocean);
-        }
-
-
-        .footer-bottom {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-top: 38px;
-
-            padding-top: 17px;
 
             border-top:
                 1px solid
@@ -925,12 +813,128 @@
                     21,
                     152,
                     184,
-                    0.10
+                    0.22
+                );
+        }
+
+
+        .footer-inner {
+            width: min(420px, 88%);
+
+            margin: 0 auto;
+        }
+
+
+        .footer-brand {
+            text-align: center;
+
+            margin-bottom: 42px;
+        }
+
+
+        .footer-name {
+            color: var(--text);
+
+            font-size: 22px;
+
+            font-weight: 800;
+        }
+
+
+        .footer-copy {
+            margin-top: 6px;
+
+            color: var(--text-faint);
+
+            font-size: 11px;
+
+            font-weight: 500;
+        }
+
+
+        .footer-nav {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+
+            margin-bottom: 48px;
+        }
+
+
+        .footer-nav a {
+            display: flex;
+
+            align-items: baseline;
+
+            justify-content: flex-start;
+
+            gap: 14px;
+
+            padding: 12px 8px;
+
+            color: var(--text);
+
+            border-radius: 12px;
+
+            background: transparent;
+        }
+
+
+        .footer-nav-jp {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: var(--text);
+
+            min-width: 120px;
+
+            text-align: left;
+        }
+
+
+        .footer-nav-en {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            letter-spacing: 2.2px;
+
+            color: var(--text-soft);
+
+            text-align: left;
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+
+            padding-top: 22px;
+
+            border-top:
+                1px solid
+                rgba(
+                    21,
+                    152,
+                    184,
+                    0.18
                 );
 
             color: var(--text-faint);
 
-            font-size: 9px;
+            font-size: 10px;
+        }
+
+
+        .footer-bottom span + span {
+            margin-left: 12px;
         }
 
 
@@ -1011,26 +1015,17 @@
             }
 
 
-            .footer-top {
-                flex-direction: column;
+            .footer-nav-jp {
+                font-size: 14px;
 
-                align-items: center;
-
-                text-align: center;
+                min-width: 100px;
             }
 
 
-            .footer-links {
-                justify-content: center;
-            }
+            .footer-nav-en {
+                font-size: 10px;
 
-
-            .footer-bottom {
-                flex-direction: column;
-
-                gap: 7px;
-
-                text-align: center;
+                letter-spacing: 1.8px;
             }
 
         }
@@ -1346,65 +1341,65 @@
 
     <footer>
 
+
         <div class="footer-inner">
 
-            <div class="footer-top">
 
-                <div>
+            <div class="footer-brand">
 
-                    <div class="footer-name">
-                        MillionIndex
-                    </div>
-
-                    <div class="footer-copy">
-                        すべての「便利」を、ひとつの場所へ。
-                    </div>
-
+                <div class="footer-name">
+                    MillionIndex
                 </div>
 
-
-                <div class="footer-links">
-
-                    <a href="../index.html">
-                        TOP
-                    </a>
-
-                    <a href="../index.html#about">
-                        ABOUT
-                    </a>
-
-                    <a href="../index.html#service">
-                        SERVICE
-                    </a>
-
-                    <a href="../index.html#tools">
-                        TOOLS
-                    </a>
-
-                    <a href="MenList.html">
-                        MEMBERS
-                    </a>
-
-                    <a href="../index.html#contact">
-                        CONTACT
-                    </a>
-
+                <div class="footer-copy">
+                    すべての「便利」を、ひとつの場所へ。
                 </div>
 
             </div>
+
+
+            <nav class="footer-nav">
+
+                <a href="../index.html">
+                    <span class="footer-nav-jp">トップ</span>
+                    <span class="footer-nav-en">TOP</span>
+                </a>
+
+                <a href="../index.html#about">
+                    <span class="footer-nav-jp">理念</span>
+                    <span class="footer-nav-en">ABOUT</span>
+                </a>
+
+                <a href="../index.html#service">
+                    <span class="footer-nav-jp">事業内容</span>
+                    <span class="footer-nav-en">SERVICE</span>
+                </a>
+
+                <a href="../index.html#tools">
+                    <span class="footer-nav-jp">便利ツール</span>
+                    <span class="footer-nav-en">TOOLS</span>
+                </a>
+
+                <a href="MenList.html">
+                    <span class="footer-nav-jp">メンバー</span>
+                    <span class="footer-nav-en">MEMBERS</span>
+                </a>
+
+                <a href="../index.html#contact">
+                    <span class="footer-nav-jp">お問い合わせ</span>
+                    <span class="footer-nav-en">CONTACT</span>
+                </a>
+
+            </nav>
 
 
             <div class="footer-bottom">
 
-                <span>
-                    © 2026 MillionIndex
-                </span>
-
-                <span>
-                    All Rights Reserved.
-                </span>
+                <span>© 2026 MillionIndex</span>
+                <span>All Rights Reserved.</span>
 
             </div>
+
 
         </div>
 
@@ -1503,14 +1498,10 @@
             card.className =
                 "member-card";
 
+
             card.href =
                 "Member.html?id=" +
                 encodeURIComponent(member.id);
-
-            card.style.setProperty(
-                "--card-color",
-                member.color || "#1598b8"
-            );
 
 
             card.innerHTML = `
