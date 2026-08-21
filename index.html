@@ -1389,16 +1389,15 @@
 
         footer {
             padding:
-                50px
+                70px
                 7%
-                28px;
+                40px;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.48
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.35) 0%,
+                    rgba(185, 238, 228, 0.45) 100%
                 );
 
             border-top:
@@ -1416,56 +1415,32 @@
 
 
         .footer-inner {
-            width: min(1000px, 100%);
+            width: min(480px, 90%);
 
             margin: 0 auto;
         }
 
 
-        .footer-top {
-            display: flex;
+        .footer-brand {
+            text-align: center;
 
-            justify-content: space-between;
-
-            align-items: flex-start;
-
-            gap: 40px;
+            margin-bottom: 48px;
         }
 
 
         .footer-name {
             color: var(--text);
 
-            font-size: 19px;
+            font-size: 22px;
 
             font-weight: 800;
         }
 
 
         .footer-copy {
-            margin-top: 3px;
+            margin-top: 6px;
 
             color: var(--text-faint);
-
-            font-size: 10px;
-
-            font-weight: 500;
-        }
-
-
-        .footer-links {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: flex-end;
-
-            gap: 17px;
-        }
-
-
-        .footer-links a {
-            color: var(--text-soft);
 
             font-size: 11px;
 
@@ -1473,16 +1448,73 @@
         }
 
 
-        .footer-bottom {
+        .footer-nav {
             display: flex;
 
-            justify-content: space-between;
+            flex-direction: column;
 
-            align-items: center;
+            gap: 6px;
 
-            margin-top: 38px;
+            margin-bottom: 50px;
+        }
 
-            padding-top: 17px;
+
+        .footer-nav a {
+            display: flex;
+
+            align-items: baseline;
+
+            justify-content: center;
+
+            gap: 16px;
+
+            padding: 14px 12px;
+
+            color: var(--text);
+
+            border-radius: 16px;
+
+            background: transparent;
+        }
+
+
+        .footer-nav-jp {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            color: var(--text);
+
+            min-width: 110px;
+
+            text-align: right;
+        }
+
+
+        .footer-nav-en {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 2.5px;
+
+            color: var(--text-soft);
+
+            min-width: 100px;
+
+            text-align: left;
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+
+            padding-top: 22px;
 
             border-top:
                 1px solid
@@ -1490,12 +1522,17 @@
                     21,
                     152,
                     184,
-                    0.10
+                    0.12
                 );
 
             color: var(--text-faint);
 
-            font-size: 9px;
+            font-size: 10px;
+        }
+
+
+        .footer-bottom span + span {
+            margin-left: 12px;
         }
 
 
@@ -1721,26 +1758,19 @@
 
             /* FOOTER */
 
-            .footer-top {
-                flex-direction: column;
+            .footer-nav-jp {
+                font-size: 14px;
 
-                align-items: center;
-
-                text-align: center;
+                min-width: 95px;
             }
 
 
-            .footer-links {
-                justify-content: center;
-            }
+            .footer-nav-en {
+                font-size: 11px;
 
+                letter-spacing: 2px;
 
-            .footer-bottom {
-                flex-direction: column;
-
-                gap: 7px;
-
-                text-align: center;
+                min-width: 90px;
             }
 
         }
@@ -2713,65 +2743,58 @@
         <div class="footer-inner">
 
 
-            <div class="footer-top">
+            <div class="footer-brand">
 
-
-                <div>
-
-                    <div class="footer-name">
-                        MillionIndex
-                    </div>
-
-
-                    <div class="footer-copy">
-                        すべての「便利」を、ひとつの場所へ。
-                    </div>
-
+                <div class="footer-name">
+                    MillionIndex
                 </div>
 
-
-                <div class="footer-links">
-
-                    <a href="#">
-                        TOP
-                    </a>
-
-                    <a href="#about">
-                        ABOUT
-                    </a>
-
-                    <a href="#service">
-                        SERVICE
-                    </a>
-
-                    <a href="#tools">
-                        TOOLS
-                    </a>
-
-                    <a href="#members">
-                        MEMBERS
-                    </a>
-
-                    <a href="#contact">
-                        CONTACT
-                    </a>
-
+                <div class="footer-copy">
+                    すべての「便利」を、ひとつの場所へ。
                 </div>
-
 
             </div>
 
 
+            <nav class="footer-nav">
+
+                <a href="#">
+                    <span class="footer-nav-jp">トップ</span>
+                    <span class="footer-nav-en">TOP</span>
+                </a>
+
+                <a href="#about">
+                    <span class="footer-nav-jp">理念</span>
+                    <span class="footer-nav-en">ABOUT</span>
+                </a>
+
+                <a href="#service">
+                    <span class="footer-nav-jp">事業内容</span>
+                    <span class="footer-nav-en">SERVICE</span>
+                </a>
+
+                <a href="#tools">
+                    <span class="footer-nav-jp">便利ツール</span>
+                    <span class="footer-nav-en">TOOLS</span>
+                </a>
+
+                <a href="#members">
+                    <span class="footer-nav-jp">メンバー</span>
+                    <span class="footer-nav-en">MEMBERS</span>
+                </a>
+
+                <a href="#contact">
+                    <span class="footer-nav-jp">お問い合わせ</span>
+                    <span class="footer-nav-en">CONTACT</span>
+                </a>
+
+            </nav>
+
+
             <div class="footer-bottom">
 
-                <span>
-                    © 2026 MillionIndex
-                </span>
-
-
-                <span>
-                    All Rights Reserved.
-                </span>
+                <span>© 2026 MillionIndex</span>
+                <span>All Rights Reserved.</span>
 
             </div>
 
