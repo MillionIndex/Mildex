@@ -116,17 +116,6 @@
             height: 78px;
 
             object-fit: contain;
-
-            transition:
-                transform 0.35s ease,
-                filter 0.35s ease;
-        }
-
-
-        .logo img:hover {
-            transform:
-                scale(1.04)
-                rotate(-1deg);
         }
 
 
@@ -345,11 +334,6 @@
 
         .menu.active .menu-list a:nth-child(6) {
             transition-delay: 0.30s;
-        }
-
-
-        .menu.active .menu-list a:nth-child(7) {
-            transition-delay: 0.35s;
         }
 
 
@@ -1404,18 +1388,30 @@
         ========================================================= */
 
         footer {
-            padding: 0;
+            padding:
+                50px
+                7%
+                28px;
 
             background:
-                linear-gradient(
-                    165deg,
-                    #e8f8fa 0%,
-                    #d0f0f4 35%,
-                    #b8e8ef 70%,
-                    #a0dde8 100%
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.48
                 );
 
-            border-top: none;
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
 
@@ -1423,37 +1419,35 @@
             width: min(1000px, 100%);
 
             margin: 0 auto;
-
-            padding:
-                70px 7%
-                40px;
         }
 
 
         .footer-top {
             display: flex;
 
-            flex-direction: column;
+            justify-content: space-between;
 
-            gap: 50px;
+            align-items: flex-start;
+
+            gap: 40px;
         }
 
 
         .footer-name {
             color: var(--text);
 
-            font-size: 22px;
+            font-size: 19px;
 
             font-weight: 800;
         }
 
 
         .footer-copy {
-            margin-top: 4px;
+            margin-top: 3px;
 
-            color: var(--text-soft);
+            color: var(--text-faint);
 
-            font-size: 12px;
+            font-size: 10px;
 
             font-weight: 500;
         }
@@ -1462,57 +1456,20 @@
         .footer-links {
             display: flex;
 
-            flex-direction: column;
+            flex-wrap: wrap;
 
-            gap: 22px;
+            justify-content: flex-end;
+
+            gap: 17px;
         }
 
 
         .footer-links a {
-            display: flex;
-
-            align-items: baseline;
-
-            gap: 18px;
-
-            color: var(--text);
-
-            transition: var(--transition);
-        }
-
-
-        .footer-links a .footer-en {
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            font-size: 28px;
-
-            font-weight: 700;
-
-            letter-spacing: 3px;
-
-            line-height: 1;
-        }
-
-
-        .footer-links a .footer-jp {
-            font-size: 14px;
-
-            font-weight: 600;
-
             color: var(--text-soft);
-        }
 
+            font-size: 11px;
 
-        .footer-links a:hover {
-            color: var(--ocean);
-        }
-
-
-        .footer-links a:hover .footer-jp {
-            color: var(--ocean);
+            font-weight: 500;
         }
 
 
@@ -1523,9 +1480,9 @@
 
             align-items: center;
 
-            margin-top: 55px;
+            margin-top: 38px;
 
-            padding-top: 22px;
+            padding-top: 17px;
 
             border-top:
                 1px solid
@@ -1533,12 +1490,12 @@
                     21,
                     152,
                     184,
-                    0.15
+                    0.10
                 );
 
-            color: var(--text-soft);
+            color: var(--text-faint);
 
-            font-size: 11px;
+            font-size: 9px;
         }
 
 
@@ -1764,43 +1721,26 @@
 
             /* FOOTER */
 
-            .footer-inner {
-                padding:
-                    55px 6%
-                    35px;
-            }
-
-
             .footer-top {
-                gap: 40px;
+                flex-direction: column;
+
+                align-items: center;
+
+                text-align: center;
             }
 
 
             .footer-links {
-                gap: 18px;
-            }
-
-
-            .footer-links a .footer-en {
-                font-size: 22px;
-
-                letter-spacing: 2px;
-            }
-
-
-            .footer-links a .footer-jp {
-                font-size: 13px;
+                justify-content: center;
             }
 
 
             .footer-bottom {
                 flex-direction: column;
 
-                gap: 8px;
+                gap: 7px;
 
                 text-align: center;
-
-                margin-top: 45px;
             }
 
         }
@@ -1979,25 +1919,6 @@
 
             .contact p {
                 font-size: 11px;
-            }
-
-
-            /* FOOTER */
-
-            .footer-links a .footer-en {
-                font-size: 20px;
-
-                letter-spacing: 1.5px;
-            }
-
-
-            .footer-links a .footer-jp {
-                font-size: 12px;
-            }
-
-
-            .footer-links {
-                gap: 16px;
             }
 
         }
@@ -2197,27 +2118,6 @@
 
                     <span class="menu-en">
                         C O N T A C T
-                    </span>
-
-                </div>
-
-                <span class="menu-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-            <a href="Gide.html">
-
-                <div class="menu-item-text">
-
-                    <span class="menu-jp">
-                        利用規約/ガイドライン
-                    </span>
-
-                    <span class="menu-en">
-                        G U I D E
                     </span>
 
                 </div>
@@ -2747,7 +2647,7 @@
                 href="Mem/MenList.html"
                 class="member-all fade">
 
-                View
+                メンバー一覧
 
                 <span>
                     →
@@ -2833,38 +2733,27 @@
                 <div class="footer-links">
 
                     <a href="#">
-                        <span class="footer-en">TOP</span>
-                        <span class="footer-jp">トップ</span>
+                        TOP
                     </a>
 
                     <a href="#about">
-                        <span class="footer-en">ABOUT</span>
-                        <span class="footer-jp">理念</span>
+                        ABOUT
                     </a>
 
                     <a href="#service">
-                        <span class="footer-en">SERVICE</span>
-                        <span class="footer-jp">事業内容</span>
+                        SERVICE
                     </a>
 
                     <a href="#tools">
-                        <span class="footer-en">TOOLS</span>
-                        <span class="footer-jp">便利ツール</span>
+                        TOOLS
                     </a>
 
                     <a href="#members">
-                        <span class="footer-en">MEMBERS</span>
-                        <span class="footer-jp">メンバー</span>
+                        MEMBERS
                     </a>
 
                     <a href="#contact">
-                        <span class="footer-en">CONTACT</span>
-                        <span class="footer-jp">お問い合わせ</span>
-                    </a>
-
-                    <a href="Gide.html">
-                        <span class="footer-en">GUIDE</span>
-                        <span class="footer-jp">利用規約/ガイドライン</span>
+                        CONTACT
                     </a>
 
                 </div>
